@@ -69,4 +69,14 @@ class ListingController extends Controller
             return view('listings.show', ['listing' => $listing]);
         }
 
+        public function edit(Listing $listing)
+        {
+            return view(
+                'listings.edit',
+                [
+                    'listing' => $listing,
+                ]
+            );
+        }
+
 }

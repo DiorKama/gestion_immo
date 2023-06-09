@@ -2,7 +2,6 @@
 <x-header-immo>
 </x-header-immo>
 @section('header-styles')
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
    <!-- Inclusion de la feuille de styles CSS de jQuery Autocomplete -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/css/tom-select.min.css" />
@@ -140,9 +139,6 @@
 @section('footer-scripts') 
 <!-- Inclusion de jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.fr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/js/tom-select.min.js"></script>
 
 <!-- Inclusion de Select2 -->
@@ -159,19 +155,6 @@
         });
     });
 </script>
-
-
-<script>
-    $('.datepicker').datepicker({
-        format: 'dd-mm-yyyy',
-        autoclose: true,
-        todayBtn: true,
-        language: "fr",
-        daysOfWeekDisabled: "0,6",
-        todayHighlight: true,
-    });
-</script>
-
 <script>
    $('#user-search').select2({
        ajax: {

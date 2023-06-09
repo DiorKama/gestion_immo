@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\ListingController;
@@ -66,4 +67,14 @@ Route::post('/listing/store',  [ListingController::class, 'store'])->name('listi
 Route::get('/listing/index', [ListingController::class, 'index'])->name('listing.index');
 Route::get('/listing/show/{listing}',  [ListingController::class, 'show'])->name('listing.show');
 Route::get('/listing/edit/{listing}',  [ListingController::class, 'edit'])->name('listing.edit');
+Route::put('/listing/update/{listing}',  [ListingController::class, 'update'])->name('listing.update');
 Route::get('/listing/delete/{listing}', [ListingController::class, 'delete'])->name('listing.delete');
+
+//files
+Route::get('/file/create',  [FileController::class, 'create'])->name('file.create');
+Route::post('/file/store',  [FileController::class, 'store'])->name('file.store');
+Route::get('/file/index', [FileController::class, 'index'])->name('file.index');
+Route::get('/file/show/{file}',  [FileController::class, 'show'])->name('file.show');
+Route::get('/file/edit/{file}',  [FileController::class, 'edit'])->name('file.edit');
+Route::put('file/update/{id}', [FileController::class, 'update'])->name('file.update');
+Route::get('/file/delete/{file}', [FileController::class, 'delete'])->name('file.delete');
