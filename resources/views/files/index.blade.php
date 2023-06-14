@@ -25,15 +25,17 @@
 					</tr>
 				</thead>
 				<tbody>
-                      @foreach($files as $file)
-                      <tr>	
+                         @foreach($files as $file)
+                          <tr>	
                         <td><a href="{{ route('file.show', ['file' => $file->id]) }}" class="text-decoration-none">
                             {{$file->id}}
                         </a></td>
                         <td>
-                            @foreach($file->path_url as $url)
+                        @if (!empty($file->path_url))
+                        @foreach (json_decode($file->path_url) as $url)
                                 <img src="{{ $url }}" alt="Image" width="75">
                             @endforeach
+                        @endif
                         </td>
                         <td>{{$file->listings->title}}</td>
                         <td>{{ $file->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>

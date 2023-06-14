@@ -12,7 +12,7 @@ class File extends Model
     use SoftDeletes;
     use HasFactory;
     protected $casts = [
-        'path_url' => 'array',
+        'path_url' => 'string', // Supprimez ou modifiez 'array' en 'string'
     ];
 
     public function listings(){

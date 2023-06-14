@@ -7,9 +7,9 @@
     @method('PUT')
             <div>
                 <label for="file">Modifier les images :</label>
-                @foreach ($file->path_url as $path)
+                @foreach (json_decode($file->path_url) as $path)
                     <div class="image-container">
-                    <img src="{{ $path }}" width="100" height="50" alt="Image">
+                        <img src="{{ $path }}" width="100" height="50" alt="Image">
                         <button class="btn btn-danger remove-image" data-url="{{ $path }}">Supprimer</button>
                     </div>
                 @endforeach

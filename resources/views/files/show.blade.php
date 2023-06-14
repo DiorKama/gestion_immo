@@ -7,7 +7,7 @@
         <div class="card col-md-6 ">
           <div class="card-body">
             <h5 class="card-text"><strong>Titre:  </strong>{{ $file->listings->title }}</h5>
-            <p class="card-text"><strong>Images: </strong>@foreach($file->path_url as $url)
+            <p class="card-text"><strong>Images: </strong>@foreach (json_decode($file->path_url) as $url)
                                 <img src="{{ $url }}" alt="Image" width="75">
                             @endforeach</p>
             <p class="card-text"><strong>Surface:  </strong>{{ $file->listings->surface }}m²</p>
@@ -20,18 +20,16 @@
             <p class="card-text"><strong>Description:  </strong>{{ $file->listings->description }}</p>
             <p class="card-text"><strong>Utilisateur:  </strong>{{ $file->listings->users->firstName . ' ' . $file->listings->users->lastName }}</p>
             <p class="card-text"><strong>Categorie:  </strong>{{ $file->listings->categories->libelle}}</p>
-             <p class="card-text" rowspan="{{ count($file->listings->options) }}"><strong>Option:  </strong>@foreach ($file->listings->options as $index => $option)
+            <p class="card-text" rowspan="{{ count($file->listings->options) }}"><strong>Option:  </strong>@foreach ($file->listings->options as $index => $option)
                             {{ $option->libelle }}
                             @if ($index < count($file->listings->options) - 1)  
                             @endif
                         @endforeach</p> 
-           
             <p class="card-text"><td><strong>Crée le:  </strong>{{ $file->created_at->locale('fr_FR')->isoFormat('LLLL') }}</td></p>
             <p class="card-text"><td><strong>Mise à jour:  </strong>{{ $file->updated_at->locale('fr_FR')->isoFormat('LLLL') }}</td></p>
          </div>
         </div>
     </div>
-
 <x-body-immo>
 </x-body-immo>
 </x-master-layout>
