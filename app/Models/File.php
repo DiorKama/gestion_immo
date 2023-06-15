@@ -11,6 +11,7 @@ class File extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    protected $guarded = ['id'];
     protected $casts = [
         'path_url' => 'string', // Supprimez ou modifiez 'array' en 'string'
     ];
