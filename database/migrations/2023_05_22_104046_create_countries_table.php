@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->integer('entity_id');
-            $table->string('entity_type');
-            $table->string('url');
-            $table->integer('sort_order');
+            $table->string('title');
+            $table->string('iso');
+            $table->boolean('enabled');
+            $table->string('area_code');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('countries');
     }
 };

@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\OptionListing;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Option extends Model
+class Countries extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function optionListing(){
-        return $this->hasMany(OptionListing::class);
+    public function location(){
+        return $this->hasMany(Location::class);
     }
-    
 }

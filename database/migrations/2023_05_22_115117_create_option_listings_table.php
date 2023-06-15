@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('files', function (Blueprint $table) {
-            $table->json('path_url')->nullable()->change();
+        Schema::create('option_listings', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('listing_id')->constrained();
+            $table->foreignId('option_id')->constrained();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('files', function (Blueprint $table) {
-            $table->string('path_url')->change();
-        });
+        Schema::dropIfExists('option_listings');
     }
 };

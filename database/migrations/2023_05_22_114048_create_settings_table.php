@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('nameAgence');
+            $table->string('name');
             $table->string('logo');
             $table->string('adress');
             $table->string('mobile_number');
             $table->string('phone_number');
             $table->string('email');
+            $table->boolean('is_whatsapp_available');
+            $table->string('website_url');
             $table->string('facebook_url');
             $table->string('twitter_url');
             $table->string('instagram_url');
             $table->string('linkedin_url');
-            $table->string('whatsapp_number');
             $table->text('about');
             $table->string('slogan');
             $table->timestamps();
