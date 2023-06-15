@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Models\File;
 use App\Models\User;
 use App\Models\Setting;
+use App\Models\Location;
 use App\Models\Categorie;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\OptionListing;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Listing extends Model
 {
@@ -20,14 +22,15 @@ class Listing extends Model
     }
 
     public function categories(){
-        return $this->belongsTo(Categorie::class, 'categorie_id');
+        return $this->belongsTo(Categorie::class, 'category_id');
     }
 
-    public function options(): BelongsToMany {
-        return $this->belongsToMany(Option::class, 'option_listing');
+    public function locations(){
+        return $this->belongsTo(Location::class, 'location_id');
     }
 
-    public function files(){
-        return $this->hasMany(File::class);
+    public function optionListing(){
+        return $this->hasMany(OptionListing::class);
     }
+
 }

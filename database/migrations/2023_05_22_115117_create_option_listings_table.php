@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('option_listings', function (Blueprint $table) {
             $table->id();
-            $table->integer('entity_id');
-            $table->string('entity_type');
-            $table->string('url');
-            $table->integer('sort_order');
+            $table->foreignId('listing_id')->constrained();
+            $table->foreignId('option_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('option_listings');
     }
 };

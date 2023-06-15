@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
-            $table->boolean('active')->default(1);
+            $table->string('title');
+            $table->string('slug');
+            $table->boolean('enabled')->default(1);
             $table->text('description');
+            $table->json('properties')->nullable();
+            $table->integer('sort_order')->default(1);
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('categories');
             $table->timestamps();

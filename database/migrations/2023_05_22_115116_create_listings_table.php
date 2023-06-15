@@ -14,18 +14,17 @@ return new class extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug');
             $table->text('description');
-            $table->integer('surface');
+            $table->integer('area');
             $table->integer('rooms');
             $table->integer('bedrooms');
-            $table->integer('floor');
+            $table->integer('bathrooms');
             $table->integer('price');
-            $table->string('city');
-            $table->string('address');
             $table->boolean('sold');
+            $table->foreignId('location_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('categorie_id')->constrained();
-            $table->foreignId('option_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->timestamps();
         });
     }
