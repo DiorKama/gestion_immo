@@ -5,8 +5,8 @@ namespace App\Models;
 use App\Models\File;
 use App\Models\User;
 use App\Models\Setting;
+use App\Models\Category;
 use App\Models\Location;
-use App\Models\Categorie;
 use App\Models\OptionListing;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +22,7 @@ class Listing extends Model
     }
 
     public function categories(){
-        return $this->belongsTo(Categorie::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function locations(){
