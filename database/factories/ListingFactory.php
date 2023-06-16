@@ -1,40 +1,37 @@
 <?php
 namespace Database\Factories;
 use App\Models\User;
-use App\Models\Listing;
 use App\Models\Category;
-use Faker\Generator as Faker;
+use App\Models\Location;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ListingFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Listing::class;
-
-    /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
+        $title = ucwords(fake()->words(5, true));
+
         return [
-            'title' => $this->faker->sentence,
-            'slug' => $this->faker->slug,
-            'description' => $this->faker->paragraph,
-            'area' => $this->faker->numberBetween(50, 200),
-            'rooms' => $this->faker->numberBetween(1, 5),
-            'bedrooms' => $this->faker->numberBetween(1, 3),
-            'bathrooms' => $this->faker->numberBetween(1, 2),
-            'price' => $this->faker->numberBetween(10000, 500000),
-            'sold' => $this->faker->boolean,
-            'location_id' => null,
-            'user_id' => User::factory()->create()->id,
-            'category_id' => Category::factory()->create()->id,
+            'title' => $title,
+            'slug' => Str::slug($title, '-'),
+            'description' => fake()->text(),
+            'area' => fake()->numberBetween(50, 200),
+            'rooms' => fake()->numberBetween(1, 5),
+            'bedrooms' => fake()->numberBetween(1, 3),
+            'bathrooms' => fake()->numberBetween(1, 2),
+            'price' => fake()->numberBetween(10000, 500000),
+            'sold' => false,
+            'location_id' => Location::inRandomOrder()->take(1)->first()->id,
+            'user_id' => User::inRandomOrder()->take(1)->first()->id,
+            'category_id' => Category::inRandomOrder()->take(1)->first()->id,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
