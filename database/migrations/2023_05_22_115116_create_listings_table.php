@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('bathrooms');
             $table->integer('price');
             $table->boolean('sold');
-            $table->foreignId('location_id')->constrained();
+            $table->foreignId('location_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->timestamps();
