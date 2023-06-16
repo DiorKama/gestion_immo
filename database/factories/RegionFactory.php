@@ -2,14 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class CategoryFactory extends Factory
+class RegionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,21 +17,14 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $title = ucwords(fake()->words(5, true));
+        $title = fake()->city();
 
         return [
             'title' => $title,
             'slug' => Str::slug($title, '-'),
             'enabled' => true,
-            'description' => fake()->text(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
-    }
-    public function withParent()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'parent_id' => Category::inRandomOrder()->take(1)->first()->id,
-            ];
-        });
     }
 }
