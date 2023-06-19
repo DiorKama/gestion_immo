@@ -14,19 +14,19 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('logo');
+            $table->string('adress');
+            $table->string('mobile_number');
+            $table->string('phone_number');
+            $table->string('email');
+            $table->boolean('is_whatsapp_available');
+            $table->string('website_url');
+            $table->string('facebook_url');
+            $table->string('twitter_url');
+            $table->string('instagram_url');
+            $table->string('linkedin_url');
             $table->text('about');
-            $table->string('slogan')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('address');
-            $table->string('mobile_number')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('email')->nullable();
-            $table->boolean('is_whatsapp_available')->default(0);
-            $table->string('website_url')->nullable();
-            $table->string('facebook_url')->nullable();
-            $table->string('twitter_url')->nullable();
-            $table->string('instagram_url')->nullable();
-            $table->string('linkedin_url')->nullable();
+            $table->string('slogan');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@
       <img src="/images/expat.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Gestion Immo</span>
     </a>
-    <div class="sidebar">
+<div class="sidebar">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -109,30 +109,6 @@
               </li>
             </ul>
           </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-gear"></i>
-                    <p>
-                        {{ __('Paramètres') }}
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Voir les paramètres</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Mettre à jour</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
