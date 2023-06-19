@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'lastName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'country_code' => ['required', 'string', 'max:255'],
+            'mobile_number_country' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'string', 'max:255'],
         ]);
 
@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
             'lastName' => $request->lastName,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'country_code' => $request->country_code,
+            'mobile_number_country' => $request->mobile_number_country,
             'phone_number' => $request->phone_number,
            
         ]);
@@ -58,8 +58,9 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        
 
+        
         return redirect()->intended(RouteServiceProvider::HOME);
+
     }
 }
