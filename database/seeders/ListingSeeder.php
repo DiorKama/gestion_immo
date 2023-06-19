@@ -13,7 +13,8 @@ class ListingSeeder extends Seeder
      */
     public function run(): void
     {
-        $listings = Listing::factory()->count(10)->create();
-
+        Listing::factory()
+            ->count(10)
+            ->create();
     }
 }
