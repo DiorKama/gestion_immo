@@ -78,3 +78,9 @@ Route::get('/file/show/{file}',  [FileController::class, 'show'])->name('file.sh
 Route::get('/file/edit/{file}',  [FileController::class, 'edit'])->name('file.edit');
 Route::put('file/update/{id}', [FileController::class, 'update'])->name('file.update');
 Route::get('/file/delete/{file}', [FileController::class, 'delete'])->name('file.delete');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings/update/{setting}', [SettingController::class, 'update'])->name('settings.update');
+});

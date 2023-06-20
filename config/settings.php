@@ -1,16 +1,12 @@
 <?php
-return array (
-  'nameAgence' => 'Nom Agence',
-  'logo' => '/public/images/logo.png',
-  'adress' => 'Lieu',
-  'mobile_number' => '77 219 34 60',
-  'phone_number' => '33 833 33 33',
-  'email' => 'example@example.com',
-  'about' => 'texte pour a propos de lentreprise',
-  'slogan' => 'text pour slogan',
-  'facebook_url' => 'url-facebook',
-  'twitter_url' => 'url-twitter',
-  'instagram_url' => 'url-instagram',
-  'linkedin_url' => 'url-linkedin',
-  'whatsapp_number' => 'url-wathsapp',
-);
+
+return [
+    'name' => 'Expat Dakar Immo',
+    'address' => 'Sacré Coeur 3 Villa 9343, VDN Dakar BP: 49 940 Sénégal',
+    'mobile_number' => '+221772193460',
+    'is_whatsapp_available' => true,
+    'phone_number' => '+221338333333',
+    'email' => 'example@example.com',
+    'about' => 'Les dernières petites annonces immobilières des agences et des particuliers. Contact via WhatsApp, email ou téléphone.',
+    'slogan' => 'Tout vendre, Tout acheter, Tout simplement',
+];
