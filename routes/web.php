@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -78,3 +79,8 @@ Route::get('/file/show/{file}',  [FileController::class, 'show'])->name('file.sh
 Route::get('/file/edit/{file}',  [FileController::class, 'edit'])->name('file.edit');
 Route::put('file/update/{id}', [FileController::class, 'update'])->name('file.update');
 Route::get('/file/delete/{file}', [FileController::class, 'delete'])->name('file.delete');
+
+// countries
+Route::get('/countrie/index', [CountryController::class, 'index'])->name('countrie.index');
+Route::get('/countrie/delete/{countie}', [CountryController::class, 'delete'])->name('countrie.delete');
+Route::get('/countrie/show/{countrie}',  [CountryController::class, 'show'])->name('countrie.show');
