@@ -81,13 +81,13 @@
         </div>
 
         <div class="input-group mb-3">
-          <x-text-input id="country_code" class="form-control" placeholder="indcatif" type="text" name="country_code" :value="old('country_code')" required autofocus autocomplete="country_code" />
+          <x-text-input id="mobile_number_country" class="form-control" placeholder="indcatif" type="text" name="mobile_number_country" :value="old('mobile_number_country')" required autofocus autocomplete="mobile_number_country" />
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-phone"></span>
             </div>
           </div>
-          <x-input-error :messages="$errors->get('country_code')" class="mt-2" />
+          <x-input-error :messages="$errors->get('mobile_number_country')" class="mt-2" />
         </div>
         <div class="input-group mb-3">
           <x-text-input id="phone_number" class="form-control" placeholder="phone" type="text" name="phone_number" :value="old('phone_number')" required autofocus autocomplete="phone_number" />
@@ -116,17 +116,7 @@
         </div>
       </form>
 
-      <!-- <div class="social-auth-links text-center">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i>
-          Sign up using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i>
-          Sign up using Google+
-        </a>
-      </div> -->
+      
     </div>
     <div class="text-center">
     <a href="{{ route('login') }}" class="text-center">Vous avez déjà un compte</a>

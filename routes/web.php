@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -84,3 +85,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings/update/{setting}', [SettingController::class, 'update'])->name('settings.update');
 });
+
+// countries
+Route::get('/countrie/index', [CountryController::class, 'index'])->name('countrie.index');
+Route::get('/countrie/delete/{countie}', [CountryController::class, 'delete'])->name('countrie.delete');
+Route::get('/countrie/show/{countrie}',  [CountryController::class, 'show'])->name('countrie.show');
