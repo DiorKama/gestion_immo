@@ -34,7 +34,7 @@
                         </a></td>
                         <td>{{$countrie->title}}</td>
                         <td>{{$countrie->iso}}</td>
-                        <td>{{$countrie->enabled}}</td>
+                        <td>{{$countrie->enabled ? 'oui' : 'non'}}</td>
                         <td>{{$countrie->area_code}}</td>
                         <td>{{ $countrie->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                         <td>{{ $countrie->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
