@@ -80,6 +80,12 @@ Route::get('/file/edit/{file}',  [FileController::class, 'edit'])->name('file.ed
 Route::put('file/update/{id}', [FileController::class, 'update'])->name('file.update');
 Route::get('/file/delete/{file}', [FileController::class, 'delete'])->name('file.delete');
 
+Route::prefix('admin')->group(function () {
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings/update/{setting}', [SettingController::class, 'update'])->name('settings.update');
+});
+
 // countries
 Route::get('/countrie/index', [CountryController::class, 'index'])->name('countrie.index');
 Route::get('/countrie/delete/{countie}', [CountryController::class, 'delete'])->name('countrie.delete');

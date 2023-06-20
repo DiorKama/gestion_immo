@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   @yield('header-scripts')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" style="height: auto;padding-top: 70px;">
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -47,7 +47,7 @@
     <div class="content">
     {{$slot}}
     </div>
-  
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
