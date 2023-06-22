@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\RegionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\UserController;
@@ -84,9 +86,25 @@ Route::prefix('admin')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings/update/{setting}', [SettingController::class, 'update'])->name('settings.update');
-});
 
-// countries
-Route::get('/countrie/index', [CountryController::class, 'index'])->name('countrie.index');
-Route::get('/countrie/delete/{countie}', [CountryController::class, 'delete'])->name('countrie.delete');
-Route::get('/countrie/show/{countrie}',  [CountryController::class, 'show'])->name('countrie.show');
+    Route::get('/countries', [CountryController::class, 'index'])->name('countries.index');
+    Route::get('/countries/create',  [CountryController::class, 'create'])->name('countries.create');
+    Route::post('/countries/store',  [CountryController::class, 'store'])->name('countries.store');
+    Route::get('/countries/edit/{country}', [CountryController::class, 'edit'])->name('countries.edit');
+    Route::put('/countries/update/{country}', [CountryController::class, 'update'])->name('countries.update');
+    Route::delete('/countries/delete/{country}', [CountryController::class, 'destroy'])->name('countries.delete');
+
+    Route::get('/regions', [RegionController::class, 'index'])->name('regions.index');
+    Route::get('/regions/create',  [RegionController::class, 'create'])->name('regions.create');
+    Route::post('/regions/store',  [RegionController::class, 'store'])->name('regions.store');
+    Route::get('/regions/edit/{region}', [RegionController::class, 'edit'])->name('regions.edit');
+    Route::put('/regions/update/{region}', [RegionController::class, 'update'])->name('regions.update');
+    Route::delete('/regions/delete/{region}', [RegionController::class, 'destroy'])->name('regions.delete');
+
+    Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
+    Route::get('/locations/create',  [LocationController::class, 'create'])->name('locations.create');
+    Route::post('/locations/store',  [LocationController::class, 'store'])->name('locations.store');
+    Route::get('/locations/edit/{location}', [LocationController::class, 'edit'])->name('locations.edit');
+    Route::put('/locations/update/{location}', [LocationController::class, 'update'])->name('locations.update');
+    Route::delete('/locations/delete/{location}', [LocationController::class, 'destroy'])->name('locations.delete');
+});

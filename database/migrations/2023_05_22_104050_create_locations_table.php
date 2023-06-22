@@ -9,13 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->boolean('enabled');
+            $table->boolean('enabled')->default(true);
             $table->foreignId('country_id')->constrained();
             $table->foreignId('region_id')->constrained();
             $table->timestamps();
@@ -25,7 +25,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('locations');
     }
