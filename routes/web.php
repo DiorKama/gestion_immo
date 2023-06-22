@@ -8,7 +8,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,13 +37,13 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/categorie/index', [CategorieController::class, 'index'])->name('categorie.index');
-Route::get('/categorie/delete/{categorie}', [CategorieController::class, 'delete'])->name('categorie.delete');
-Route::get('/categorie/show/{categorie}',  [CategorieController::class, 'show'])->name('categorie.show');
-Route::get('/categorie/create',  [CategorieController::class, 'create'])->name('categorie.create');
-Route::post('/categorie/store',  [CategorieController::class, 'store'])->name('categorie.store');
-Route::get('/categorie/edit/{categorie}',  [CategorieController::class, 'edit'])->name('categorie.edit');
-Route::put('/categorie/update/{categorie}',  [CategorieController::class, 'update'])->name('categorie.update');
+Route::get('/categorie/index', [CategoryController::class, 'index'])->name('categorie.index');
+Route::get('/categorie/delete/{categorie}', [CategoryController::class, 'delete'])->name('categorie.delete');
+Route::get('/categorie/show/{categorie}',  [CategoryController::class, 'show'])->name('categorie.show');
+Route::get('/categorie/create',  [CategoryController::class, 'create'])->name('categorie.create');
+Route::post('/categorie/store',  [CategoryController::class, 'store'])->name('categorie.store');
+Route::get('/categorie/edit/{categorie}',  [CategoryController::class, 'edit'])->name('categorie.edit');
+Route::put('/categorie/update/{categorie}',  [CategoryController::class, 'update'])->name('categorie.update');
 
 //settings
 Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');

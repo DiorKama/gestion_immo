@@ -44,6 +44,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+  @include('layouts.partials.message')
     <div class="content">
     {{$slot}}
     </div>

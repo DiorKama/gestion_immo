@@ -65,7 +65,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="{{ route('settings.edit') }}" class="small-box-footer">Modifier<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('settings.index') }}" class="small-box-footer">Modifier<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

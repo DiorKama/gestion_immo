@@ -3,9 +3,7 @@
 </x-header-immo>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="">
-
-<div class="container-xl mt-4">
-	<div class="table-responsive py-5">
+	<div class="table-responsive py-2 mt-5">
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
@@ -19,8 +17,10 @@
 					<tr>
                     <th>{{ __('ID') }}</th>
                       <th>{{ __('Nom') }}</th>
-                      <th>{{ __('Active') }}</th>
+                      <th>{{ __('Enabled') }}</th>
                       <th>{{ __('Description') }}</th>
+                      <th>{{ __('Properties') }}</th>
+                      <th>{{ __('Order') }}</th>
                       <th>{{ __('Parent') }}</th>
                       <th>{{ __('Créé le') }}</th>
                       <th>{{ __('Updated') }}</th>
@@ -33,9 +33,11 @@
                         <td><a href="{{ route('categorie.show', ['categorie' => $categorie->id]) }}" class="text-decoration-none">
                             {{$categorie->id}}
                          </a></td>
-                        <td>{{$categorie->libelle}}</td>
-                        <td>{{ $categorie->active ? 'Oui' : 'Non' }}</td>
+                        <td>{{$categorie->title}}</td>
+                        <td>{{ $categorie->enabled ? 'Oui' : 'Non' }}</td>
                         <td>{{$categorie->description}}</td>
+                        <td>{{$categorie->properties}}</td>
+                        <td>{{$categorie->sort_order}}</td>
                         <td>{{$categorie->parent_id}}</td>
                         <td>{{ $categorie->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                         <td>{{ $categorie->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
