@@ -39,18 +39,6 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/categorie/index', [CategoryController::class, 'index'])->name('categorie.index');
-Route::get('/categorie/delete/{categorie}', [CategoryController::class, 'delete'])->name('categorie.delete');
-Route::get('/categorie/show/{categorie}',  [CategoryController::class, 'show'])->name('categorie.show');
-Route::get('/categorie/create',  [CategoryController::class, 'create'])->name('categorie.create');
-Route::post('/categorie/store',  [CategoryController::class, 'store'])->name('categorie.store');
-Route::get('/categorie/edit/{categorie}',  [CategoryController::class, 'edit'])->name('categorie.edit');
-Route::put('/categorie/update/{categorie}',  [CategoryController::class, 'update'])->name('categorie.update');
-
-//settings
-Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
-Route::post('settings/update', [SettingController::class, 'update'])->name('settings.update');
-
 //options
 Route::get('/option/index', [OptionController::class, 'index'])->name('option.index');
 Route::get('/option/delete/{option}', [OptionController::class, 'delete'])->name('option.delete');
@@ -107,4 +95,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/locations/edit/{location}', [LocationController::class, 'edit'])->name('locations.edit');
     Route::put('/locations/update/{location}', [LocationController::class, 'update'])->name('locations.update');
     Route::delete('/locations/delete/{location}', [LocationController::class, 'destroy'])->name('locations.delete');
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/create',  [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('/categories/store',  [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories/edit/{category}',  [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('/categories/update/{category}',  [CategoryController::class, 'update'])->name('categories.update');
+    Route::get('/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('categories.delete');
 });

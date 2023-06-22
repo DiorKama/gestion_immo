@@ -22,21 +22,21 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Categorie
+                Categories
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('categorie.index') }}" class="nav-link">
+                <a href="{{ route('categories.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Liste Categorie</p>
+                  <p>Toutes les Categories</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('categorie.create') }}" class="nav-link">
+                <a href="{{ route('categories.create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajout Categorie</p>
+                  <p>Ajouter une catégorie</p>
                 </a>
               </li>
             </ul>
