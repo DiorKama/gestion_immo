@@ -44,9 +44,9 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  @include('layouts.partials.message')
+    @include('layouts.partials.message')
     <div class="content">
-    {{$slot}}
+        {{$slot}}
     </div>
 
     <!-- /.content -->
