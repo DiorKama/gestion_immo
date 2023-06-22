@@ -16,12 +16,21 @@
              <div class="row ">
              <div class="col-md-12">
              <div class="form-group">
-             <x-input-label for="libelle" :value="__('Nom Categorie')" />
-            <x-text-input id="libelle" name="libelle" type="text" class="form-control" :value="old('libelle', $categorie->libelle)" required autocomplete="title" />
-            <x-input-error class="mt-2" :messages="$errors->get('categorie')" />
+             <x-input-label for="title" :value="__('Nom Categorie')" />
+            <x-text-input id="title" name="title" type="text" class="form-control" :value="old('title', $categorie->title)" required autocomplete="title" />
+            <x-input-error class="mt-2" :messages="$errors->get('title')" />
              </div>
-            </div>
-            
+            </div> 
+           </div>
+
+           <div class="row ">
+             <div class="col-md-12">
+             <div class="form-group">
+             <x-input-label for="slug" :value="__('Slug')" />
+            <x-text-input id="slug" name="slug" type="text" class="form-control" :value="old('slug', $categorie->slug)" required autocomplete="slug" />
+            <x-input-error class="mt-2" :messages="$errors->get('slug')" />
+             </div>
+            </div> 
            </div>
 
            <div class="row">
@@ -34,15 +43,48 @@
             </div>
             </div>
 
+           <div class="row ">
+             <div class="col-md-12">
+             <div class="form-group">
+             <x-input-label for="properties" :value="__('properties')" />
+            <x-text-input id="properties" name="properties" type="text" class="form-control" :value="old('properties', $categorie->properties)" />
+            <x-input-error class="mt-2" :messages="$errors->get('properties')" />
+             </div>
+            </div> 
+           </div>
+
+           <div class="row ">
+             <div class="col-md-12">
+             <div class="form-group">
+             <x-input-label for="sort_order" :value="__('Order')" />
+            <x-text-input id="sort_order" name="sort_order" type="number" class="form-control" :value="old('sort_order', $categorie->sort_order)" required autocomplete="sort_order" />
+            <x-input-error class="mt-2" :messages="$errors->get('sort_order')" />
+             </div>
+            </div> 
+           </div>
+
+           <div class="row ">
+             <div class="col-md-12">
+             <div class="form-group">
+             <x-input-label for="parent_id" :value="__('Parent')" />
+             <select class="form-control" id="parent_id" aria-label="Default select example" name="parent_id">
+            @foreach($parents as $parent)
+            <option value="{{ $parent->id }}" @if ($categorie->parent_id == $parent->id) selected="selected" @endif>{{ $parent->title}}</option>
+            @endforeach
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('parent_id')" />
+             </div>
+            </div> 
+           </div>
+
             <div class="row">
             <div class="col-md-12 mb-4">
             <div class="form-group">
-            <label for="active">{{ __('Active') }}</label><br>
+            <label for="active">{{ __('Enabled') }}</label><br>
                 <label>
-                    <input type="checkbox" id="active" name="active" value="1" {{ old('active', $categorie->active) ? 'checked' : '' }}>
+                    <input type="checkbox" id="enabled" name="enabled" value="1" {{ old('active', $categorie->enabled) ? 'checked' : '' }}>
                     Oui
-                </label>
-                
+                </label>  
             <x-input-error class="mt-2" :messages="$errors->get('active')" />
             </div>
             </div>
