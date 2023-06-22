@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('iso');
-            $table->boolean('enabled');
+            $table->boolean('enabled')->default(1);
             $table->string('area_code');
             $table->timestamps();
         });

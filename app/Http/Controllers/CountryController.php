@@ -5,23 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use Illuminate\Http\Request;
 
-class CountryController extends Controller
+class CountryController extends AbstractAdminController
 {
-    public function index(){
-        $countries = Country::simplePaginate(15);
-        return view('countries.index', ['countries' => $countries]); 
-     }
-
-
-     public function delete(Country $listing)
-        {
-            $listing->delete();
-            return redirect()->route('countrie.index');
-        }
-
-
-        public function show(Country $countrie)
-        {
-            return view('countries.show', ['countrie' => $countrie]);
-        }
+    /**
+     * @param Country $country
+     */
+    public function __construct(
+        Country $country
+    ) {
+        parent::__construct($country);
+        $this->middleware('auth');
+    }
 }
