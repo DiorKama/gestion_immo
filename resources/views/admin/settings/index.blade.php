@@ -1,4 +1,8 @@
 <x-master-layout>
+    @section('page-title', __('Paramètres du site'))
+
+    @section('page-header-title', __('Paramètres du site'))
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">

@@ -1,4 +1,8 @@
 <x-master-layout>
+    @section('page-title', __('Mettre à jour les paramètres'))
+
+    @section('page-header-title', __('Mettre à jour les paramètres'))
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">

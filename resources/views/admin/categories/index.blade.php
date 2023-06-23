@@ -1,4 +1,8 @@
 <x-master-layout>
+    @section('page-title', __('Liste des catégories'))
+
+    @section('page-header-title', __('Toutes les catégories'))
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
