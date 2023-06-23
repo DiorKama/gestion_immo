@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Country;
 use App\Models\Location;
 use App\Models\Region;
@@ -30,6 +31,7 @@ class RouteServiceProvider extends ServiceProvider
         'country' => Country::class,
         'region' => Region::class,
         'location' => Location::class,
+        'category' => Category::class,
     ];
 
     /**
