@@ -1,4 +1,8 @@
 <x-master-layout>
+    @section('page-title', __('Créer une localité'))
+
+    @section('page-header-title', __('Créer une localité'))
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">

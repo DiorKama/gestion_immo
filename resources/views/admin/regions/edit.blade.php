@@ -1,4 +1,10 @@
 <x-master-layout>
+    @section('page-title', __('Modifier une région'))
+
+    @section('page-header-title', __('Modifier :region', [
+        'region' => $region->title
+    ]))
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">

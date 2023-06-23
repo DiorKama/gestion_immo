@@ -1,4 +1,10 @@
 <x-master-layout>
+    @section('page-title', __('Modifier une catégorie'))
+
+    @section('page-header-title', __('Modifier :category', [
+        'category' => $category->title
+    ]))
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">

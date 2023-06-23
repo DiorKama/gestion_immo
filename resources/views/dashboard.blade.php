@@ -2,9 +2,9 @@
 <!-- Content Header (Page header) -->
 <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-4 pb-4">    
+        <div class="row mb-4 pb-4">
         </div>
-      </div> 
+      </div>
     </div>
     <!-- /.content-header -->
     <!-- Main content -->
@@ -36,7 +36,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="{{ route('categorie.index') }}" class="small-box-footer">Détails<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('categories.index') }}" class="small-box-footer">Détails<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -72,7 +72,7 @@
         </div>
         <!-- /.row -->
         <!-- Main row -->
-        
+
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
