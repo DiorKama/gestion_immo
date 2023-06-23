@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Listing;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -19,7 +20,7 @@ class Category extends AbstractEntity
         'title' => 'required|max:255|unique:categories',
         'description' => 'required',
         'sort_order' => 'required|integer',
-        'parent_id' =>  'nullable|integer|exists:categories,id',
+        'parent_id' =>  'nullable|exists:categories,id',
     ];
 
     protected $guarded = ['id'];
@@ -33,11 +34,11 @@ class Category extends AbstractEntity
     }
 
     public function children()
-{
-    return $this->hasMany(Category::class, 'parent_id');
-}
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
 
-/**
+    /**
      * @return bool
      */
     public function getHasChildrenAttribute()
@@ -54,5 +55,10 @@ class Category extends AbstractEntity
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function scopeOnlyEnabled(Builder $query)
+    {
+        $query->where('enabled', 1);
     }
 }

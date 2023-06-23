@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AbstractEntity;
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends AbstractAdminController
@@ -20,14 +21,14 @@ class CategoryController extends AbstractAdminController
 
     public function create()
     {
-        $parents = Category::whereNull('parent_id')->get();
-        return view('admin.categories.create', compact('parents'));
+        $_categories = resolve(CategoryService::class)->getCategoriesAsList(null, '-- ');
+        return view('admin.categories.create', compact('_categories'));
     }
 
     public function edit(
         AbstractEntity $category
     ) {
-        $parents = Category::whereNull('parent_id')->get();
-        return view("admin.categories.edit", compact('parents', 'category'));
+        $_categories = resolve(CategoryService::class)->getCategoriesAsList(null, '-- ');
+        return view("admin.categories.edit", compact('_categories', 'category'));
     }
 }

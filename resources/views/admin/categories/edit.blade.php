@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <form  method="POST" class="bg-white" action=" {{ route('categories.update', ['category' => $category->id])  }}">
+                        <form  method="POST" action=" {{ route('categories.update', ['category' => $category->id])  }}">
                             @csrf
                             @method('PUT')
 
@@ -15,41 +15,70 @@
                             </div>
                             <div class="card-body">
                                 @if ($errors->any())
-                                    <div class="alert alert-danger mt-5 py-2">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
+                                    <div class="alert alert-danger">
+                                        Erreur survenue. Merci de réessayer !
                                     </div>
                                 @endif
 
                                 <div class="form-group">
-                                    <x-input-label for="title" :value="__('Nom Categorie')" />
-                                    <x-text-input id="title" name="title" type="text" class="form-control" :value="old('title', $category->title)" required autocomplete="title" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('title')" />
+                                    <label>{{ __('Titre de la catégorie') }}</label>
+                                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') ?? $category->title }}" placeholder="{{ __('Catégorie ...') }}" required>
+                                    @error("title")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
-                                <div class="form-group">
-                                    <x-input-label for="description" :value="__('Description')" />
-                                    <textarea id="description" name="description" class="form-control" required autofocus autocomplete="description">{{ $category->description }}</textarea>
-                                    <x-input-error class="mt-2" :messages="$errors->get('description')" />
-                                </div>
-
-                                <div class="form-group">
-                                    <x-input-label for="sort_order" :value="__('Order')" />
-                                    <x-text-input id="sort_order" name="sort_order" type="number" class="form-control" :value="old('sort_order', $category->sort_order)" required autocomplete="sort_order" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('sort_order')" />
-                                </div>
-
-                                <div class="form-group">
-                                    <x-input-label for="parent_id" :value="__('Parent')" />
-                                    <select class="form-control" id="parent_id" aria-label="Default select example" name="parent_id">
-                                        @foreach($parents as $parent)
-                                            <option value="{{ $parent->id }}" @if ($category->parent_id == $parent->id) selected="selected" @endif>{{ $parent->title}}</option>
+                                {{--<div class="form-group">
+                                    <label>{{ __('Catégorie parent') }}</label>
+                                    <select class="form-control @error('parent_id') is-invalid @enderror" name="parent_id">
+                                        <option value="">{{ __('Séléctionnez ...') }}</option>
+                                        @foreach($_categories as $_category)
+                                            @if ( isset($_category['children']) && !empty($_category['children']) )
+                                                <optgroup label="{{ $_category["category"]->title }}">
+                                                    @foreach($_category['children'] as $child)
+                                                        <option value="{{ $child["category"]->id }}">{{ $child["category"]->title }}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @else
+                                                <option value="{{ $_category["category"]->id }}">{{ $_category["category"]->title }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
-                                    <x-input-error class="mt-2" :messages="$errors->get('parent_id')" />
+                                    @error("parent_id")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>--}}
+
+                                <div class="form-group">
+                                    <label>{{ __('Catégorie parent') }}</label>
+                                    <select class="form-control @error('parent_id') is-invalid @enderror" name="parent_id">
+                                        <option value="">{{ __('Séléctionnez ...') }}</option>
+                                        @foreach($_categories as $categoryId => $categoryTitle)
+                                            <option value="{{ $categoryId }}" @selected($category->parent_id == $categoryId)>{{ $categoryTitle }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error("parent_id")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ __('Description') }}</label>
+                                    <textarea
+                                        name="description"
+                                        class="form-control @error('description') is-invalid @enderror"
+                                    >{{ old('description') ?? $category->description }}</textarea>
+                                    @error("description")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ __('Ordre') }}</label>
+                                    <input type="number" name="sort_order" class="form-control @error('sort_order') is-invalid @enderror" value="{{ old('sort_order') ?? $category->sort_order }}" required>
+                                    @error("sort_order")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="card-footer">
