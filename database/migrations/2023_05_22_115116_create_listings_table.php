@@ -15,16 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->boolean('enabled')->default(1);
             $table->text('description');
-            $table->integer('area');
-            $table->integer('rooms');
-            $table->integer('bedrooms');
-            $table->integer('bathrooms');
-            $table->integer('price');
+            $table->integer('area')->default(0);
+            $table->integer('rooms')->default(0);
+            $table->integer('bedrooms')->default(0);
+            $table->integer('bathrooms')->default(0);
+            $table->integer('price')->default(0);
             $table->boolean('sold')->default(0);
             $table->foreignId('location_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained();
+            $table->datetime('disable_at')->nullable();
+            $table->datetime('first_online_at')->nullable();
             $table->timestamps();
         });
     }
