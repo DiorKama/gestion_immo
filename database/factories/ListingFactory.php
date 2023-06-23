@@ -20,6 +20,7 @@ class ListingFactory extends Factory
         return [
             'title' => $title,
             'slug' => Str::slug($title, '-'),
+            'enabled' => true, 
             'description' => fake()->text(),
             'area' => fake()->numberBetween(50, 200),
             'rooms' => fake()->numberBetween(1, 5),
@@ -30,6 +31,8 @@ class ListingFactory extends Factory
             'location_id' => Location::inRandomOrder()->take(1)->first()->id,
             'user_id' => User::inRandomOrder()->take(1)->first()->id,
             'category_id' => Category::inRandomOrder()->take(1)->first()->id,
+            'disable_at' => null, 
+            'first_online_at' => now(),
             'created_at' => now(),
             'updated_at' => now(),
         ];
