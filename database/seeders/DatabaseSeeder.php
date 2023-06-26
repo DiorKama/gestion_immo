@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             RegionSeeder::class,
             LocationSeeder::class,
             CategorySeeder::class,
+            ListingStatusesSeeder::class,
             ListingSeeder::class
         ]);
     }

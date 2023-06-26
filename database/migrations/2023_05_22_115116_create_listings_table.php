@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->boolean('enabled')->default(1);
-            $table->text('description');
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->text('description')->nullable();
             $table->integer('area')->default(0);
             $table->integer('rooms')->default(0);
             $table->integer('bedrooms')->default(0);
             $table->integer('bathrooms')->default(0);
             $table->integer('price')->default(0);
             $table->boolean('sold')->default(0);
-            $table->foreignId('location_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('category_id')->constrained();
+            $table->boolean('listing_status_id')->constrained(1);
+            $table->foreignId('location_id')->nullable()->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->datetime('disable_at')->nullable();
             $table->datetime('first_online_at')->nullable();
             $table->timestamps();

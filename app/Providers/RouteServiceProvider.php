@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Listing;
 use App\Models\Location;
 use App\Models\Region;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -32,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
         'region' => Region::class,
         'location' => Location::class,
         'category' => Category::class,
+        'listing' => Listing::class,
     ];
 
     /**

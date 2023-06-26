@@ -1,4 +1,8 @@
 <x-master-layout>
+    @section('page-title', __('Liste des biens immobiliers'))
+
+    @section('page-header-title', __('Tous les biens immobiliers'))
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -20,19 +24,12 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('#') }}</th>
-                                            <th>{{ __('Nom') }}</th>
-                                            <th>{{ __('Category') }}</th>
-                                            <th>{{ __('Localités') }}</th>
-                                            <th>{{ __('Utilisateurs') }}</th>
-                                            <th>{{ __('Actif') }}</th>
-                                            <th>{{ __('Description') }}</th>
-                                            <th>{{ __('Surface') }}</th>
-                                            <th>{{ __('Nbre Pièces') }}</th>
-                                            <th>{{ __('Nbre Chambres') }}</th>
-                                            <th>{{ __('Nbre Salle de bain') }}</th>
+                                            <th>{{ __('Title') }}</th>
+                                            <th>{{ __('Catégorie') }}</th>
+                                            <th>{{ __('Adresse') }}</th>
+                                            <th>{{ __('Publié par') }}</th>
+                                            <th>{{ __('Statut') }}</th>
                                             <th>{{ __('Prix') }}</th>
-                                            <th>{{ __('Vendu') }}</th>
-                                            <th>{{ __('En Ligne') }}</th>
                                             <th>{{ __('Créé le') }}</th>
                                             <th>{{ __('Mis à jour le') }}</th>
                                             <th>{{ __('Actions') }}</th>
@@ -46,15 +43,8 @@
                                                 <td>{{ $listing->category->title }}</td>
                                                 <td>{{ $listing->location->title }}</td>
                                                 <td>{{ $listing->user->full_name }}</td>
-                                                <td>{{ $listing->enabled ? __('Oui') : __('Non')}}</td>
-                                                <td>{{ Str::limit($listing->description, 20, '...') }}</td>
-                                                <td>{{ $listing->area }}m²</td>
-                                                <td>{{ $listing->rooms }}</td>
-                                                <td>{{ $listing->bedrooms }}</td>
-                                                <td>{{ $listing->bathrooms }}</td>
+                                                <td>{{ $listing->status->title ?? __('Inconnu') }}</td>
                                                 <td>{{ $listing->price }}</td>
-                                                <td>{{ $listing->sold ? __('Oui') : __('Non') }}</td>
-                                                <td>{{ $listing->first_online_at }}</td>
                                                 <td>{{ $listing->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td>{{ $listing->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td class="text-nowrap">

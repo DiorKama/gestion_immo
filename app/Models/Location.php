@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Region;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -46,5 +47,10 @@ class Location extends AbstractEntity
 
     public function region() {
         return $this->belongsTo(Region::class, 'region_id');
+    }
+
+    public function scopeOnlyEnabled(Builder $query)
+    {
+        $query->where('enabled', 1);
     }
 }

@@ -1,4 +1,8 @@
 <x-master-layout>
+    @section('page-title', __('Créer une annonce'))
+
+    @section('page-header-title', __('Créer une catégorie'))
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -26,11 +30,19 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>{{ __('Categories') }}</label>
-                                    <select name="category_id" class="form-control @error('category_id') is-invalid @enderror">
-                                        <option value="">{{ __('Sélectionnez') }}</option>
-                                        @foreach($_categories as $categoryID => $categoryTitle)
-                                            <option value="{{ $categoryID }}" @selected(old('category_id') == $categoryID)>{{ $categoryTitle }}</option>
+                                    <label>{{ __('Catégorie parent') }}</label>
+                                    <select class="form-control @error('category_id') is-invalid @enderror" name="category_id">
+                                        <option value="">{{ __('Séléctionnez ...') }}</option>
+                                        @foreach($_categories as $_category)
+                                            @if ( isset($_category['children']) && !empty($_category['children']) )
+                                                <optgroup label="{{ $_category["category"]->title }}">
+                                                    @foreach($_category['children'] as $child)
+                                                        <option value="{{ $child["category"]->id }}">{{ $child["category"]->title }}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @else
+                                                <option value="{{ $_category["category"]->id }}">{{ $_category["category"]->title }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error("category_id")
@@ -39,11 +51,19 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>{{ __('Localités') }}</label>
-                                    <select name="location_id" class="form-control @error('location_id') is-invalid @enderror">
-                                        <option value="">{{ __('Sélectionnez') }}</option>
-                                        @foreach($_locations as $locationID => $locationTitle)
-                                            <option value="{{ $locationID }}" @selected(old('location_id') == $locationID)>{{ $locationTitle }}</option>
+                                    <label>{{ __('Localité') }}</label>
+                                    <select class="form-control @error('location_id') is-invalid @enderror" name="location_id">
+                                        <option value="">{{ __('Séléctionnez ...') }}</option>
+                                        @foreach($_locations as $_location)
+                                            @if ( isset($_location['children']) && !empty($_location['children']) )
+                                                <optgroup label="{{ $_location["title"] }}">
+                                                    @foreach($_location['children'] as $child)
+                                                        <option value="{{ $child["id"] }}">{{ $child["title"] }}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @else
+                                                <option value="{{ $_location["id"] }}">{{ $_location["title"] }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error("location_id")
