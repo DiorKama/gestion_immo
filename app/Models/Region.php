@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Listing;
 use App\Models\Location;
+use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Region extends AbstractEntity
@@ -41,6 +42,10 @@ class Region extends AbstractEntity
 
     public function locations() {
         return $this->hasMany(Location::class);
+    }
+
+    public function listings() {
+        return $this->hasManyThrough(Listing::class, Location::class);
     }
 
     public function scopeOnlyEnabled(Builder $query)

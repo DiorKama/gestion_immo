@@ -48,15 +48,6 @@ Route::post('/option/store',  [OptionController::class, 'store'])->name('option.
 // users
 Route::get('/ajax/user/autocomplete', [UserController::class, 'search'])->name('listing.ajax.user.autocomplete');
 
-//listings
-Route::get('/listing/create',  [ListingController::class, 'create'])->name('listing.create');
-Route::post('/listing/store',  [ListingController::class, 'store'])->name('listing.store');
-Route::get('/listing/index', [ListingController::class, 'index'])->name('listing.index');
-Route::get('/listing/show/{listing}',  [ListingController::class, 'show'])->name('listing.show');
-Route::get('/listing/edit/{listing}',  [ListingController::class, 'edit'])->name('listing.edit');
-Route::put('/listing/update/{listing}',  [ListingController::class, 'update'])->name('listing.update');
-Route::get('/listing/delete/{listing}', [ListingController::class, 'delete'])->name('listing.delete');
-
 //files
 Route::get('/file/create',  [FileController::class, 'create'])->name('file.create');
 Route::post('/file/store',  [FileController::class, 'store'])->name('file.store');
@@ -95,6 +86,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/locations/edit/{location}', [LocationController::class, 'edit'])->name('locations.edit');
     Route::put('/locations/update/{location}', [LocationController::class, 'update'])->name('locations.update');
     Route::delete('/locations/delete/{location}', [LocationController::class, 'destroy'])->name('locations.delete');
+
+    Route::get('/listings', [ListingController::class, 'index'])->name('listings.index');
+    Route::get('/listings/create',  [ListingController::class, 'create'])->name('listings.create');
+    Route::post('/listings/store',  [ListingController::class, 'store'])->name('listings.store');
+    Route::get('/listings/edit/{listing}',  [ListingController::class, 'edit'])->name('listings.edit');
+    Route::put('/listings/update/{listing}',  [ListingController::class, 'update'])->name('listings.update');
+    Route::delete('/listings/delete/{listing}', [ListingController::class, 'destroy'])->name('listings.delete');
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/create',  [CategoryController::class, 'create'])->name('categories.create');

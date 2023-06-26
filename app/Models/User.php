@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function listings(){
         return $this->hasMany(Listing::class);
     }
+
+    public function getFullNameAttribute() {
+        return $this->firstName . ' ' . $this->lastName;
+    }
 }

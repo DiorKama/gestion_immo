@@ -22,7 +22,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="{{ route('listing.index') }}" class="small-box-footer">Détails<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('listings.index') }}" class="small-box-footer">Détails<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

@@ -8,8 +8,8 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">{{ __('Tous les pays') }}</h3>
+                        <div class="card-header">
+                            <h3 class="card-title">{{ __('Toutes les pays') }}</h3>
                             <div class="card-tools">
                                 <a href="{{ route('countries.create') }}" class="btn btn-tool btn-primary btn-sm">
                                     <i class="fas fa-plus"></i>
@@ -24,10 +24,9 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('#') }}</th>
-                                            <th>{{ __('Nom') }}</th>
-                                            <th>{{ __('Code') }}</th>
-                                            <th>{{ __('Actif') }}</th>
-                                            <th>{{ __('Indicatif') }}</th>
+                                            <th>{{ __('Nom du pays') }}</th>
+                                            <th>{{ __('Code du pays') }}</th>
+                                            <th>{{ __('Indicatif du pays') }}</th>
                                             <th>{{ __('Créé le') }}</th>
                                             <th>{{ __('Mis à jour le') }}</th>
                                             <th>{{ __('Actions') }}</th>
@@ -39,7 +38,6 @@
                                                 <td>{{ $country->id }}</td>
                                                 <td>{{ $country->title }}</td>
                                                 <td>{{ $country->iso }}</td>
-                                                <td>{{ $country->enabled ? __('Oui') : __('Non')}}</td>
                                                 <td>{{ $country->area_code }}</td>
                                                 <td></td>
                                                 <td></td>
@@ -91,7 +89,7 @@
                                                         <button
                                                             type="submit"
                                                             class="btn btn-danger btn-xs"
-                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer ce pays?'))"
+                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette region?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                         </button>
