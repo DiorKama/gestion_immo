@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Listing;
 use App\Models\Location;
 use App\Models\Region;
 use App\Models\Setting;
@@ -86,5 +87,21 @@ Breadcrumbs::for('categories.create', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('categories.edit', function (BreadcrumbTrail $trail, Category $category) {
     $trail->parent('categories.index');
     $trail->push($category->title, route('categories.edit', $category));
+});
+
+// Listings
+Breadcrumbs::for('listings.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('Tous les bien immobiliers'), route('listings.index'));
+});
+
+Breadcrumbs::for('listings.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('listings.index');
+    $trail->push(__('Ajouter un nouvelle annonce'), route('listings.create'));
+});
+
+Breadcrumbs::for('listings.edit', function (BreadcrumbTrail $trail, Listing $listing) {
+    $trail->parent('listings.index');
+    $trail->push($listing->title, route('listings.edit', $listing));
 });
 

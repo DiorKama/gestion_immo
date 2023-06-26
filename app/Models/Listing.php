@@ -42,7 +42,7 @@ class Listing extends AbstractEntity
      * {@inheritdoc}
      */
     public $casts = [
-        'enabled' => 'bool',
+        //'enabled' => 'bool',
     ];
 
     protected $guarded = ['id'];
@@ -55,7 +55,7 @@ class Listing extends AbstractEntity
             ]
         ];
     }
-    
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -68,13 +68,26 @@ class Listing extends AbstractEntity
         return $this->belongsTo(Location::class, 'location_id');
     }
 
-    /*public function region() {
-        return $this->belongsTo(Region::class, 'region_id', 'id', 'location');
-    }*/
+    public function status() {
+        return $this->belongsTo(ListingStatus::class, 'listing_status_id');
+    }
 
     public function optionListing() {
         return $this->hasMany(OptionListing::class);
     }
 
+    public function getRegionAttribute()
+    {
+        return $this->location->region ?? null;
+    }
 
+    public function getRegionSlugAttribute()
+    {
+        return $this->region ? $this->region->slug : null;
+    }
+
+    public function getRegionTitleAttribute()
+    {
+        return $this->region ? $this->region->title : null;
+    }
 }

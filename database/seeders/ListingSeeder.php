@@ -14,7 +14,7 @@ class ListingSeeder extends Seeder
     public function run(): void
     {
         Listing::factory()
-            ->count(10)
+            ->count(50)
             ->create();
     }
 }
