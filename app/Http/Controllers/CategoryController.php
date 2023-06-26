@@ -2,109 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbstractEntity;
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoryController extends AbstractAdminController
 {
-    public function index(){
-        $categories = Category::simplepaginate(5);
-        return view('categories.index', ['categories' => $categories]); 
-     }
-
-     public function delete(Category $categorie)
-    {
-        //$this->deleteChildren($categorie);
-        $type = 'error';
-        $message = __('ça marche pas!');
-
-        if ( !$categorie->has_children ) {
-            $categorie->delete();
-            $type = 'success';
-            $message = __('la catégorie :category a été supprimée avec succès !', [
-                'category' => $categorie->title
-            ]);
-        }
-        
-        return redirect()->route('categorie.index')->with($type, $message);
-    }
-    /*private function deleteChildren(Category $categorie)
-    {
-        foreach ($categorie->children as $child) {
-            $this->deleteChildren($child);
-            $child->delete();
-        }
-    }*/
-
-
-    public function show(Category $categorie)
-    {
-        return view('categories.show', ['categorie' => $categorie]);
+    /**
+     * @param Category $category
+     */
+    public function __construct(
+        Category $category
+    ) {
+        parent::__construct($category);
+        $this->middleware('auth');
     }
 
     public function create()
     {
-
-        $parents = Category::whereNull('parent_id')->get();
-        return view('categories.create',compact('parents'));
+        $_categories = resolve(CategoryService::class)->getCategoriesAsList(null, '-- ');
+        return view('admin.categories.create', compact('_categories'));
     }
 
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|max:255|unique:categories',
-              'description' => 'required',
-              'enabled' => 'boolean',
-              'slug' => 'required',
-              'properties' => 'nullable',
-              'sort_order' => 'required', 'integer',
-              'parent_id' =>  ['nullable', 'integer', 'exists:categories,id'],
-        ]);
-        $categories = new Category([
-            'title' => $validatedData['title'],
-              'description' => $validatedData['description'],
-              'enabled' => isset($validatedData['enabled']) ? $validatedData['enabled'] : false,
-              'slug' => $validatedData['slug'],
-              'properties' => $validatedData['properties'],
-              'sort_order' => $validatedData['sort_order'],
-              'parent_id' => $validatedData['parent_id'],
-
-        ]);
-        
-        $categories->save();
-    
-        return redirect('/categorie/index');
+    public function edit(
+        AbstractEntity $category
+    ) {
+        $_categories = resolve(CategoryService::class)->getCategoriesAsList(null, '-- ');
+        return view("admin.categories.edit", compact('_categories', 'category'));
     }
-
-    public function edit(Category $categorie)
-        {
-            $parents = Category::whereNull('parent_id')->get();
-        return view("categories.edit")
-            ->with('status', 'Modification réussie')
-            ->with(compact("categorie", "parents"));
-        }
-
-        public function update(Request $request, Category $categorie)
-        {
-          $validatedData = $request->validate([
-              'title' => 'required|max:255',
-              'description' => 'required',
-              'enabled' => 'boolean',
-              'slug' => 'required',
-              'properties' => 'nullable',
-              'sort_order' => 'required', 'integer',
-              'parent_id' =>  ['nullable', 'integer', 'exists:categories,id'],
-          ]);
-      
-          $categorie->update([
-              'title' => $validatedData['title'],
-              'description' => $validatedData['description'],
-              'enabled' => isset($validatedData['enabled']) && $validatedData['enabled'] == '1',
-              'slug' => $validatedData['slug'],
-              'properties' => $validatedData['properties'],
-              'sort_order' => $validatedData['sort_order'],
-              'parent_id' => $validatedData['parent_id'],
-          ]);
-                  return redirect('categorie/index');
-              }
 }

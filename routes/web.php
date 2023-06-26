@@ -27,10 +27,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -38,18 +34,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-Route::get('/categorie/index', [CategoryController::class, 'index'])->name('categorie.index');
-Route::get('/categorie/delete/{categorie}', [CategoryController::class, 'delete'])->name('categorie.delete');
-Route::get('/categorie/show/{categorie}',  [CategoryController::class, 'show'])->name('categorie.show');
-Route::get('/categorie/create',  [CategoryController::class, 'create'])->name('categorie.create');
-Route::post('/categorie/store',  [CategoryController::class, 'store'])->name('categorie.store');
-Route::get('/categorie/edit/{categorie}',  [CategoryController::class, 'edit'])->name('categorie.edit');
-Route::put('/categorie/update/{categorie}',  [CategoryController::class, 'update'])->name('categorie.update');
-
-//settings
-Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
-Route::post('settings/update', [SettingController::class, 'update'])->name('settings.update');
 
 //options
 Route::get('/option/index', [OptionController::class, 'index'])->name('option.index');
@@ -74,6 +58,10 @@ Route::put('file/update/{id}', [FileController::class, 'update'])->name('file.up
 Route::get('/file/delete/{file}', [FileController::class, 'delete'])->name('file.delete');
 
 Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings/update/{setting}', [SettingController::class, 'update'])->name('settings.update');
@@ -104,5 +92,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/listings/store',  [ListingController::class, 'store'])->name('listings.store');
     Route::get('/listings/edit/{listing}',  [ListingController::class, 'edit'])->name('listings.edit');
     Route::put('/listings/update/{listing}',  [ListingController::class, 'update'])->name('listings.update');
-    Route::get('/listings/delete/{listing}', [ListingController::class, 'destroy'])->name('listings.delete');
+    Route::delete('/listings/delete/{listing}', [ListingController::class, 'destroy'])->name('listings.delete');
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/create',  [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('/categories/store',  [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories/edit/{category}',  [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('/categories/update/{category}',  [CategoryController::class, 'update'])->name('categories.update');
+    Route::get('/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('categories.delete');
 });
