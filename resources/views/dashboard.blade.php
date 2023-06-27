@@ -22,7 +22,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="{{ route('listings.index') }}" class="small-box-footer">Détails<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('admin.listings.index') }}" class="small-box-footer">Détails<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -36,7 +36,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="{{ route('categories.index') }}" class="small-box-footer">Détails<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('admin.categories.index') }}" class="small-box-footer">Détails<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -65,7 +65,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="{{ route('settings.index') }}" class="small-box-footer">Modifier<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('admin.settings.index') }}" class="small-box-footer">Modifier<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

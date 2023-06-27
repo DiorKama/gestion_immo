@@ -1,7 +1,7 @@
 <x-master-layout>
-    @section('page-title', __('Liste des régions'))
+    @section('page-title', __('Liste des utilisateurs'))
 
-    @section('page-header-title', __('Toutes les régions'))
+    @section('page-header-title', __('Tous les utilisateurs'))
 
     <section class="content">
         <div class="container-fluid">
@@ -9,9 +9,9 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('Toutes les régions') }}</h3>
+                            <h3 class="card-title">{{ __('Tous les utilisateurs') }}</h3>
                             <div class="card-tools">
-                                <a href="{{ route('admin.regions.create') }}" class="btn btn-tool btn-primary btn-sm">
+                                <a href="{{ route('admin.users.create') }}" class="btn btn-tool btn-primary btn-sm">
                                     <i class="fas fa-plus"></i>
                                     {{ __('Ajouter') }}
                                 </a>
@@ -24,36 +24,38 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('#') }}</th>
-                                            <th>{{ __('Nom') }}</th>
-                                            <th>{{ __('Actif') }}</th>
-                                            <th>{{ __('Créé le') }}</th>
-                                            <th>{{ __('Mis à jour le') }}</th>
+                                            <th>{{ __('Nom & Prénoms') }}</th>
+                                            <th>{{ __('E-mail') }}</th>
+                                            <th>{{ __('Téléphone') }}</th>
+                                            <th>{{ __('Compte vérifié') }}</th>
+                                            <th>{{ __('Crée le') }}</th>
                                             <th>{{ __('Actions') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($regions as $region)
+                                        @foreach($users as $user)
                                             <tr>
-                                                <td>{{ $region->id }}</td>
-                                                <td>{{ $region->title }}</td>
-                                                <td>{{ $region->enabled ? __('Oui') : __('Non')}}</td>
+                                                <td>{{ $user->id }}</td>
+                                                <td>{{ $user->full_name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->phone_number }}</td>
+                                                <td>{{ !is_null($user->email_verified_at) ? __('Oui') : __('Non') }}</td>
                                                 <td></td>
-                                                <td></td>
-                                                <td class="text-nowrap">
+                                                <td>
                                                     <a
                                                         href="javascript:;"
                                                         class="btn btn-info btn-xs"
-                                                        data-toggle="modal" data-target="#region-details-{{ $region->id }}"
+                                                        data-toggle="modal" data-target="#user-details-{{ $user->id }}"
                                                     >
                                                         <i class="fa fa-eye"></i>
                                                     </a>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="region-details-{{ $region->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="user-details-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">{{ $region->title }}</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">{{ $user->full_name }}</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
@@ -71,23 +73,23 @@
                                                     </div>
 
                                                     <a
-                                                        href="{{ route('admin.regions.edit', [
-                                                        'region' => $region->id
+                                                        href="{{ route('admin.users.edit', [
+                                                        'user' => $user->id
                                                     ]) }}"
                                                         class="btn btn-primary btn-xs"
                                                     >
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
 
-                                                    <form action="{{ route('admin.regions.delete', [
-                                                        'region' => $region->id
+                                                    <form action="{{ route('admin.users.delete', [
+                                                        'user' => $user->id
                                                     ]) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
                                                             class="btn btn-danger btn-xs"
-                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette region?'))"
+                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cet utilisateur?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                         </button>
@@ -99,7 +101,7 @@
                                 </table>
 
                                 <div class="pagination">
-                                    {{ $regions->links() }}
+                                    {{ $users->links() }}
                                 </div>
                             </div>
                         </div>

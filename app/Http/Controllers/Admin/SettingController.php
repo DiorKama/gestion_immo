@@ -57,7 +57,7 @@ class SettingController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('settings.edit')
+                ->route('admin.settings.edit')
                 ->withErrors($validator)
                 ->withInput();
         }

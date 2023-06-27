@@ -60,7 +60,7 @@ class ListingController extends AbstractAdminController
 
         if ($listing) {
             return redirect()
-                ->route('listings.index')
+                ->route('admin.listings.index')
                 ->withMessage(__('votre annonce :listingTitle a été ajoutée avec succès', [
                     'listingTitle' => $listing->title
                 ]));

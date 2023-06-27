@@ -250,7 +250,7 @@ class AbstractAdminController extends Controller
     protected function getRouteName(
         string $type
     ) {
-        return Str::kebab(($this->resourceName)) . '.' . $type;
+        return 'admin.' . Str::kebab(($this->resourceName)) . '.' . $type;
     }
 
     /**
