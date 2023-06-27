@@ -60,7 +60,7 @@
                                     <select class="form-control @error('parent_id') is-invalid @enderror" name="parent_id">
                                         <option value="">{{ __('Séléctionnez ...') }}</option>
                                         @foreach($_categories as $categoryId => $categoryTitle)
-                                            <option value="{{ $categoryId }}" @selected($category->parent_id == $categoryId)>{{ $categoryTitle }}</option>
+                                            <option value="{{ $categoryId }}" @selected(old('parent_id', $category->parent_id) == $categoryId)>{{ $categoryTitle }}</option>
                                         @endforeach
                                     </select>
                                     @error("parent_id")

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreListingRequest;
 use App\Services\CategoryService;
 use App\Services\LocationService;
+use App\UseCases\CreateListing;
 use Carbon\Carbon;
 use App\Models\Listing;
 use App\Models\AbstractEntity;
@@ -32,7 +34,6 @@ class ListingController extends AbstractAdminController
         ]);
 
         $_categories = resolve(CategoryService::class)->getCategories();
-
         $_locations = resolve(LocationService::class)->getLocationsAsList();
 
         return view(
@@ -45,11 +46,48 @@ class ListingController extends AbstractAdminController
         );
     }
 
+    public function store(
+        $request = null,
+        $useCase = null
+    ) {
+        $request = resolve(StoreListingRequest::class);
+        $useCase = resolve(CreateListing::class);
+
+        $listing = $useCase
+            ->handle(
+                $request->validated()
+            );
+
+        if ($listing) {
+            return redirect()
+                ->route('listings.index')
+                ->withMessage(__('votre annonce :listingTitle a été ajoutée avec succès', [
+                    'listingTitle' => $listing->title
+                ]));
+        }
+
+        return back()
+            ->withMessage(__('Erreur survenue. Merci de réessayer.'));
+    }
+
+    public function edit(
+        AbstractEntity $listing
+    ) {
+        $_categories = resolve(CategoryService::class)->getCategories();
+        $_locations = resolve(LocationService::class)->getLocationsAsList();
+
+        return view("admin.listings.edit", compact(
+            '_categories',
+            '_locations',
+            'listing'
+        ));
+    }
+
     protected function getCollection($request)
     {
         return $this
             ->entity
-            ->where('listing_status_id', '!=' , config('listtings.statuses.draft'))
+            ->where('listing_status_id', '!=' , config('listings.statuses.draft'))
             ->paginate($request->get('perPage') ?: config('limit'));
     }
 }

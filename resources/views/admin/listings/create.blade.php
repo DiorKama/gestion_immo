@@ -21,6 +21,8 @@
                                     </div>
                                 @endif
 
+                                <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+
                                 <div class="form-group">
                                     <label>{{ __('Titre Annonce') }}</label>
                                     <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="{{ __('Titre Annonce...') }}" required>
@@ -37,7 +39,7 @@
                                             @if ( isset($_category['children']) && !empty($_category['children']) )
                                                 <optgroup label="{{ $_category["category"]->title }}">
                                                     @foreach($_category['children'] as $child)
-                                                        <option value="{{ $child["category"]->id }}">{{ $child["category"]->title }}</option>
+                                                        <option value="{{ $child["category"]->id }}" @selected(old('category_id') == $child["category"]->id)>{{ $child["category"]->title }}</option>
                                                     @endforeach
                                                 </optgroup>
                                             @else
@@ -58,7 +60,7 @@
                                             @if ( isset($_location['children']) && !empty($_location['children']) )
                                                 <optgroup label="{{ $_location["title"] }}">
                                                     @foreach($_location['children'] as $child)
-                                                        <option value="{{ $child["id"] }}">{{ $child["title"] }}</option>
+                                                        <option value="{{ $child["id"] }}" @selected(old('location_id') == $child["id"])>{{ $child["title"] }}</option>
                                                     @endforeach
                                                 </optgroup>
                                             @else
@@ -67,6 +69,30 @@
                                         @endforeach
                                     </select>
                                     @error("location_id")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ __('Description') }}</label>
+                                    <textarea
+                                        name="description"
+                                        class="form-control @error('description') is-invalid @enderror"
+                                    >{{ old('description') }}</textarea>
+                                    @error("description")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ __('Prix') }}</label>
+                                    <div class="input-group mb-2">
+                                        <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" placeholder="Prix du bien ...">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">{{ __('Frs CFA') }}</div>
+                                        </div>
+                                    </div>
+                                    @error("price")
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

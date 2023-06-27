@@ -69,12 +69,7 @@ class AbstractAdminController extends Controller
         );
     }
 
-    /**
-     * @param null $request
-     * @param null $useCase
-     *
-     * @return RedirectResponse
-     */
+
     public function store(
         $request = null,
         $useCase = null
@@ -143,7 +138,6 @@ class AbstractAdminController extends Controller
         $request = $this->resolveRequest($request);
 
         $data = $request->validated();
-
         if ($useCase) {
             $useCase->handle($this->entity, $data);
         } else {

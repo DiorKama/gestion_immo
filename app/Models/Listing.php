@@ -24,8 +24,7 @@ class Listing extends AbstractEntity
      * @var array
      */
     public static $rules = [
-        'title' => 'sometimes|required|unique:listings',
-        'enabled' => 'sometimes|boolean',
+        'title' => 'sometimes|required',
         'description' => 'sometimes|required',
         'area' => 'sometimes|integer|required',
         'rooms' => 'sometimes|integer|required',
@@ -33,16 +32,10 @@ class Listing extends AbstractEntity
         'bathrooms' => 'sometimes|integer|required',
         'price' => 'sometimes|integer|required',
         'sold' => 'sometimes|boolean',
-        'user_id' => 'required|exists:users,id',
+        'user_id' => 'sometimes|exists:users,id',
         'location_id' => 'required|exists:locations,id',
         'category_id' => 'required|exists:categories,id',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $casts = [
-        //'enabled' => 'bool',
+        'listing_status_id' => 'sometimes|exists:listing_statuses,id'
     ];
 
     protected $guarded = ['id'];

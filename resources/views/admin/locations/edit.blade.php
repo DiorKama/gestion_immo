@@ -40,7 +40,7 @@
                                     <label>{{ __('Pays') }}</label>
                                     <select name="country_id" class="form-control @error('country_id') is-invalid @enderror">
                                         @foreach($_countries as $countryID => $countryTitle)
-                                            <option value="{{ $countryID }} @selected(old('country_id') == $countryID)">{{ $countryTitle }}</option>
+                                            <option value="{{ $countryID }} @selected(old('country_id', $location->country_id) == $countryID)">{{ $countryTitle }}</option>
                                         @endforeach
                                     </select>
                                     @error("country_id")
@@ -52,7 +52,7 @@
                                     <label>{{ __('Region') }}</label>
                                     <select name="region_id" class="form-control @error('region_id') is-invalid @enderror">
                                         @foreach($_regions as $regionID => $regionTitle)
-                                            <option value="{{ $regionID }}" @selected(old('region_id') == $regionID)>{{ $regionTitle }}</option>
+                                            <option value="{{ $regionID }}" @selected(old('region_id', $location->region_id) == $regionID)>{{ $regionTitle }}</option>
                                         @endforeach
                                     </select>
                                     @error("region_id")
