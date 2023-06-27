@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <form action="{{ route('regions.update', [
+                        <form action="{{ route('admin.regions.update', [
                             'region' => $region->id
                         ]) }}" method="post">
                             @csrf

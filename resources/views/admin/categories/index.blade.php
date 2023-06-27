@@ -11,7 +11,7 @@
                         <div class="card-header border-0">
                             <h3 class="card-title">{{ __('Toutes les catégories') }}</h3>
                             <div class="card-tools">
-                                <a href="{{ route('categories.create') }}" class="btn btn-tool btn-primary btn-sm">
+                                <a href="{{ route('admin.categories.create') }}" class="btn btn-tool btn-primary btn-sm">
                                     <i class="fas fa-plus"></i>
                                     {{ __('Ajouter') }}
                                 </a>
@@ -46,8 +46,8 @@
                                                 <td>{{ $category->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td>{{ $category->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td class="text-nowrap">
-                                                    <button type="button" class="btn btn-primary"><a href="{{ route('categories.edit', ['category' => $category->id]) }}" class="text-white" style="text-decoration: none;"><i class="fa fa-pencil" aria-hidden="true"></i></a></button>
-                                                    <button type="button" class="btn btn-danger" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer ce catégorie?')) { window.location.href = '{{ route('categories.delete', ['category' => $category->id])  }}' }">
+                                                    <button type="button" class="btn btn-primary"><a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}" class="text-white" style="text-decoration: none;"><i class="fa fa-pencil" aria-hidden="true"></i></a></button>
+                                                    <button type="button" class="btn btn-danger" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer ce catégorie?')) { window.location.href = '{{ route('admin.categories.delete', ['category' => $category->id])  }}' }">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </button>
                                             </tr>

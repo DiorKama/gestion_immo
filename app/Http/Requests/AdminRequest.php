@@ -96,8 +96,7 @@ class AdminRequest extends FormRequest
      */
     protected function getEntity()
     {
-        $className = 'App\\Http\\Controllers\\' . ucfirst($this->getEntityName()) . 'Controller';
-
+        $className = 'App\\Http\\Controllers\\Admin\\' . ucfirst($this->getEntityName()) . 'Controller';
         return resolve($className)
             ->getEntity();
     }
@@ -108,8 +107,7 @@ class AdminRequest extends FormRequest
     protected function getEntityName()
     {
         $pieces = explode('.', $this->route()->getName());
-
-        return Str::camel(Str::singular($pieces[0]));
+        return Str::camel(Str::singular($pieces[1]));
     }
 
     /**

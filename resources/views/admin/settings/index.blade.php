@@ -77,7 +77,7 @@
                                             </div>
 
                                             <a
-                                                href="{{ route('settings.edit', [
+                                                href="{{ route('admin.settings.edit', [
                                                     'setting' => $setting->id
                                                 ]) }}"
                                                 class="btn btn-primary btn-xs"

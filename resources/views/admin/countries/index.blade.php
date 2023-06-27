@@ -11,7 +11,7 @@
                         <div class="card-header">
                             <h3 class="card-title">{{ __('Toutes les pays') }}</h3>
                             <div class="card-tools">
-                                <a href="{{ route('countries.create') }}" class="btn btn-tool btn-primary btn-sm">
+                                <a href="{{ route('admin.countries.create') }}" class="btn btn-tool btn-primary btn-sm">
                                     <i class="fas fa-plus"></i>
                                     {{ __('Ajouter') }}
                                 </a>
@@ -73,7 +73,7 @@
                                                     </div>
 
                                                     <a
-                                                        href="{{ route('countries.edit', [
+                                                        href="{{ route('admin.countries.edit', [
                                                         'country' => $country->id
                                                     ]) }}"
                                                         class="btn btn-primary btn-xs"
@@ -81,7 +81,7 @@
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
 
-                                                    <form action="{{ route('countries.delete', [
+                                                    <form action="{{ route('admin.countries.delete', [
                                                         'country' => $country->id
                                                     ]) }}" method="POST" class="d-inline">
                                                         @csrf

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use App\Models\AbstractEntity;
 use Illuminate\Http\Request;
@@ -69,12 +70,7 @@ class AbstractAdminController extends Controller
         );
     }
 
-    /**
-     * @param null $request
-     * @param null $useCase
-     *
-     * @return RedirectResponse
-     */
+
     public function store(
         $request = null,
         $useCase = null
@@ -143,7 +139,6 @@ class AbstractAdminController extends Controller
         $request = $this->resolveRequest($request);
 
         $data = $request->validated();
-
         if ($useCase) {
             $useCase->handle($this->entity, $data);
         } else {
@@ -256,7 +251,7 @@ class AbstractAdminController extends Controller
     protected function getRouteName(
         string $type
     ) {
-        return Str::kebab(($this->resourceName)) . '.' . $type;
+        return 'admin.' . Str::kebab(($this->resourceName)) . '.' . $type;
     }
 
     /**

@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <form  method="POST" action="{{ route('categories.store') }}" autocomplete="on">
+                        <form  method="POST" action="{{ route('admin.categories.store') }}" autocomplete="on">
                             @csrf
 
                             <div class="card-header">

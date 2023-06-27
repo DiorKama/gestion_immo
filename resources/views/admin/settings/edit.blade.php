@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <form action="{{ route('settings.update', [
+                        <form action="{{ route('admin.settings.update', [
                             'setting' => $setting->id
                         ]) }}" method="post" enctype="multipart/form-data">
 

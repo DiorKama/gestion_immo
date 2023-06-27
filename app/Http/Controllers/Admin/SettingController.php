@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingUpdateRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class SettingController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('settings.edit')
+                ->route('admin.settings.edit')
                 ->withErrors($validator)
                 ->withInput();
         }

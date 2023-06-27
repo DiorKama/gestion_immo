@@ -11,7 +11,7 @@
                         <div class="card-header border-0">
                             <h3 class="card-title">{{ __('Toutes les localités') }}</h3>
                             <div class="card-tools">
-                                <a href="{{ route('locations.create') }}" class="btn btn-tool btn-primary btn-sm">
+                                <a href="{{ route('admin.locations.create') }}" class="btn btn-tool btn-primary btn-sm">
                                     <i class="fas fa-plus"></i>
                                     {{ __('Ajouter') }}
                                 </a>
@@ -73,7 +73,7 @@
                                                     </div>
 
                                                     <a
-                                                        href="{{ route('locations.edit', [
+                                                        href="{{ route('admin.locations.edit', [
                                                         'location' => $location->id
                                                     ]) }}"
                                                         class="btn btn-primary btn-xs"
@@ -81,7 +81,7 @@
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
 
-                                                    <form action="{{ route('locations.delete', [
+                                                    <form action="{{ route('admin.locations.delete', [
                                                         'location' => $location->id
                                                     ]) }}" method="POST" class="d-inline">
                                                         @csrf
