@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Location;
 use App\Models\OptionListing;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -82,5 +83,13 @@ class Listing extends AbstractEntity
     public function getRegionTitleAttribute()
     {
         return $this->region ? $this->region->title : null;
+    }
+
+    /**
+     * Get all of the listing's files.
+     */
+    public function files(): MorphMany
+    {
+        return $this->morphMany(File::class, 'filable');
     }
 }

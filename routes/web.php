@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\CountryController;
-use App\Http\Controllers\Admin\ListingController;
-use App\Http\Controllers\Admin\LocationController;
-use App\Http\Controllers\Admin\RegionController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RegionController;
+use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\ListingController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,4 +108,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/edit/{user}',  [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/update/{user}',  [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.delete');
+
+
+    Route::get('/banners', [BannerController::class, 'index'])->name('admin.banners.index');
+    Route::get('/banners/create',  [BannerController::class, 'create'])->name('admin.banners.create');
+    Route::post('/banners/store',  [BannerController::class, 'store'])->name('admin.banners.store');
+    Route::get('/banners/edit/{banner}',  [BannerController::class, 'edit'])->name('admin.banners.edit');
+    Route::put('/banners/update/{banner}',  [BannerController::class, 'update'])->name('admin.banners.update');
+    Route::delete('/banners/delete/{banner}', [BannerController::class, 'destroy'])->name('admin.banners.delete');
+
 });
