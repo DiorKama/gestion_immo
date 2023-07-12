@@ -65,29 +65,29 @@
               </li>
             </ul>
           </li>
-          {{--<li class="nav-item">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Options
+                Bannière
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('option.index') }}" class="nav-link">
+                <a href="{{ route('admin.banners.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Listes Options</p>
+                  <p>Listes Bannières</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('option.create') }}" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajout Option</p>
+                  <p>Ajout Bannière</p>
                 </a>
               </li>
             </ul>
-          </li> --}}
+          </li>
           {{--<li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>

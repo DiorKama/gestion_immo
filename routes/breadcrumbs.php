@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\Region;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Banner;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
@@ -120,4 +121,20 @@ Breadcrumbs::for('admin.users.create', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.users.edit', function (BreadcrumbTrail $trail, User $user) {
     $trail->parent('admin.users.index');
     $trail->push($user->full_name, route('admin.users.edit', $user));
+});
+
+// Banners
+Breadcrumbs::for('admin.banners.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push(__('Tous les bannières'), route('admin.banners.index'));
+});
+
+Breadcrumbs::for('admin.banners.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.banners.index');
+    $trail->push(__('Ajouter un nouvelle annonce'), route('admin.banners.create'));
+});
+
+Breadcrumbs::for('admin.banners.edit', function (BreadcrumbTrail $trail, Banner $banner) {
+    $trail->parent('admin.banners.index');
+    $trail->push($banner->title, route('admin.banners.edit', $banner));
 });
