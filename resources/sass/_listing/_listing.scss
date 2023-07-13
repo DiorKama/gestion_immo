@@ -1,0 +1,282 @@
+.listing-item {
+    @include make-col(1, 1);
+
+    @include media-breakpoint-up(sm) {
+        @include make-col-offset(2, 12);
+        @include make-col(10, 12);
+    }
+
+    &__inner {
+        @include make-row($grid-gutter-width);
+    }
+
+    &__details,
+    &__sidebar {
+        padding-right: calc($grid-gutter-width / 2);
+        padding-left: calc($grid-gutter-width / 2);
+    }
+
+    &__details {
+        @include make-col(8, 12);
+    }
+
+    &__sidebar {
+        @include make-col(4, 12);
+        background-color: $gray-100;
+    }
+
+    &__price,
+    &__address {
+        font-size: $font-size-base * 1.1;
+    }
+
+    &__address {
+        color: $red;
+    }
+
+    &__title {
+        font-size: $font-size-base * 1.5;
+        font-weight: 600;
+    }
+
+    &__category {
+        font-size: $font-size-base * .8;
+    }
+
+    &__date {
+        color: $gray-600;
+        font-size: $font-size-base * .8;
+    }
+
+    &__description {
+        word-wrap: break-word;
+    }
+
+    &__section__header {
+        margin-bottom: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    &__section__content {
+        margin-bottom: 1.5rem;
+    }
+
+    &__section__title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-normal;
+        white-space: nowrap;
+    }
+
+    &__section__title + hr {
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+        width: $spacer * 2;
+        border: 1px solid $red;
+        margin-left: 0;
+    }
+
+    &__sidebar__header {
+        @include make-row(0);
+    }
+
+    &__sidebar__logo {
+        @include make-col(1, 1);
+
+        @include media-breakpoint-up(sm) {
+            @include make-col(1, 2);
+        }
+    }
+
+    &__sidebar__header,
+    &__sidebar__company {
+        margin-bottom: 1rem;
+    }
+
+    &__sidebar__company-name {
+        font-size: $font-size-base * 1.2;
+    }
+
+    &__sidebar__company-address {
+        color: $gray-800;
+        font-size: $font-size-base * .8;
+    }
+
+    &__contact-item {
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        margin: 0 2px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid transparent;
+        background-color: transparent;
+
+        i {
+            font-size: $font-size-base * 1.2;
+
+            &:before {
+                color: $white;
+            }
+        }
+    }
+
+    &__contact-item--phone {
+        border: 1px solid $red;
+        background-color: $red;
+    }
+
+    &__contact-item--whatsapp {
+        border: 1px solid $green;
+        background-color: $green;
+    }
+
+    &__sidebar__contact {
+        margin-bottom: 2rem;
+    }
+
+    &__contact-form {
+
+    }
+
+    &__contact-form__group {
+        position: relative;
+        width: 100%;
+        z-index: 1;
+    }
+
+    &__contact-form__input {
+        font-size: 15px;
+        line-height: 1.2;
+        color: $default-color;
+        display: block;
+        width: 100%;
+        //height: 50px;
+        padding: .5rem .750rem .5rem 2.75rem;
+        border: 1px solid rgba(0,0,0,.1);
+
+        @include media-breakpoint-down(sm) {
+            padding: 0 30px 0 15px;
+        }
+    }
+
+    &__contact-form__focus-input {
+        display: block;
+        position: absolute;
+        border-radius: 25px;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 0px 0px 0px;
+        color: rgba(0,91,234, 0.6);
+    }
+
+    &__contact-form__icon {
+        display: none;
+
+        @include media-breakpoint-up(sm) {
+            font-size: 15px;
+            color: $gray-300;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            border-radius: 25px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding-left: 1.25rem;
+            pointer-events: none;
+            -webkit-transition: all 0.4s;
+            -o-transition: all 0.4s;
+            -moz-transition: all 0.4s;
+            transition: all 0.4s;
+        }
+    }
+
+    &__contact-form__input:focus + &__contact-form__focus-input {
+        -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+        animation: anim-shadow 0.5s ease-in-out forwards;
+    }
+
+    &__contact-form__input:focus + &__contact-form__focus-input + &__contact-form__icon {
+        color: $red;
+        padding-left: .8rem;
+    }
+
+    &__contact-form__focus-input--textarea {
+        height: auto;
+    }
+}
+
+.listings-slider__item {
+    &__thumbnail {
+        overflow: hidden;
+    }
+
+    &__image__resource {
+        width: 100%;
+        -webkit-transition: all 2000ms cubic-bezier(.19,1,.22,1) 0ms;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        transition: all 2000ms cubic-bezier(.19,1,.22,1) 0ms;
+        z-index: 1;
+
+        @include hover-focus() {
+            -webkit-transform: scale(1.15);
+            -moz-transform: scale(1.15);
+            transform: scale(1.15);
+        }
+    }
+
+    &__details {
+
+    }
+
+    &__title {
+        text-align: justify;
+        font-style: normal;
+        font-weight: 700;
+        font-size: $font-size-base * 1.2;
+        line-height: 1.2rem;
+        max-height: 2.4rem;
+        word-break: break-word;
+        overflow: hidden;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        a {
+            text-decoration: none;
+            color: $default-color;
+
+            @include hover-focus() {
+                color: $default-color;
+            }
+        }
+    }
+
+    &__address {
+        color: #DC062B;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    &__price {
+        font-size: $font-size-base;
+        color: $black;
+    }
+
+    &__date {
+        font-size: $font-size-base * .8;
+        color: $gray-600;
+    }
+}

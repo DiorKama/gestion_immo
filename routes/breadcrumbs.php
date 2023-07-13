@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Listing;
@@ -120,4 +121,31 @@ Breadcrumbs::for('admin.users.create', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.users.edit', function (BreadcrumbTrail $trail, User $user) {
     $trail->parent('admin.users.index');
     $trail->push($user->full_name, route('admin.users.edit', $user));
+});
+
+// Profile
+Breadcrumbs::for('admin.profile.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push(__('Modifier mon profil'), route('admin.profile.edit'));
+});
+
+Breadcrumbs::for('admin.profile.update-password', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push(__('Changer mon mot de passe'), route('admin.profile.update-password'));
+});
+
+// Banners
+Breadcrumbs::for('admin.banners.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push(__('Toutes les bannières'), route('admin.banners.index'));
+});
+
+Breadcrumbs::for('admin.banners.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.banners.index');
+    $trail->push(__('Ajouter une nouvelle bannière'), route('admin.banners.create'));
+});
+
+Breadcrumbs::for('admin.banners.edit', function (BreadcrumbTrail $trail, Banner $banner) {
+    $trail->parent('admin.banners.index');
+    $trail->push($banner->title, route('admin.banners.edit', $banner));
 });

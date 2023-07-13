@@ -2,21 +2,34 @@
 
 namespace App\Models;
 
-use App\Models\Listing;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class File extends Model
 {
-    use SoftDeletes;
     use HasFactory;
-    protected $guarded = ['id'];
-    protected $casts = [
-        'path_url' => 'string', // Supprimez ou modifiez 'array' en 'string'
+
+    public static $rules = [
+        'entity_id' => 'sometimes|required|numeric',
+        'entity_type' => 'sometimes|required',
+        'group' => 'required',
+        'file_name' => 'required',
+        'sort_order' => 'nullable|numeric',
     ];
 
-    public function listings(){
-        return $this->belongsTo(Listing::class, 'listing_id');
+    protected $guarded = ['id'];
+
+    /**
+     * @return string
+     */
+    public function getPathAttribute()
+    {
+        return $this->path_dir . $this->file_name;
+    }
+
+    public function entity()
+    {
+        return $this->morphTo();
     }
 }

@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             CategorySeeder::class,
             ListingStatusesSeeder::class,
-            ListingSeeder::class
+            ListingSeeder::class,
+            BannerSeeder::class,
         ]);
     }
 }

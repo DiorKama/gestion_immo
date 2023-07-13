@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ListingController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\OptionController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,38 +25,27 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get('/recherche', function () {
+    return view('search');
+});
+
+Route::get('/details', function () {
+    return view('details');
 });
 
 require __DIR__.'/auth.php';
 
 //options
-Route::get('/option/index', [OptionController::class, 'index'])->name('option.index');
+/*Route::get('/option/index', [OptionController::class, 'index'])->name('option.index');
 Route::get('/option/delete/{option}', [OptionController::class, 'delete'])->name('option.delete');
 Route::get('/option/show/{option}',  [OptionController::class, 'show'])->name('option.show');
 Route::get('/option/edit/{option}',  [OptionController::class, 'edit'])->name('option.edit');
 Route::put('/option/update/{option}',  [OptionController::class, 'update'])->name('option.update');
 Route::get('/option/create',  [OptionController::class, 'create'])->name('option.create');
-Route::post('/option/store',  [OptionController::class, 'store'])->name('option.store');
-
-
-// users
-Route::get('/ajax/user/autocomplete', [UserController::class, 'search'])->name('listing.ajax.user.autocomplete');
-
-//files
-Route::get('/file/create',  [FileController::class, 'create'])->name('file.create');
-Route::post('/file/store',  [FileController::class, 'store'])->name('file.store');
-Route::get('/file/index', [FileController::class, 'index'])->name('file.index');
-Route::get('/file/show/{file}',  [FileController::class, 'show'])->name('file.show');
-Route::get('/file/edit/{file}',  [FileController::class, 'edit'])->name('file.edit');
-Route::put('file/update/{id}', [FileController::class, 'update'])->name('file.update');
-Route::get('/file/delete/{file}', [FileController::class, 'delete'])->name('file.delete');
+Route::post('/option/store',  [OptionController::class, 'store'])->name('option.store');*/
 
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
@@ -107,4 +97,16 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/edit/{user}',  [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/update/{user}',  [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.delete');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->middleware(['auth'])->name('admin.profile.edit');
+    Route::get('/changer-mot-de-passe', [ProfileController::class, 'changePassword'])->middleware(['auth'])->name('admin.profile.update-password');
+    Route::patch('/profile', [ProfileController::class, 'update'])->middleware(['auth'])->name('admin.profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->middleware(['auth'])->name('admin.profile.destroy');
+
+    Route::get('/banners', [BannerController::class, 'index'])->name('admin.banners.index');
+    Route::get('/banners/create',  [BannerController::class, 'create'])->name('admin.banners.create');
+    Route::post('/banners/store',  [BannerController::class, 'store'])->name('admin.banners.store');
+    Route::get('/banners/edit/{banner}',  [BannerController::class, 'edit'])->name('admin.banners.edit');
+    Route::put('/banners/update/{banner}',  [BannerController::class, 'update'])->name('admin.banners.update');
+    Route::delete('/banners/delete/{banner}', [BannerController::class, 'destroy'])->name('admin.banners.delete');
 });
