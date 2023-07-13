@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\FileSeeder;
-use Database\Seeders\BannerSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +21,6 @@ class DatabaseSeeder extends Seeder
             ListingStatusesSeeder::class,
             ListingSeeder::class,
             BannerSeeder::class,
-            FileSeeder::class,
         ]);
     }
 }

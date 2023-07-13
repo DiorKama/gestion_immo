@@ -130,7 +130,7 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.users.create') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>{{ __('AJouter une utilisateur') }}</p>
+                            <p>{{ __('Ajouter une utilisateur') }}</p>
                         </a>
                     </li>
                 </ul>
@@ -174,6 +174,30 @@
 
             <li class="nav-item">
                 <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>
+                        {{ __('Bannières') }}
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.banners.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{ __('Liste de bannières') }}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.banners.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{ __('Ajouter une bannière') }}</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-cogs"></i>
                     <p>
                         {{ __('Paramètres') }}
@@ -188,6 +212,7 @@
                         </a>
                     </li>
                 </ul>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

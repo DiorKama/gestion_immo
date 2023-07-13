@@ -15,6 +15,7 @@
                         ]) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+
                             <div class="card-header">
                                 <h3 class="card-title">{{ __('Modifier :banner', [
                                     'banner' => $banner->title
@@ -28,15 +29,15 @@
                                 @endif
 
                                 <div class="form-group">
-                                    <label>{{ __('Nom du pays') }}</label>
-                                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $banner->title) }}" placeholder="{{ __('Pays ...') }}" required>
+                                    <label>{{ __('Titre de la bannière') }}</label>
+                                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $banner->title) }}" placeholder="{{ __('Titre ...') }}" required>
                                     @error("title")
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
-                                    <label>{{ __('Url') }}</label>     
+                                    <label>{{ __('Lien de redirection') }}</label>
                                     <input type="text" name="url" class="form-control @error('url') is-invalid @enderror" value="{{ old('url', $banner->url) }}" placeholder="{{ __('Url ...') }}" required>
                                     @error("url")
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -44,41 +45,33 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>{{ __('Tye de Bannière') }}</label>
-                                    <select  aria-label="Default select example" name="type_banner" class="form-control @error('type_banner') is-invalid @enderror"  placeholder="{{ __('Type bannière ...') }}" required>
-                                    <option>Séléctionnez</option>
-                                    @foreach(config('banners.types') as $key => $value)
-                                    @if($key == $banner->type_banner)
-                                    <option value="{{ $key }}" selected>{{ $value }}</option>
-                                    @else
-                                    <option value="{{ $key }}">{{ $value }}</option>
-                                    @endif
-                                    @endforeach
+                                    <label>{{ __('Type de Bannière') }}</label>
+                                    <select class="form-control @error('parent_id') is-invalid @enderror" name="type_banner">
+                                        <option value="">{{ __('Séléctionnez ...') }}</option>
+                                        @foreach(config('banners.types') as $key => $value)
+                                            <option value="{{ $key }}" @selected(old('type_banner', $banner->type_banner) == $key)>{{ $value }}</option>
+                                        @endforeach
                                     </select>
                                     @error("type_banner")
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('File') }}</label>
-                                    <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" value="{{ old('file', $banner->file) }}" placeholder="{{ __('File ...') }}" required>
-                                    @php
-                                    $file = $banner->files()->first();
-                                    @endphp
-                                    @if ($file)
-                                        <img src="{{ asset($file->url) }}" height="30" alt="">
-                                    @endif
-                                    @error("file")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                @if($banner->backgroundImage)
+                                    <div class="form-group">
+                                        <img src="{{ fullImageUrl('banner-thumb-160w', $banner->backgroundImage->path) }}" alt="">
+                                    </div>
+                                @endif
 
+                                @if($banner->mobileBackgroundImage)
+                                    <div class="form-group">
+                                        <img src="{{ fullImageUrl('banner-thumb-160w', $banner->mobileBackgroundImage->path) }}" alt="">
+                                    </div>
+                                @endif
                             </div>
                             <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">{{ __('Modifier') }}</button>
+                                <button type="submit" class="btn btn-primary">{{ __('Modifier') }}</button>
                             </div>
-
                         </form>
                     </div>
                 </div>

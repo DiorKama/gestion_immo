@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->integer('entity_id');
             $table->string('entity_type');
-            $table->string('url');
-            $table->integer('sort_order');
+            $table->index(['entity_id', 'entity_type']);
+            $table->string('group');
+            $table->string('file_name');
+            $table->string('path_dir');
+            $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
     }

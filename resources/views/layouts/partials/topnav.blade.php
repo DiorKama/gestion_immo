@@ -12,16 +12,31 @@
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <div class="nav-item dropdown mr-5">
+      <div class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
           {{ Auth::user()->firstName }}
           </a>
-        <div class="dropdown-menu dropdown-menu-end pb-3" style="font-size: 14px;  height: 12vh; width: 5vw;" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a
+                class="dropdown-item"
+                href="{{ route('admin.profile.edit') }}"
+            >
+                {{ __('Modifier mon profil') }}
+            </a>
+
+            <a
+                class="dropdown-item"
+                href="{{ route('admin.profile.update-password') }}"
+            >
+                {{ __('Changer le mot de passe') }}
+            </a>
+
+            <div class="dropdown-divider"></div>
+
             <a class="dropdown-item" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
-                  {{ __('Log Out') }}
+                  {{ __('Déconnexion') }}
               </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                   @csrf

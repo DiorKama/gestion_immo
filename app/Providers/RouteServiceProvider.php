@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Listing;
@@ -34,6 +35,7 @@ class RouteServiceProvider extends ServiceProvider
         'location' => Location::class,
         'category' => Category::class,
         'listing' => Listing::class,
+        'banner' => Banner::class,
     ];
 
     /**

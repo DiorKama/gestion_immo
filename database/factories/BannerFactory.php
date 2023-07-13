@@ -14,10 +14,10 @@ class BannerFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
-            'title' => fake()->sentence(),
+            'title' => ucwords(fake()->words(5, true)),
             'url' => fake()->url(),
             'type_banner' => fake()->randomElement(array_keys(config('banners.types'))),
             'enabled' => true,

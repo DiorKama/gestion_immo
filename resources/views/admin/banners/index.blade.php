@@ -1,7 +1,7 @@
 <x-master-layout>
     @section('page-title', __('Liste des Bannières'))
 
-    @section('page-header-title', __('Tous les bannières'))
+    @section('page-header-title', __('Toutes les bannières'))
 
     <section class="content">
         <div class="container-fluid">
@@ -22,30 +22,21 @@
                             <div class="table-responsive py-5">
                                 <table class="table table-striped table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>{{ __('#') }}</th>
-                                            <th>{{ __('Image') }}</th>
-                                            <th>{{ __('Titre Bannière') }}</th>
-                                            <th>{{ __('Url') }}</th>
-                                            <th>{{ __('Type Bannière') }}</th>
-                                            <th>{{ __('Statut') }}</th>
-                                            <th>{{ __('Créé le') }}</th>
-                                            <th>{{ __('Mis à jour le') }}</th>
-                                            <th>{{ __('Actions') }}</th>
-                                        </tr>
+                                    <tr>
+                                        <th>{{ __('#') }}</th>
+                                        <th>{{ __('Titre Bannière') }}</th>
+                                        <th>{{ __('Url') }}</th>
+                                        <th>{{ __('Type Bannière') }}</th>
+                                        <th>{{ __('Statut') }}</th>
+                                        <th>{{ __('Créé le') }}</th>
+                                        <th>{{ __('Mis à jour le') }}</th>
+                                        <th>{{ __('Actions') }}</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($banners as $banner)
-                                            @php
-                                                $file = $banner->files()->first();
-                                            @endphp
                                             <tr>
                                                 <td>{{ $banner->id }}</td>
-                                                <td>
-                                                    @if ($file)
-                                                        <img src="{{ asset($file->url) }}" height="30" alt="">
-                                                    @endif
-                                                </td>
                                                 <td>{{ $banner->title }}</td>
                                                 <td>{{ $banner->url }}</td>
                                                 <td>{{ config('banners.types.' . $banner->type_banner) }}</td>
@@ -82,6 +73,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <a
                                                         href="{{ route('admin.banners.edit', [
                                                         'banner' => $banner->id]) }}"
@@ -119,4 +111,5 @@
             </div>
         </div>
     </section>
+
 </x-master-layout>

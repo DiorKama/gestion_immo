@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Services\CountryService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,46 +20,65 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.users.create', [
+            '_countryCodes' => resolve(CountryService::class)->getAreaCodesAsLookup()
+        ]);
     }
 
     public function store(
-        Request $request
+        StoreUserRequest $request
     ) {
-
+        $user = User::create($request->validated());
+        return redirect()
+            ->route('admin.users.index')
+            ->withMessage(__(':userFullName a été ajouté avec succès !', [
+                'userFullName' => $user->full_name
+            ]));
     }
 
     public function edit(
         User $user
     ) {
-        return view('admin.users.edit');
+        $_countryCodes = resolve(CountryService::class)->getAreaCodesAsLookup();
+        return view('admin.users.edit', compact(
+            'user',
+            '_countryCodes'
+        ));
     }
 
     public function update(
-        Request $request,
+        UpdateUserRequest $request,
         User $user
     ) {
+        $user->fill($request->validated());
 
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        if ( $user->save() ) {
+            return redirect()
+                ->route('admin.users.index')
+                ->withMessage(__('Le compte de :userFullName a été mis à jour.', [
+                    'userFullName' => $user->full_name
+                ]));
+        }
+
+        return back()
+            ->withMessage(__('Erreur survenue. Merci de réessayer.'));
     }
 
     public function destroy(
         User $user
     ) {
-
-    }
-
-    /*public function search(Request $request)
-    {
-        $term = $request->input('term');
-        $users = User::where('firstName', 'LIKE', '%'.$term.'%')->get();
-        $suggestions = [];
-
-        foreach ($users as $user) {
-            $suggestions[] = [
-                'value' => $user->firstName.' '.$user->lastName,
-                'data' => $user->id
-            ];
+        if ($user->delete() ) {
+            return redirect()
+                ->route('admin.users.index')
+                ->withMessage(__('Suppression de compte avec succès.'));
         }
-        return response()->json($suggestions);
-    }*/
+
+        return redirect()
+            ->route('admin.users.index')
+            ->withMessage(__('Erreur survenue. Merci de réessayer.'));
+    }
 }

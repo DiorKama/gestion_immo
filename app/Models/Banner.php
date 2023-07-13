@@ -2,28 +2,50 @@
 
 namespace App\Models;
 
+use App\Contracts\CanHaveFiles;
 use App\Models\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class Banner extends Model
+class Banner extends AbstractEntity implements CanHaveFiles
 {
     use HasFactory;
-    protected $guarded = ['id'];
 
-     /**
-     * Get all of the banner's files.
+    /**
+     * @var array
      */
-    public function files(): MorphMany
-    {
-        return $this->morphMany(File::class, 'entity');
-    }
-    public function hasFile() {
-        $file = File::where('entity_type', 'banner')
-            ->where('entity_id', $this->id)
-            ->first();
+    public static $rules = [
+        'title' => 'required',
+    ];
 
-        return $file->id ?? null;
+    /**
+     * @return MorphOne
+     */
+    public function backgroundImage()
+    {
+        return $this
+            ->morphOne(File::class, 'entity')
+            ->where('group', 'banner_bg');
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function mobileBackgroundImage()
+    {
+        return $this
+            ->morphOne(File::class, 'entity')
+            ->where('group', 'mobile_banner_bg');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function files()
+    {
+        return $this
+            ->morphMany(File::class, 'entity');
     }
 }

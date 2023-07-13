@@ -47,19 +47,22 @@
 
                                 <div class="form-group">
                                     <label>{{ __('Indicatif du pays') }}</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <select class="form-control @error('mobile_number_country') is-invalid @enderror" name="mobile_number_country">
+                                        @foreach ($_countryCodes as $countryIso => $countryCode)
+                                            <option value="{{ $countryIso }}" @selected(old('mobile_number_country') == $countryIso)>
+                                                {{ $countryCode }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    @error("mobile_number_country")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label>{{ __('Numéro de téléphone') }}</label>
-                                    <input type="text" name="mobile_number" class="form-control @error('mobile_number') is-invalid @enderror" value="{{ old('mobile_number') }}" placeholder="{{ __('77 xxx xxx ...') }}" required>
-                                    @error("mobile_number")
+                                    <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('mobile_number') }}" placeholder="{{ __('77 xxx xxx ...') }}" required>
+                                    @error("phone_number")
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -72,10 +75,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-check">
+                                {{--<div class="form-check">
                                     <input type="checkbox" name="" class="form-check-input">
                                     <label class="form-check-label">{{ __('Compte vérifié') }}</label>
-                                </div>
+                                </div>--}}
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{ __('Ajouter') }}</button>
