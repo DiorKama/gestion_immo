@@ -84,6 +84,15 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
+  $(document).ready(function() {
+    // Initialiser les fonctionnalités Bootstrap
+    $('[data-bs-toggle="dropdown"]').dropdown();
+  });
+   $(document).on('click', function(e) {
+   if (!$('.dropdown').is(e.target) && $('.dropdown').has(e.target).length === 0 && $('.show').has(e.target).length === 0) {
+    $('.dropdown-toggle').dropdown('hide');
+    }
+   });
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
