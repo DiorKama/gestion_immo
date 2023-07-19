@@ -29,6 +29,7 @@
                                             <th>{{ __('Téléphone') }}</th>
                                             <th>{{ __('Compte vérifié') }}</th>
                                             <th>{{ __('Crée le') }}</th>
+                                            <th>{{ __('Mise à jour') }}</th>
                                             <th>{{ __('Actions') }}</th>
                                         </tr>
                                     </thead>
@@ -40,7 +41,8 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->phone_number }}</td>
                                                 <td>{{ !is_null($user->email_verified_at) ? __('Oui') : __('Non') }}</td>
-                                                <td></td>
+                                                <td>{{ $user->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ $user->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td>
                                                     <a
                                                         href="javascript:;"
@@ -62,7 +64,25 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
+                                                                        <dt>{{ __('Nom & Prénoms') }}</dt>
+                                                                        <dd>{{ $user->full_name }}</dd>
+                                                                        
+                                                                        <dt>{{ __('E-mail') }}</dt>
+                                                                        <dd>{{ $user->email }}</dd>
+                                                                        
+                                                                        <dt>{{ __('Téléphone') }}</dt>
+                                                                        <dd>{{ $user->phone_number }}</dd>
 
+                                                                        <dt>{{ __('Compte vérifié') }}</dt>
+                                                                        <dd>{{ !is_null($user->email_verified_at) ? __('Oui') : __('Non') }}</dd>
+
+                                                                        <dt>{{ __('Créé le') }}</dt>
+                                                                        <dd>{{ $user->created_at }}</dd>
+
+                                                                        <dt>{{ __('Mise à jour') }}</dt>
+                                                                        <dd>{{ $user->updated_at }}</dd>
+
+                                                                        
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">

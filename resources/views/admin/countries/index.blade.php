@@ -39,8 +39,8 @@
                                                 <td>{{ $country->title }}</td>
                                                 <td>{{ $country->iso }}</td>
                                                 <td>{{ $country->area_code }}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{ $country->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ $country->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
@@ -62,6 +62,21 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
+
+                                                                       <dt>{{ __('Nom du pays') }}</dt>
+                                                                        <dd>{{ $country->title }}</dd>
+
+                                                                        <dt>{{ __('Code du pays') }}</dt>
+                                                                        <dd>{{ $country->iso }}</dd>
+
+                                                                        <dt>{{ __('Indicatif du pays') }}</dt>
+                                                                        <dd>{{ $country->area_code }}</dd>
+
+                                                                        <dt>{{ __('Créé le') }}</dt>
+                                                                        <dd>{{ $country->created_at }}</dd>
+
+                                                                        <dt>{{ __('Mise à jour') }}</dt>
+                                                                        <dd>{{ $country->updated_at }}</dd>
 
                                                                     </dl>
                                                                 </div>

@@ -39,8 +39,8 @@
                                                 <td>{{ $location->title }}</td>
                                                 <td>{{ $location->region->title }}</td>
                                                 <td>{{ $location->country->title }}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{ $location->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ $location->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
@@ -62,6 +62,20 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
+                                                                       <dt>{{ __('Nom localité') }}</dt>
+                                                                        <dd>{{ $location->title }}</dd>
+
+                                                                        <dt>{{ __('Region') }}</dt>
+                                                                        <dd>{{ $location->region->title }}</dd>
+
+                                                                        <dt>{{ __('Pays') }}</dt>
+                                                                        <dd>{{ $location->country->title }}</dd>
+
+                                                                        <dt>{{ __('Créé le') }}</dt>
+                                                                        <dd>{{ $location->created_at }}</dd>
+
+                                                                        <dt>{{ __('Mise à jour') }}</dt>
+                                                                        <dd>{{ $location->updated_at }}</dd>
 
                                                                     </dl>
                                                                 </div>

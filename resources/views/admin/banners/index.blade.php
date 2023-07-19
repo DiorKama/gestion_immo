@@ -41,8 +41,8 @@
                                                 <td>{{ $banner->url }}</td>
                                                 <td>{{ config('banners.types.' . $banner->type_banner) }}</td>
                                                 <td>{{ $banner->enabled ? __('Oui') : __('Non')}}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{ $banner->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ $banner->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
@@ -64,6 +64,23 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
+                                                                            <dt>{{ __('Titre Bannière') }}</dt>
+                                                                            <dd>{{ $banner->title }}</dd>
+
+                                                                            <dt>{{ __('Url') }}</dt>
+                                                                            <dd>{{ $banner->url }}</dd>
+
+                                                                            <dt>{{ __('Type Bannière') }}</dt>
+                                                                            <dd>{{ config('banners.types.' . $banner->type_banner) }}</dd>
+
+                                                                            <dt>{{ __('Statut') }}</dt>
+                                                                            <dd>{{ $banner->enabled ? __('Oui') : __('Non') }}</dd>
+
+                                                                            <dt>{{ __('Créé le') }}</dt>
+                                                                            <dd>{{ $banner->created_at }}</dd>
+
+                                                                            <dt>{{ __('Mise à jour') }}</dt>
+                                                                            <dd>{{ $banner->updated_at }}</dd>
 
                                                                     </dl>
                                                                 </div>

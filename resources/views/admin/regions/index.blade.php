@@ -37,8 +37,8 @@
                                                 <td>{{ $region->id }}</td>
                                                 <td>{{ $region->title }}</td>
                                                 <td>{{ $region->enabled ? __('Oui') : __('Non')}}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{ $region->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ $region->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
@@ -60,7 +60,17 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
+                                                                        <dt>{{ __('Nom') }}</dt>
+                                                                        <dd>{{ $region->title }}</dd>
 
+                                                                        <dt>{{ __('Actif') }}</dt>
+                                                                        <dd>{{ $region->enabled ? __('Oui') : __('Non') }}</dd>
+
+                                                                        <dt>{{ __('Créé le') }}</dt>
+                                                                        <dd>{{ $region->created_at }}</dd>
+
+                                                                        <dt>{{ __('Mise à jour') }}</dt>
+                                                                        <dd>{{ $region->updated_at }}</dd>
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">
