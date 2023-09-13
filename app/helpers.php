@@ -184,3 +184,7 @@ if (!function_exists('money_format')) {
         return $money;
     }
 }
+
+if (! function_exists('cache')) {
+
+}

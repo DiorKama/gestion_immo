@@ -29,11 +29,11 @@ class SettingUpdateRequest extends FormRequest
             'email' => ['required', 'email'],
             'phone_number' => ['required', 'string'],
             'mobile_number' => ['required', 'string'],
-            'website_url' => ['sometimes', 'url'],
-            'facebook_url' => ['sometimes', 'url'],
-            'twitter_url' => ['sometimes', 'url'],
-            'instagram_url' => ['sometimes', 'url'],
-            'linkedin_url' => ['sometimes', 'url'],
+            'website_url' => ['nullable', 'url'],
+            'facebook_url' => ['nullable', 'url'],
+            'twitter_url' => ['nullable', 'url'],
+            'instagram_url' => ['nullable', 'url'],
+            'linkedin_url' => ['nullable', 'url'],
         ];
     }
 }

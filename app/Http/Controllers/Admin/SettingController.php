@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingUpdateRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -66,7 +67,7 @@ class SettingController extends Controller
         $setting->update($request->validated());
 
         return redirect()
-            ->route('settings.index')
+            ->route('admin.settings.index')
             ->withMessage(__('Vos paramètres ont été mis à jour avec succès!'));
     }
 }

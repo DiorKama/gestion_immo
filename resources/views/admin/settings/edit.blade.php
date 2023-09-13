@@ -25,106 +25,151 @@
                                     </div>
                                 @endif
 
-                                <div class="form-group">
-                                    <label>{{ __('Nom de l\'agence') }}</label>
-                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') ?? $setting->name }}" placeholder="{{ __('Nom de l\'agence') }}" required>
-                                    @error("name")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ __('Nom de l\'agence') }}</label>
+                                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') ?? $setting->name }}" placeholder="{{ __('Nom de l\'agence') }}" required>
+                                            @error("name")
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('Slogan') }}</label>
-                                    <input type="text" name="slogan" class="form-control @error('slogan') is-invalid @enderror" value="{{ old('slogan') ?? $setting->slogan }}" placeholder="{{ __('Partagez votre slogan ...') }}">
-                                    @error("slogan")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('Slogan') }}</label>
+                                            <input type="text" name="slogan" class="form-control @error('slogan') is-invalid @enderror" value="{{ old('slogan') ?? $setting->slogan }}" placeholder="{{ __('Partagez votre slogan ...') }}">
+                                            @error("slogan")
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('À propos de l\'agence') }}</label>
-                                    <textarea class="form-control @error('about') is-invalid @enderror" name="about" rows="3" placeholder="{{ __('Parlez nous de votre agence ....') }}" required>{{ old('about') ?? $setting->about }}</textarea>
-                                    @error("about")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('À propos de l\'agence') }}</label>
+                                            <textarea class="form-control @error('about') is-invalid @enderror" name="about" rows="3" placeholder="{{ __('Parlez nous de votre agence ....') }}" required>{{ old('about') ?? $setting->about }}</textarea>
+                                            @error("about")
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('Adresse de l\'agence') }}</label>
-                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address" rows="3" placeholder="{{ __('Où se trouve votre agence ....') }}" required>{{ old('address') ?? $setting->address }}</textarea>
-                                    @error("address")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('Adresse de l\'agence') }}</label>
+                                            <textarea class="form-control @error('address') is-invalid @enderror" name="address" rows="3" placeholder="{{ __('Où se trouve votre agence ....') }}" required>{{ old('address') ?? $setting->address }}</textarea>
+                                            @error("address")
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('N° de téléphone') }}</label>
-                                    <input type="text" name="phone_number" value="{{ old('phone_number') ?? $setting->phone_number }}" class="form-control @error('phone_number') is-invalid @enderror" placeholder="{{ __('+22133...') }}">
-                                    @error("phone_number")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('E-mail de contact') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                </div>
+                                                <input type="email" class="form-control @error('email') is-invalid @enderror"  name="email" value="{{ old('email') ?? $setting->email }}" placeholder="{{ __('xyz@exemple.com') }}">
+                                            </div>
+                                            @error("email")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('N° de téléphone mobile') }}</label>
-                                    <input type="text" name="mobile_number" value="{{ old('mobile_number') ?? $setting->mobile_number }}" class="form-control @error('mobile_number') is-invalid @enderror" placeholder="{{ __('+22177...') }}"
-                                    >
-                                    @error("mobile_number")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('N° de téléphone') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                </div>
+                                                <input type="text" name="phone_number" value="{{ old('phone_number') ?? $setting->phone_number }}" class="form-control @error('phone_number') is-invalid @enderror" placeholder="{{ __('+22133...') }}">
+                                            </div>
+                                            @error("phone_number")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-check">
-                                    <input type="checkbox" name="is_whatsapp_available" class="form-check-input">
-                                    <label class="form-check-label">{{ __('Ce numéro fonction sur WhatsApp') }}</label>
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('N° de téléphone mobile') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                </div>
+                                                <input type="text" name="mobile_number" value="{{ old('mobile_number') ?? $setting->mobile_number }}" class="form-control @error('mobile_number') is-invalid @enderror" placeholder="{{ __('+22177...') }}">
+                                            </div>
+                                            @error("mobile_number")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('E-mail de contact') }}</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror"  name="email" value="{{ old('email') ?? $setting->email }}" placeholder="{{ __('xyz@exemple.com') }}">
-                                    @error("email")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" name="is_whatsapp_available" class="form-check-input">
+                                            <label class="form-check-label">{{ __('Ce numéro fonction sur WhatsApp') }}</label>
+                                        </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('Site web') }}</label>
-                                    <input type="url" name="website_url" value="{{ old('website_url') ?? $setting->website_url }}" class="form-control @error('website_url') is-invalid @enderror" placeholder="{{ __('https://exemple.com') }}">
-                                    @error("website_url")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ __('Facebook') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-facebook-f"></i></span>
+                                                </div>
+                                                <input type="url" name="facebook_url" value="{{ old('facebook_url') ?? $setting->facebook_url }}" class="form-control @error('facebook_url') is-invalid @enderror" placeholder="{{ __('https://www.facebook.com/...') }}">
+                                            </div>
+                                            @error("slogan")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('Facebook') }}</label>
-                                    <input type="url" name="facebook_url" value="{{ old('facebook_url') ?? $setting->facebook_url }}" class="form-control @error('facebook_url') is-invalid @enderror" placeholder="{{ __('https://www.facebook.com/...') }}">
-                                    @error("slogan")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('Twitter') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-twitter"></i></span>
+                                                </div>
+                                                <input type="url" name="twitter_url" value="{{ old('twitter_url') ?? $setting->twitter_url }}" class="form-control @error('twitter_url') is-invalid @enderror" placeholder="{{ __('https://twitter.com/...') }}">
+                                            </div>
+                                            @error("twitter_url")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('Twitter') }}</label>
-                                    <input type="url" name="twitter_url" value="{{ old('twitter_url') ?? $setting->twitter_url }}" class="form-control @error('twitter_url') is-invalid @enderror" placeholder="{{ __('https://twitter.com/...') }}">
-                                    @error("twitter_url")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('Instagram') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-instagram"></i></span>
+                                                </div>
+                                                <input type="url" name="instagram_url" value="{{ old('instagram_url') ?? $setting->instagram_url }}" class="form-control @error('instagram_url') is-invalid @enderror" placeholder="{{ __('https://www.instagram.com/...') }}">
+                                            </div>
+                                            @error("instagram_url")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('Instagram') }}</label>
-                                    <input type="url" name="instagram_url" value="{{ old('instagram_url') ?? $setting->instagram_url }}" class="form-control @error('instagram_url') is-invalid @enderror" placeholder="{{ __('https://www.instagram.com/...') }}">
-                                    @error("instagram_url")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('LinkedIn') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fab fa-linkedin"></i></span>
+                                                </div>
+                                                <input type="url" name="linkedin_url" value="{{ old('linkedin_url') ?? $setting->linkedin_url }}" class="form-control @error('linkedin_url') is-invalid @enderror" placeholder="h{{ __('ttps://www.linkedin.com/company/...') }}">
+                                            </div>
+                                            @error("linkedin_url")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('LinkedIn') }}</label>
-                                    <input type="url" name="linkedin_url" value="{{ old('linkedin_url') ?? $setting->linkedin_url }}" class="form-control @error('linkedin_url') is-invalid @enderror" placeholder="h{{ __('ttps://www.linkedin.com/company/...') }}">
-                                    @error("linkedin_url")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                        <div class="form-group">
+                                            <label>{{ __('Site web') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-link"></i></span>
+                                                </div>
+                                                <input type="url" name="website_url" value="{{ old('website_url') ?? $setting->website_url }}" class="form-control @error('website_url') is-invalid @enderror" placeholder="{{ __('https://exemple.com') }}">
+                                            </div>
+                                            @error("website_url")
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

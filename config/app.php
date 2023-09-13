@@ -170,6 +170,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class,
     ])->toArray(),
 
     /*

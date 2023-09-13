@@ -2,7 +2,9 @@
     <!-- Brand Logo -->
     <a href="{{ route('admin.dashboard') }}" class="brand-link text-decoration-none">
       <img src="" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">App</span>
+      <span class="brand-text font-weight-light">
+          {{ isset($_setting) ? $_setting->name : 'App Name' }}
+      </span>
     </a>
 <div class="sidebar">
       <nav class="mt-2">
