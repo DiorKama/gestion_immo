@@ -50,7 +50,7 @@
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="{{ route('file.index') }}" class="small-box-footer">Détails<i class=" text-white fas fa-arrow-circle-right"></i></a>
+              <a href="" class="small-box-footer">Détails<i class=" text-white fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

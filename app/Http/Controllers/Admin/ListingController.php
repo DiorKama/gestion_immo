@@ -26,15 +26,23 @@ class ListingController extends AbstractAdminController
         $this->middleware('auth');
     }
 
-    public function create()
-    {
-        $listing = Listing::firstOrCreate([
-            'user_id' => auth()->user()->id,
-            'listing_status_id' => config('listings.statuses.draft'),
-        ]);
-
+    public function createListing(
+        AbstractEntity $listing
+    ) {
         $_categories = resolve(CategoryService::class)->getCategories();
         $_locations = resolve(LocationService::class)->getLocationsAsList();
+
+        if ( is_null($listing->id) ) {
+            $listing = Listing::firstOrCreate([
+                'user_id' => auth()->user()->id,
+                'listing_status_id' => config('listings.statuses.draft'),
+            ]);
+        } else {
+            if ( config('listings.statuses.draft') != $listing->listing_status_id ) {
+                return redirect()
+                    ->route('admin.listings.edit', $listing);
+            }
+        }
 
         return view(
             'admin.listings.create',
@@ -60,10 +68,11 @@ class ListingController extends AbstractAdminController
 
         if ($listing) {
             return redirect()
-                ->route('admin.listings.index')
+                ->route('admin.listings.photos.index', $listing);
+                /*->route('admin.listings.index')
                 ->withMessage(__('votre annonce :listingTitle a été ajoutée avec succès', [
                     'listingTitle' => $listing->title
-                ]));
+                ]));*/
         }
 
         return back()

@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::morphMap([
             'banner' => 'App\Models\Banner',
+            'listing' => 'App\Models\Listing',
         ]);
 
         require app_path('helpers.php');

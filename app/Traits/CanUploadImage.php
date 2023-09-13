@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Contracts\CanHaveFiles;
+use App\Models\File;
 use App\Services\FileService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
@@ -182,5 +183,17 @@ trait CanUploadImage
         $validator->passes();
 
         return $validator;
+    }
+
+    /**
+     * @param File $file
+     *
+     * @throws \Exception
+     *
+     * @return bool|null
+     */
+    protected function deleteFileRecord(File $file)
+    {
+        return $file->delete();
     }
 }

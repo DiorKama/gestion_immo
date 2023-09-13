@@ -31,7 +31,7 @@ class StoreListingRequest extends FormRequest
     {
         $this->merge([
             'user_id' => auth()->user()->id,
-            'listing_status_id' => config('listings.statuses.active')
+            'listing_status_id' => config('listings.statuses.draft')
         ]);
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ListingController;
+use App\Http\Controllers\Admin\ListingFileController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\SettingController;
@@ -47,10 +48,18 @@ Route::put('/option/update/{option}',  [OptionController::class, 'update'])->nam
 Route::get('/option/create',  [OptionController::class, 'create'])->name('option.create');
 Route::post('/option/store',  [OptionController::class, 'store'])->name('option.store');*/
 
-Route::prefix('admin')->group(function () {
+//Route::prefix('admin')->group(function () {
+/*Route::group([
+    'prefix'     => 'admin',
+    'middleware' => [
+        'auth',
+        'verified',
+    ],
+], function() {*/
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('admin.dashboard');
+    })/*->middleware(['auth', 'verified'])*/->name('admin.dashboard');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('admin.settings.index');
     Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('admin.settings.edit');
@@ -78,11 +87,19 @@ Route::prefix('admin')->group(function () {
     Route::delete('/locations/delete/{location}', [LocationController::class, 'destroy'])->name('admin.locations.delete');
 
     Route::get('/listings', [ListingController::class, 'index'])->name('admin.listings.index');
-    Route::get('/listings/create',  [ListingController::class, 'create'])->name('admin.listings.create');
+    Route::get('/listings/create/{listing?}',  [ListingController::class, 'createListing'])->name('admin.listings.create');
     Route::post('/listings/store',  [ListingController::class, 'store'])->name('admin.listings.store');
     Route::get('/listings/edit/{listing}',  [ListingController::class, 'edit'])->name('admin.listings.edit');
     Route::put('/listings/update/{listing}',  [ListingController::class, 'update'])->name('admin.listings.update');
     Route::delete('/listings/delete/{listing}', [ListingController::class, 'destroy'])->name('admin.listings.delete');
+
+    Route::get('/listings/files/{listing}', [ListingFileController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.listings.photos.index');
+    Route::get('/listings/files/{listing}/{group}', [ListingFileController::class, 'preview'])->name('admin.listings.photos.previews');
+    Route::post('/listings/files/{listing}/{group}', [ListingFileController::class, 'store'])->name('admin.listings.photos.store');
+    Route::delete('/listings/files/{listing}/{group}/{file}', [ListingFileController::class, 'delete'])->name('admin.listings.photos.delete');
+    /*Route::put('/listings/files/{listing}/sort', [ListingFileController::class, 'sort'])->name('admin.listings.photos.sort');
+    Route::put('/listings/files/{listing}/{file}/rotate', [ListingFileController::class, 'sort'])->name('admin.listings.photos.rotate');
+    Route::get('/listings/files/{listing}/{file}/download', [ListingFileController::class, 'download'])->name('admin.listings.photos.download');*/
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('/categories/create',  [CategoryController::class, 'create'])->name('admin.categories.create');
