@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>@yield('page-title', 'Espace Admin | Dashboard')</title>
+        <title>@yield('page-title', 'Se connecter')</title>
 
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -35,7 +35,7 @@
                             </div>
 
                             <h1 class="auth-widget__header__title text-uppercase mb-4">
-                                Connexion
+                                {{ __('Connexion') }}
                             </h1>
                         </div>
 
@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="form-submit-btn-container mt-3">
-                                <button type="submit" class="btn auth-form__btn btn-block" value="Se connecter">{{ __('Connexion') }}</button>
+                                <button type="submit" class="btn auth-form__btn btn-block">{{ __('Connexion') }}</button>
                             </div>
                         </div>
 
