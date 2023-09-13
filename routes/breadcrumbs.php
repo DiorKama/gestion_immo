@@ -97,9 +97,9 @@ Breadcrumbs::for('admin.listings.index', function (BreadcrumbTrail $trail) {
     $trail->push(__('Tous les bien immobiliers'), route('admin.listings.index'));
 });
 
-Breadcrumbs::for('admin.listings.create', function (BreadcrumbTrail $trail, Listing $listing) {
+Breadcrumbs::for('admin.listings.create', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.listings.index');
-    $trail->push(__('Ajouter un nouvelle annonce'), route('admin.listings.create', $listing));
+    $trail->push(__('Ajouter un nouvelle annonce'), route('admin.listings.create'));
 });
 
 Breadcrumbs::for('admin.listings.photos.index', function (BreadcrumbTrail $trail, Listing $listing) {
