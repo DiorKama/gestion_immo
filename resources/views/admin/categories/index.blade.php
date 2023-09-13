@@ -43,8 +43,8 @@
                                                 <td>{{ Str::limit($category->description, 60) }}</td>
                                                 <td>{{$category->sort_order}}</td>
                                                 <td>{{$category->parent ? $category->parent->title : '' }}</td>
-                                                <td>{{ $category->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                                <td>{{ $category->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ formatFrenchDate($category->created_at) }}</td>
+                                                <td>{{ formatFrenchDate($category->updated_at) }}</td>
                                                 <td class="text-nowrap">
                                                     <button type="button" class="btn btn-primary"><a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}" class="text-white" style="text-decoration: none;"><i class="fa fa-pencil" aria-hidden="true"></i></a></button>
                                                     <button type="button" class="btn btn-danger" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer ce catégorie?')) { window.location.href = '{{ route('admin.categories.delete', ['category' => $category->id])  }}' }">

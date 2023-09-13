@@ -1,7 +1,12 @@
 <?php
 
 use App\Services\ImageResize;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Money\Currencies\ISOCurrencies;
+use Money\Currency;
+use Money\Formatter\IntlMoneyFormatter;
+use Money\Money;
 
 if (!function_exists('entity_type')) {
     /**
@@ -129,5 +134,53 @@ if (!function_exists('jsend')) {
                 $data,
                 $statusCode
             );
+    }
+}
+
+if (!function_exists('formatFrenchDate')) {
+    function formatFrenchDate($date)
+    {
+        $carbonDate = new Carbon($date);
+        return $carbonDate->isoFormat('lll');
+    }
+}
+
+if (!function_exists('money_format')) {
+    function money_format(
+        $value = 0,
+        int $decimals = null,
+        string $currencyISO = null
+    ) {
+        $currency = $currencyISO
+            ? $currencyISO
+            : config('core.currency_iso');
+
+        $money = new Money(
+            is_int($value)
+                ? sprintf('%d', $value)
+                : $value,
+            new Currency($currency)
+        );
+
+        $currencies = new ISOCurrencies();
+
+        $numberFormatter = new \NumberFormatter('fr_SN', \NumberFormatter::DECIMAL);
+        $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
+
+        $money = trim(
+            str_replace(
+                [
+                    ':value',
+                    ':symbol',
+                ],
+                [
+                    $moneyFormatter->format($money),
+                    config('core.currency_symbol', ''),
+                ],
+                config('core.money_format')
+            )
+        );
+
+        return $money;
     }
 }

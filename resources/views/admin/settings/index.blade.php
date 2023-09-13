@@ -30,8 +30,8 @@
                                         <td>{{ $setting->name }}</td>
                                         <td>{{ Str::limit($setting->about, 20, '...') }}</td>
                                         <td>{{ $setting->address }}</td>
-                                        <td>{{ $setting->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                        <td>{{ $setting->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                        <td>{{ formatFrenchDate($setting->created_at) }}</td>
+                                        <td>{{ formatFrenchDate($setting->updated_at) }}</td>
                                         <td>
                                             <a
                                                 href=""

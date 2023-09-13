@@ -9263,6 +9263,10 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+.table td {
+  vertical-align: middle;
+}
+
 .auth-widget__header__avatar {
   width: 100px;
   height: 100px;

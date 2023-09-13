@@ -13,7 +13,7 @@
 					</div>
 				</div>
 			</div>
-            <table class="table table-striped table-hover"> 
+            <table class="table table-striped table-hover">
 				<thead>
 					<tr>
                     <th>{{ __('ID') }}</th>
@@ -26,7 +26,7 @@
 				</thead>
 				<tbody>
                          @foreach($files as $file)
-                          <tr>	
+                          <tr>
                         <td><a href="{{ route('file.show', ['file' => $file->id]) }}" class="text-decoration-none">
                             {{$file->id}}
                         </a></td>
@@ -38,8 +38,8 @@
                         @endif
                         </td>
                         <td>{{$file->listings->title}}</td>
-                        <td>{{ $file->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                        <td>{{ $file->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                        <td>{{ formatFrenchDate($file->created_at) }}</td>
+                        <td>{{ formatFrenchDate($file->updated_at) }}</td>
                         <td class="text-nowrap">
                             <button type="button" class="btn btn-primary"><a href="{{ route('file.edit', ['file' => $file->id]) }}" class="text-white" style="text-decoration: none;"><i class="fa fa-pencil" aria-hidden="true"></i></a></button>
                             <button type="button" class="btn btn-danger" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette image?')) { window.location.href = '{{url('/file/delete/'.$file->id)}}' }">
@@ -50,7 +50,7 @@
                 @endforeach
 				</tbody>
 			</table>
-                {{ $files->links() }}  
+                {{ $files->links() }}
      </div>
 </div>
 </div>
