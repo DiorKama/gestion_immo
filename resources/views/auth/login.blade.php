@@ -1,97 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in</title>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>@yield('page-title', 'Espace Admin | Dashboard')</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="../../index2.html"><b>Admin_Immo</b></a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Connexion</p>
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+        <!-- icheck bootstrap -->
+        <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('/assets/core-admin/styles/app.css') }}">
+    </head>
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
 
-      <form method="POST" action="{{ route('login') }}">
-      @csrf
-        <div class="input-group mb-3">
-          <input id="email"  type="email" class="form-control" placeholder="Email" name="email" :value="old('email', $user->email)" required autofocus autocomplete="email" />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+                        <div class="auth-widget__header">
+                            <div class="auth-widget__header__avatar mb-3">
+                                <div class="aspect-square-ratio-box">
+                                    <div class="aspect-ratio-box-inside text-center">
+                                        <div class="flexbox-centering">
+                                            <div class="viewport-sizing">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h1 class="auth-widget__header__title text-uppercase mb-4">
+                                Connexion
+                            </h1>
+                        </div>
+
+                        <div class="auth-widget__content">
+                            <div class="auth-form__group mb-2 text">
+                                <input type="email" name="email" placeholder="{{ __('E-mail') }}" class="auth-form__input" required="required" value="{{ old('email') }}">
+                                <span class="auth-form__focus-input"></span>
+                                <span class="auth-form__icon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+
+                            <div class="auth-form__group mb-2 password required">
+                                <input type="password" name="password" placeholder="{{ __('Mot de passe') }}" class="auth-form__input" required="required" autocomplete="off" id="password">
+                                <span class="auth-form__focus-input"></span>
+                                <span class="auth-form__icon">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+
+                            <div class="auth-form__group form-group text-center">
+                                <div class="auth-form__check px-0">
+                                    <label for="remember-me">
+                                        <input type="checkbox" name="remember" value="1" checked="checked" class="d-none" id="remember-me">
+                                        {{ __('Souvenir de moi') }}
+                                        <span class="label"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-submit-btn-container mt-3">
+                                <button type="submit" class="btn auth-form__btn btn-block" value="Se connecter">{{ __('Connexion') }}</button>
+                            </div>
+                        </div>
+
+                        @if (Route::has('password.request'))
+                            <div class="auth-widget__footer">
+                                <div class="auth-widget__footer__col text-center mt-3">
+                                    <a class="auth-widget__footer__link" href="{{ route('password.request') }}">{{ __('Mot de passe oublié ?') }}</a>
+                                </div>
+                            </div>
+                        @endif
+                    </form>
+                </div>
             </div>
-          </div>
-          <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-        <div class="input-group mb-3">
-          <input id="password" type="password" class="form-control" placeholder="Password" name="password" :value="old('email', $user->password)" required autofocus autocomplete="password" />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-          <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember" name="remember">
-              <label for="remember">
-              {{ __('Souvenir de moi') }}
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary">{{ __('Connexion') }}</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
 
-      <!-- <div class="social-auth-links text-center mb-3">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div> -->
-      <!-- /.social-auth-links -->
-      <div class="mb-2 text-center">
-      @if (Route::has('password.request'))
-        <a href="{{ route('password.request') }}">{{ __('Mot de passe oublié ?') }}</a>
-        @endif
-</div>
-      <!-- <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
-      </p> -->
-    </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-</body>
+        <script src="../../plugins/jquery/jquery.min.js"></script>
+        <script src="{{ asset('assets/core-admin/scripts/app.js')}}"></script>
+    </body>
 </html>
 
 

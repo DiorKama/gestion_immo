@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.7",
+        "admin-lte": "^3.2.0",
         "bootstrap": "^4.6.2",
         "jquery": "^3.7.0"
     }

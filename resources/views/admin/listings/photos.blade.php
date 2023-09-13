@@ -30,7 +30,6 @@
                                 </div>
 
                                 <div
-                                    style="height: 200px; border-radius: 5px; border: 2px dashed rgb(0, 135, 247);"
                                     data-file-upload data-file-upload-min-files="{{ $groupConfig['min'] }}"
                                     data-file-upload-max-files="{{ $groupConfig['max'] }}"
                                     data-file-upload-max-size="{{ $groupConfig['max_size'] }}"
@@ -289,11 +288,6 @@
                     });
                     e.preventDefault();
                     var elem = $(this);
-
-                    /*$.ajax({
-                        url: elem.attr('action'),
-                        type: 'DELETE'
-                    });*/
 
                     $.ajax({
                         url: elem.attr('action'),
