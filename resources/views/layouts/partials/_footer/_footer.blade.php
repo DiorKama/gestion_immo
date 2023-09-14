@@ -13,49 +13,64 @@
         <div class="footer__content">
             <div class="row d-flex align-items-end">
                 <div class="col-sm-4 col-12">
-                    <p>Boulevard Canal VI Dakar Sénégal (+221) 33 842 23 52</p>
-                    <p>Agence Immobilière à Dakar</p>
-                    <p>Ouvert aujourd'hui jusqu'à 17:00</p>
+                    <p>{{ isset($_setting->address) && !empty($_setting->address) ? $_setting->address : 'Boulevard Canal VI Dakar Sénégal (+221) 33 xxx xx xx' }}</p>
                 </div>
                 <div class="col-sm-5 offset-sm-3  col-12 text-sm-right text-center">
                     <div class="footer-link">
                         <ul class="footer-links__list list-unstyled list-inline">
-                            <li class="list-inline-item">
-                                <a
-                                    class="footer-links__list-social-item__link"
-                                    href=""
-                                >
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a
-                                    class="footer-links__list-social-item__link"
-                                    href=""
-                                >
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a
-                                    class="footer-links__list-social-item__link"
-                                    href=""
-                                >
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a
-                                    class="footer-links__list-social-item__link"
-                                    href=""
-                                >
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
+                            @if ( isset($_setting->facebook_url) && !empty($_setting->facebook_url) )
+                                <li class="list-inline-item">
+                                    <a
+                                        class="footer-links__list-social-item__link"
+                                        href="{{ $_setting->facebook_url }}"
+                                        target="_blank"
+                                    >
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if ( isset($_setting->twitter_url) && !empty($_setting->twitter_url) )
+                                <li class="list-inline-item">
+                                    <a
+                                        class="footer-links__list-social-item__link"
+                                        href="{{ $_setting->twitter_url }}"
+                                        target="_blank"
+                                    >
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if ( isset($_setting->instagram_url) && !empty($_setting->instagram_url) )
+                                <li class="list-inline-item">
+                                    <a
+                                        class="footer-links__list-social-item__link"
+                                        href="{{ $_setting->instagram_url }}"
+                                        target="_blank"
+                                    >
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if ( isset($_setting->linkedin_url) && !empty($_setting->linkedin_url) )
+                                <li class="list-inline-item">
+                                    <a
+                                        class="footer-links__list-social-item__link"
+                                        href="{{ $_setting->linkedin_url }}"
+                                        target="_blank"
+                                    >
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                     <div class="footer-copyright">
-                        <p>Copyright © {{ date('Y') }} Tous droits réservés</p>
+                        <p>{{ __('Copyright © :year Tous droits réservés', [
+                            'year' => date('Y')
+                        ]) }}</p>
                     </div>
                 </div>
             </div>

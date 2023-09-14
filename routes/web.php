@@ -10,8 +10,6 @@ use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\OptionController;
 use App\Http\Controllers\Admin\ProfileController;
 
 /*
@@ -39,23 +37,6 @@ Route::get('/details', function () {
 
 require __DIR__.'/auth.php';
 
-//options
-/*Route::get('/option/index', [OptionController::class, 'index'])->name('option.index');
-Route::get('/option/delete/{option}', [OptionController::class, 'delete'])->name('option.delete');
-Route::get('/option/show/{option}',  [OptionController::class, 'show'])->name('option.show');
-Route::get('/option/edit/{option}',  [OptionController::class, 'edit'])->name('option.edit');
-Route::put('/option/update/{option}',  [OptionController::class, 'update'])->name('option.update');
-Route::get('/option/create',  [OptionController::class, 'create'])->name('option.create');
-Route::post('/option/store',  [OptionController::class, 'store'])->name('option.store');*/
-
-//Route::prefix('admin')->group(function () {
-/*Route::group([
-    'prefix'     => 'admin',
-    'middleware' => [
-        'auth',
-        'verified',
-    ],
-], function() {*/
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
