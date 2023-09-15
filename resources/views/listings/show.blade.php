@@ -74,16 +74,10 @@
                         </div>
                     </div>
                     <div class="listing-item__sidebar__body">
-                        <div class="listing-item__sidebar__company">
-                            <h4 class="listing-item__sidebar__company-name">
-                                {{ __('Azimuts Immobilier') }}
-                            </h4>
-
-                            <p class="listing-item__sidebar__company-address">
-                                <i class="fas fa-map-marker-alt"></i>
-                                {{ __('Km 2.5 Bd du Centenaire de la commune de Dakar') }}
-                            </p>
-                        </div>
+                        @include('listings.partials._show._sidebar._company', [
+                            'companyName' => isset($_setting->name) && !empty($_setting->name) ? $_setting->name : __('Company Name'),
+                            'companyAddress' => isset($_setting->address) && !empty($_setting->address) ? $_setting->address : __('Km 2.5 Bd du Centenaire de la commune de Dakar'),
+                        ])
 
                         <div class="listing-item__sidebar__contact">
                             @include('listings.partials._show._sidebar._contact')
@@ -94,61 +88,7 @@
         </div>
     </div>
 
-    <div class="listings-related">
-        <div class="listings-related__inner">
-            <div class="row align-items-start mt-3 mb-0 mb-md-4">
-                <div class="listings-slider listings-slider--related col">
-                    <div class="listings-slider__container">
-                        <div class="listings-slider__header">
-                            <div class="about-us__header section-item__header">
-                                <div class="about-us__header__inner section-item__header__inner">
-                                    <h2 class="about-us__header__title section-item__header__title">
-                                        {{ __('Ces annonces peuvent vous intéresser') }}
-                                    </h2>
-                                    <hr>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="listings-slider__row row justify-content-start my-3">
-                            <?php for ($i=0; $i < 10; $i++) { ?>
-                            <div class="listings-slider__item">
-                                <div class="listings-slider__item__inner">
-                                    <div class="listings-slider__item__thumbnail">
-                                        <a href="">
-                                            <img src="https://placehold.co/250x200?text=Image" class="listing-card__image__resource d-block w-100" alt="...">
-                                        </a>
-                                    </div>
-                                    <div class="listings-slider__item__details py-2">
-                                        <h2 class="listings-slider__item__title mb-md-1 mb-0">
-                                            <a href="">
-                                                {{ __('Appartements F4 à louer') }}
-                                            </a>
-                                        </h2>
-
-                                        <div class="listings-slider__item__address mb-1">
-                                            <span class="town-suburb d-inline-block">Grand-Yoff,</span>
-                                            <span class="province font-weight-bold d-inline-block">Dakar</span>
-                                        </div>
-
-                                        <h3 class="listings-slider__item__price text-uppercase font-weight-bold mb-1">
-                                            35 000 000 F <span class="font-weight-lighter">CFA</span>
-                                        </h3>
-
-                                        <div class="listings-slider__item__footer">
-                                            <div class="listings-slider__item__date">
-                                                <p class="time m-0">Passée, il y a 2 jours</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('listings.partials._related-listings')
 
     <!-- Root element of PhotoSwipe. Must have class pswp. -->
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

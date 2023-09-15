@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\Listing;
 use App\Models\Location;
 
 class ListingService
@@ -25,5 +26,15 @@ class ListingService
             ->get()
             ->pluck('title', 'id')
             ->all();
+    }
+
+    public function relatedListings(
+        Listing $listing
+    ) {
+        return Listing::query()
+            ->where('category_id', $listing->category_id)
+            ->where('id', '!=', $listing->id)
+            ->active()
+            ->get();
     }
 }
