@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryService
 {
@@ -131,5 +132,59 @@ class CategoryService
             ->get()
             ->pluck('title', 'id')
             ->all();
+    }
+
+    public function findBySlug(
+        $slug
+    ) {
+        if (!$slug) {
+            return null;
+        }
+
+        $category = Cache::rememberForever("_category-by-translated-slug-$slug", function () use ($slug) {
+            $response = Category::query()
+                ->where('slug', $slug)
+                ->first();
+
+            if (!$response->isEmpty()) {
+                return $response->first();
+            }
+
+            return null;
+        });
+    }
+
+    public function getHomeCategories()
+    {
+        return Cache::rememberForever('_category-home', function () {
+            $parents = $this->findParents();
+
+            $result = $parents
+                ->reduce(function ($carry, $category) {
+                    if ($category->has_children) {
+                        $carry = $category
+                            ->children()
+                            ->get()
+                            ->mapWithKeys(function ($category, $key) {
+                                return [$category['title'] => $category->only(['id', 'title', 'slug'])];
+                            })
+                            ->all();
+                    } else {
+                        $carry = $category->only([
+                            'id',
+                            'title',
+                            'slug',
+                        ]);
+                    }
+
+                    return $carry;
+                });
+
+            if (isset($result) && !empty($result)) {
+                asort($result);
+            }
+
+            return $result;
+        });
     }
 }

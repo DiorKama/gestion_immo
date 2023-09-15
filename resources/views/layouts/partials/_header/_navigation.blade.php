@@ -7,32 +7,59 @@
 
             <div class="header__social">
                 <ul class="header__list-social">
-                    <li class="header__list-social-item">
-                        <a href="" class="header__list-social-item__link">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </li>
-                    <li class="header__list-social-item">
-                        <a href="" class="header__list-social-item__link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li class="header__list-social-item">
-                        <a href="" class="header__list-social-item__link">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li class="header__list-social-item">
-                        <a href="" class="header__list-social-item__link">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </li>
+                    @if ( isset($_setting->facebook_url) && !empty($_setting->facebook_url) )
+                        <li class="header__list-social-item">
+                            <a
+                                class="header__list-social-item__link"
+                                href="{{ $_setting->facebook_url }}"
+                                target="_blank"
+                            >
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if ( isset($_setting->twitter_url) && !empty($_setting->twitter_url) )
+                        <li class="header__list-social-item">
+                            <a
+                                class="header__list-social-item__link"
+                                href="{{ $_setting->twitter_url }}"
+                                target="_blank"
+                            >
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if ( isset($_setting->instagram_url) && !empty($_setting->instagram_url) )
+                        <li class="header__list-social-item">
+                            <a
+                                class="header__list-social-item__link"
+                                href="{{ $_setting->instagram_url }}"
+                                target="_blank"
+                            >
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if ( isset($_setting->linkedin_url) && !empty($_setting->linkedin_url) )
+                        <li class="header__list-social-item">
+                            <a
+                                class="header__list-social-item__link"
+                                href="{{ $_setting->linkedin_url }}"
+                                target="_blank"
+                            >
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
         <div class="header__content">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="header-logo navbar-brand" href="#">
+                <a class="header-logo navbar-brand" href="/">
                     <img src="{{ asset('images/logo.png') }}" class="header-logo__img" height="30">
                 </a>
 
@@ -43,9 +70,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a
+                                class="nav-link"
+                                href="tel:{{ isset($_setting->phone_number) && !empty($_setting->phone_number) ?
+                                    $_setting->phone_number :
+                                    config('core.contact.default-customer-service') }}"
+                            >
                                 <i class="fas fa-phone"></i>
-                                {{__('Appelez nous')}}
+                                {{ __('Appelez nous') }}
                             </a>
                         </li>
                         <li class="nav-item">

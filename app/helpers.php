@@ -3,10 +3,12 @@
 use App\Services\ImageResize;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\URL;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\IntlMoneyFormatter;
 use Money\Money;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 if (!function_exists('entity_type')) {
     /**
@@ -185,6 +187,174 @@ if (!function_exists('money_format')) {
     }
 }
 
-if (! function_exists('cache')) {
+if (!function_exists('listing_price')) {
+    function listing_price(
+        $listing,
+        $price = null
+    ) {
+        if (
+            is_null($price)
+            && isset($listing->price)
+            && !empty($listing->price)
+        ) {
+            $price = $listing->price;
+        }
 
+        if (
+            !is_null($price)
+            && $price > 0
+        ) {
+            $price = money_format($price);
+        } else {
+            $price = '';
+        }
+
+        return (string) $price;
+    }
+}
+
+if (! function_exists('shortRelativeDate')) {
+    function shortRelativeDate(
+        $datetime,
+        bool $includeTime = true
+    ) {
+        $date = Carbon::parse($datetime);
+
+        $output = '';
+
+        if ($date->isToday()) {
+            $output .= __('Aujourd\'hui');
+        } elseif ($date->isYesterday()) {
+            $output .= __('Hier');
+        } elseif ($date->diffInDays(Carbon::now()->subWeek(1)) < 7) {
+            $output .= $date->translatedFormat('l');
+        } elseif ($date->year === Carbon::now()->year) {
+            $output .= $date->translatedFormat('j. M');
+        } else {
+            $output .= $date->translatedFormat('j. M \'y');
+        }
+
+        if ($includeTime) {
+            $output .= ', ' . $date->translatedFormat('H:i');
+        }
+
+        return $output;
+    }
+}
+
+if (!function_exists('whatsapp_url')) {
+    function whatsapp_url(
+        string $phone,
+        string $message,
+        bool $isMobile = false
+    ) {
+        return $isMobile
+            ? sprintf(
+                config('core.contact.whatsapp.api.mobile-url'),
+                http_build_query(
+                    [
+                        'text' => $message,
+                        'phone' => $phone,
+                        'abid' => $phone,
+                    ]
+                )
+            )
+            : sprintf(
+                config('core.contact.whatsapp.api.url'),
+                str_replace([' ', '+'], '', $phone),
+                urlencode($message)
+            );
+    }
+}
+
+if (!function_exists('listing_url')) {
+    function listing_url(
+        $listing,
+        array $params = []
+    ) {
+        return route(
+            'listings.show',
+            array_merge(
+                $params,
+                [
+                    'slug' => $listing->slug,
+                    'id' => $listing->id,
+                ]
+            )
+        );
+    }
+}
+
+if (!function_exists('contact_whatsapp')) {
+    function contact_whatsapp(
+        $listing,
+        $setting = null
+    ) {
+        $whatsappText = __(
+            'Salut, je suis intéressé par votre bien immobilier : :listingUrl sur :companyName',
+            [
+                'companyName' => $setting->name,
+                'listingUrl' => listing_url($listing),
+            ]
+        );
+
+        return [
+            'value' => $setting->mobile_number,
+            'message' => $whatsappText,
+            'mobile' => whatsapp_url(
+                $setting->mobile_number,
+                $whatsappText,
+                true
+            ),
+            'desktop' => whatsapp_url(
+                $setting->mobile_number,
+                $whatsappText,
+                false
+            ),
+        ];
+    }
+}
+
+if (! function_exists('phone')) {
+    function phone($number, $country = [], $format = null)
+    {
+        $phone = PhoneNumber::make($number, $country);
+
+        if (! is_null($format)) {
+            return $phone->format($format);
+        }
+
+        return $phone;
+    }
+}
+
+if (!function_exists('format_phone_number_local_display')) {
+    function format_phone_number_local_display(
+        string $mobileNumber,
+        string $mobileNumberCountry = null
+    ) {
+        try {
+            return phone($mobileNumber, $mobileNumberCountry)
+                ->formatForMobileDialingInCountry(
+                    'SN'
+                );
+        } catch (Exception $e) {
+        }
+
+        return null;
+    }
+}
+
+if (!function_exists('contact_phone')) {
+    function contact_phone(
+        $listing,
+        $setting = null
+    ) {
+        return [
+            'value' =>
+                format_phone_number_local_display($setting->mobile_number)
+                ?? $setting->mobile_number,
+            'tel' => str_replace(' ', '', $setting->mobile_number),
+        ];
+    }
 }

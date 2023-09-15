@@ -22,7 +22,11 @@
                         </div>
                     </div>
                     <div class="about-us_description">
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit ante aenean, parturient tristique integer non nam lacinia ultrices vestibulum scelerisque ultricies, pellentesque turpis in sociosqu ad dis facilisis arcu. Cum aenean tortor velit penatibus ultricies proin duis, ridiculus dignissim nullam torquent libero urna lectus, venenatis mi non at risus ad.</p>
+                        @if ( isset($_setting->about) && !empty($_setting->about) )
+                            <p>{{ $_setting->about }}</p>
+                        @else
+                            <p>{{ __('Lorem ipsum dolor sit amet consectetur adipiscing elit ante aenean, parturient tristique integer non nam lacinia ultrices vestibulum scelerisque ultricies, pellentesque turpis in sociosqu ad dis facilisis arcu. Cum aenean tortor velit penatibus ultricies proin duis, ridiculus dignissim nullam torquent libero urna lectus, venenatis mi non at risus ad.') }}</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -82,10 +86,38 @@
                             <hr>
                         </div>
 
-                        <p class="mt-5">Lorem ipsum dolor sit amet consectetur adipiscing elit ante aenean, parturient tristique integer non nam lacinia ultrices vestibulum scelerisque ultricies.</p>
+                        @if ( isset($_categories) && !empty($_categories) )
+                            <nav
+                                class="categories-nav"
+                            >
+                                <div class="categories-nav__inner-container">
+                                    <ul class="categories-nav__inner">
+                                        @foreach ($_categories as $category)
+                                            <li class="categories-nav__inner__item">
+                                                <a
+                                                    href="{{ route('listings.category', [
+                                                        'category' => $category['slug']
+                                                    ]) }}"
+                                                    class="header-nav__inner__item__link"
+                                                >
+                                                    {{ $category['title'] }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </nav>
+                        @else
+                            <p class="text-muted mt-5">{{ __('Aucune catégorie à afficher.') }}</p>
+                        @endif
 
                         <div class="mt-3">
-                            <a class="btn btn-primary" href="">{{ __('Tous les biens') }}</a>
+                            <a
+                                class="btn btn-primary"
+                                href="{{ route('listings.index') }}"
+                            >
+                                {{ __('Tous les biens') }}
+                            </a>
                         </div>
                     </div>
                 </div>

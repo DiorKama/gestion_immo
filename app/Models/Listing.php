@@ -22,6 +22,10 @@ class Listing extends AbstractEntity implements CanHaveFiles
     use HasFactory;
     use Sluggable;
 
+    protected $appends = [
+        'display_date',
+    ];
+
     /**
      * @var array
      */
@@ -135,5 +139,10 @@ class Listing extends AbstractEntity implements CanHaveFiles
         Builder $query
     ) {
         return $query->where('listing_status_id', config('listings.statuses.draft'));
+    }
+
+    public function getDisplayDateAttribute(): string
+    {
+        return (string) $this->updated_at;
     }
 }
