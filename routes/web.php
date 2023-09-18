@@ -28,13 +28,15 @@ Route::get('/', function () {
     return view('home');
 });
 
+require __DIR__.'/auth.php';
+
 /*Route::get('/recherche', function () {
     return view('search');
 });*/
 
-Route::get('/details', function () {
+/*Route::get('/details', function () {
     return view('details');
-});
+});*/
 
 Route::get('/annonces', [ListingsController::class, 'index'])->where(['id' => '[0-9]+', 'slug' => '[a-z0-9\-]+'])->name('listings.index');
 
@@ -42,7 +44,9 @@ Route::get('/{category}', [ListingsController::class, 'category'])->name('listin
 
 Route::get( '/biens-immobiliers/{slug}/{id}', [ListingsController::class, 'show'])->name('listings.show');
 
-require __DIR__.'/auth.php';
+Route::post( '/biens-immobiliers/{listing}/view-phone', [ListingsController::class, 'viewPhone'])->name('listings.view-phone');
+
+Route::post( '/biens-immobiliers/{listing}/view-whatsapp', [ListingsController::class, 'viewWhatsapp'])->name('listings.view-whatsapp');
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {

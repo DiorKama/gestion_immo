@@ -2,6 +2,7 @@
 
 use App\Services\ImageResize;
 use Carbon\Carbon;
+use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\URL;
 use Money\Currencies\ISOCurrencies;
@@ -356,5 +357,15 @@ if (!function_exists('contact_phone')) {
                 ?? $setting->mobile_number,
             'tel' => str_replace(' ', '', $setting->mobile_number),
         ];
+    }
+}
+
+if (!function_exists('dispatch_after_response')) {
+    function dispatch_after_response(
+        $job,
+        $handler = null
+    ) {
+        return app(Dispatcher::class)
+            ->dispatchAfterResponse($job, $handler);
     }
 }

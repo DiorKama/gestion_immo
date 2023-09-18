@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Listing;
+use App\Services\ListingStatisticsService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ListingsController extends Controller
@@ -38,8 +40,38 @@ class ListingsController extends Controller
             ->active()
             ->firstOrFail();
 
+        resolve(ListingStatisticsService::class)
+            ->incrementViews($listing);
+
         return view('listings.show', [
             'listing' => $listing,
         ]);
+    }
+
+    public function viewPhone(
+        Listing $listing,
+        Request $request
+    ) {
+        resolve(ListingStatisticsService::class)
+            ->incrementPhoneNumberViews($listing);
+
+        return $request->expectsJson()
+            ? jsend(true)
+            : redirect()
+                ->to(listing_url($listing))
+                ->with('showPhone', true);
+    }
+
+    public function viewWhatsapp(
+        Listing $listing,
+        Request $request
+    ) {
+        resolve(ListingStatisticsService::class)
+            ->incrementWhatsappViews($listing);
+
+        return $request->expectsJson()
+            ? jsend(true)
+            : redirect()
+                ->to(listing_url($listing));
     }
 }

@@ -34,32 +34,11 @@
                                     @enderror
                                 </div>
 
-                                {{--<div class="form-group">
-                                    <label>{{ __('Catégorie parent') }}</label>
-                                    <select class="form-control @error('parent_id') is-invalid @enderror" name="parent_id">
-                                        <option value="">{{ __('Séléctionnez ...') }}</option>
-                                        @foreach($_categories as $_category)
-                                            @if ( isset($_category['children']) && !empty($_category['children']) )
-                                                <optgroup label="{{ $_category["category"]->title }}">
-                                                    @foreach($_category['children'] as $child)
-                                                        <option value="{{ $child["category"]->id }}">{{ $child["category"]->title }}</option>
-                                                    @endforeach
-                                                </optgroup>
-                                            @else
-                                                <option value="{{ $_category["category"]->id }}">{{ $_category["category"]->title }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @error("parent_id")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>--}}
-
                                 <div class="form-group">
                                     <label>{{ __('Catégorie parent') }}</label>
                                     <select class="form-control @error('parent_id') is-invalid @enderror" name="parent_id">
                                         <option value="">{{ __('Séléctionnez ...') }}</option>
-                                        @foreach($_categories as $categoryId => $categoryTitle)
+                                        @foreach($_categoriesList as $categoryId => $categoryTitle)
                                             <option value="{{ $categoryId }}" @selected(old('parent_id', $category->parent_id) == $categoryId)>{{ $categoryTitle }}</option>
                                         @endforeach
                                     </select>

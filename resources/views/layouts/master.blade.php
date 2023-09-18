@@ -67,7 +67,6 @@
         <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('assets/core-admin/scripts/app.js')}}"></script>
-        <script src="/js/app.js"></script>
         @yield('footer-scripts')
     </body>
 </html>

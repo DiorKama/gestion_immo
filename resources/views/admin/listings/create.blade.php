@@ -35,7 +35,7 @@
                                     <label>{{ __('Catégorie parent') }}</label>
                                     <select class="form-control @error('category_id') is-invalid @enderror" name="category_id">
                                         <option value="">{{ __('Séléctionnez ...') }}</option>
-                                        @foreach($_categories as $_category)
+                                        @foreach($_listingCategories as $_category)
                                             @if ( isset($_category['children']) && !empty($_category['children']) )
                                                 <optgroup label="{{ $_category["category"]->title }}">
                                                     @foreach($_category['children'] as $child)

@@ -43,6 +43,35 @@
                                                 <td>
                                                     {{ $listing->title }}<br>
                                                     <small class="text-muted">{{ formatFrenchDate($listing->created_at) }}</small>
+                                                    <div class="listing-card-extra__counters">
+                                                        <div class="listing-card-extra__item">
+                                                            <b class="badge badge-secondary badge--icon">
+                                                                <i class="fa fa-eye"></i>
+                                                                {{ $listing->views ?? 0 }}
+                                                            </b>
+                                                        </div>
+
+                                                        <div class="listing-card-extra__item">
+                                                            <b class="badge badge-secondary badge--icon">
+                                                                <i class="fa fa-phone"></i>
+                                                                {{ $listing->phone_number_views ?? 0 }}
+                                                            </b>
+                                                        </div>
+
+                                                        <div class="listing-card-extra__item">
+                                                            <b class="badge badge-secondary badge--icon">
+                                                                <i class="fa fa-whatsapp"></i>
+                                                                {{ $listing->whatsapp_views ?? 0 }}
+                                                            </b>
+                                                        </div>
+
+                                                        <!--<div class="listing-card-extra__item">
+                                                            <b class="badge badge-secondary badge--icon">
+                                                                <i class="fa fa-envelope"></i>
+                                                                {{ $listing->whatsapp_views ?? 0 }}
+                                                            </b>
+                                                        </div>-->
+                                                    </div>
                                                 </td>
                                                 <td>{{ $listing->category->title }}</td>
                                                 <td>{{ $listing->location->title }}</td>
@@ -58,7 +87,9 @@
                                                         </span>
                                                     @endif
                                                 </td>
-                                                <td>{{ money_format($listing->price) }}</td>
+                                                <td>
+                                                    {!! listing_price($listing) !!}
+                                                </td>
                                                 <td class="text-muted">
                                                     {{ formatFrenchDate($listing->updated_at) }}
                                                 </td>

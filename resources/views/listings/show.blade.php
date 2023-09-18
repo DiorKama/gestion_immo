@@ -141,7 +141,7 @@
     @section('footer-scripts')
         @parent
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
         <script src="{{ asset('/plugins/slick-1.8.1/slick.min.js') }}"></script>
 
@@ -218,6 +218,50 @@
                         ]
                     });
                 }
+
+                $(document).on('submit', '[data-listing-show-phone]', function (e) {
+                    e.preventDefault();
+
+                    var $el = $(e.currentTarget),
+                        $container = $el.parents($el.data('listing-show-phone-container'));
+
+                    $.ajax($el.attr('action'), {
+                        method: $el.attr('method'),
+                        data: $el.serialize(),
+                    });
+
+                    var $modal = $container.find($el.data('listing-show-phone-modal'));
+
+                    $modal
+                        .modal({
+                            keyboard: false,
+                            backdrop: 'static'
+                        }, 'show');
+                });
+
+                $(document).on('click', '[data-whatsapp]', function (e) {
+                    var $this = $(e.currentTarget);
+
+                    if ($this.data('whatsapp-track')) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax($this.data('whatsapp-track'), {
+                            method: 'POST',
+                        });
+                    }
+
+                    if (isMobile) {
+                        return;
+                    }
+
+                    e.preventDefault();
+
+                    window.open($this.data('whatsapp'));
+                });
             });
         </script>
     @endsection

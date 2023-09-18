@@ -109,6 +109,14 @@ class Listing extends AbstractEntity implements CanHaveFiles
     }
 
     /**
+     * Get listing statistics
+     */
+    public function listingStatistic()
+    {
+        return $this->hasOne(ListingStatistic::class, 'listing_id');
+    }
+
+    /**
      * Adds a condition for status "active" to the builder
      *
      * @param Builder $query
@@ -141,8 +149,28 @@ class Listing extends AbstractEntity implements CanHaveFiles
         return $query->where('listing_status_id', config('listings.statuses.draft'));
     }
 
-    public function getDisplayDateAttribute(): string
+    public function getDisplayDateAttribute()
     {
         return (string) $this->updated_at;
+    }
+
+    public function getViewsAttribute()
+    {
+        return $this->listingStatistic->views ?? 0;
+    }
+
+    public function getEnquiryCountAttribute()
+    {
+        return $this->listingStatistic->enquiry_count ?? 0;
+    }
+
+    public function getPhoneNumberViewsAttribute()
+    {
+        return $this->listingStatistic->phone_number_views ?? 0;
+    }
+
+    public function getWhatsappViewsAttribute()
+    {
+        return $this->listingStatistic->whatsapp_views ?? 0;
     }
 }

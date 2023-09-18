@@ -5,7 +5,14 @@
 <a
     href="{{ $contact['mobile'] }}"
     class="listing-item__contact-item listing-item__contact-item--whatsapp"
-    rel="noopener noindex nofollow"
+    data-whatsapp="{{ $contact['desktop'] }}"
+    data-whatsapp-track={{
+        route(
+            'listings.view-whatsapp', [
+                'listing' => $listing
+            ]
+        )
+    }}
 >
     <i class="fab fa-whatsapp"></i>
 </a>

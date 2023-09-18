@@ -29,7 +29,7 @@ class ListingController extends AbstractAdminController
     public function createListing(
         AbstractEntity $listing
     ) {
-        $_categories = resolve(CategoryService::class)->getCategories();
+        $_listingCategories = resolve(CategoryService::class)->getCategories();
         $_locations = resolve(LocationService::class)->getLocationsAsList();
 
         if ( is_null($listing->id) ) {
@@ -48,7 +48,7 @@ class ListingController extends AbstractAdminController
             'admin.listings.create',
             compact(
                 'listing',
-                '_categories',
+                '_listingCategories',
                 '_locations'
             )
         );
@@ -81,11 +81,11 @@ class ListingController extends AbstractAdminController
     public function edit(
         AbstractEntity $listing
     ) {
-        $_categories = resolve(CategoryService::class)->getCategories();
+        $_listingCategories = resolve(CategoryService::class)->getCategories();
         $_locations = resolve(LocationService::class)->getLocationsAsList();
 
         return view("admin.listings.edit", compact(
-            '_categories',
+            '_listingCategories',
             '_locations',
             'listing'
         ));
