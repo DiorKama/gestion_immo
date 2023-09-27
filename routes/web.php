@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListingsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProfileController;
@@ -24,23 +25,15 @@ use App\Http\Controllers\Admin\ProfileController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('home');
-});
+})->name('home');*/
+
+Route::get('/', HomeController::class)->name('home');
 
 require __DIR__.'/auth.php';
 
-/*Route::get('/recherche', function () {
-    return view('search');
-});*/
-
-/*Route::get('/details', function () {
-    return view('details');
-});*/
-
 Route::get('/annonces', [ListingsController::class, 'index'])->where(['id' => '[0-9]+', 'slug' => '[a-z0-9\-]+'])->name('listings.index');
-
-//Route::get('/{category}', [ListingsController::class, 'category'])->name('listings.category');
 
 Route::get( '/categories-de-biens/{dbCategory}', [ListingsController::class, 'category'])->name('listings.category');
 

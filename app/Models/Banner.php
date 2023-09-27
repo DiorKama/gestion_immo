@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contracts\CanHaveFiles;
 use App\Models\File;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,5 +48,10 @@ class Banner extends AbstractEntity implements CanHaveFiles
     {
         return $this
             ->morphMany(File::class, 'entity');
+    }
+
+    public function scopeOnlyEnabled(Builder $query)
+    {
+        $query->where('enabled', 1);
     }
 }

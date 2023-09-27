@@ -131,13 +131,13 @@
                                     <div class="listings-slider__container">
                                         <div class="latest-listings-slider__row row justify-content-start my-3">
                                             <?php for ($i=0; $i < 8; $i++) { ?>
-                                                <div class="listings-slider__item border-transparent">
-                                                    <div class="listings-slider__item__inner bg-light">
-                                                        <a href="">
-                                                            <img src="https://placehold.co/300x400?text=Annonce+Deux" class="d-block w-100" alt="...">
-                                                        </a>
-                                                    </div>
+                                            <div class="listings-slider__item border-transparent">
+                                                <div class="listings-slider__item__inner bg-light">
+                                                    <a href="">
+                                                        <img src="https://placehold.co/300x400?text=Annonce+Deux" class="d-block w-100" alt="...">
+                                                    </a>
                                                 </div>
+                                            </div>
                                             <?php } ?>
                                         </div>
                                     </div>

@@ -27,7 +27,6 @@
                                     <tr>
                                         <th>{{ __('#') }}</th>
                                         <th>{{ __('Titre Bannière') }}</th>
-                                        <th>{{ __('Url') }}</th>
                                         <th>{{ __('Type Bannière') }}</th>
                                         <th>{{ __('Statut') }}</th>
                                         <th>{{ __('Créé le') }}</th>
@@ -39,12 +38,16 @@
                                         @foreach($banners as $banner)
                                             <tr>
                                                 <td>{{ $banner->id }}</td>
-                                                <td>{{ $banner->title }}</td>
-                                                <td>{{ $banner->url }}</td>
+                                                <td>
+                                                    {{ $banner->title }}<br>
+                                                    @if( $banner->url )
+                                                        <small class="text-muted">{{ $banner->url }}</small>
+                                                    @endif
+                                                </td>
                                                 <td>{{ config('banners.types.' . $banner->type_banner) }}</td>
                                                 <td>{{ $banner->enabled ? __('Oui') : __('Non')}}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{ formatFrenchDate($banner->created_at) }}</td>
+                                                <td>{{ formatFrenchDate($banner->updated_at) }}</td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
@@ -52,6 +55,7 @@
                                                         data-toggle="modal" data-target="#banner-details-{{ $banner->id }}"
                                                     >
                                                         <i class="fa fa-eye"></i>
+                                                        {{ __('Détails') }}
                                                     </a>
 
                                                     <!-- Modal -->
@@ -82,6 +86,7 @@
                                                         class="btn btn-primary btn-xs"
                                                     >
                                                         <i class="fa fa-pencil"></i>
+                                                        {{ __('Modifier') }}
                                                     </a>
 
                                                     <form action="{{ route('admin.banners.delete', [
@@ -95,6 +100,7 @@
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette banière?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            {{ __('Supprimer') }}
                                                         </button>
                                                     </form>
                                                 </td>
