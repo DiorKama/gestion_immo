@@ -72,7 +72,12 @@ class Listing extends AbstractEntity implements CanHaveFiles
     }
 
     public function optionListing() {
-        return $this->hasMany(OptionListing::class);
+        return $this->hasMany(Opti<onListing::class);
+    }
+
+    public function getLocationTitleAttribute()
+    {
+        return $this->location ? $this->location->title : null;
     }
 
     public function getRegionAttribute()
@@ -147,6 +152,24 @@ class Listing extends AbstractEntity implements CanHaveFiles
         Builder $query
     ) {
         return $query->where('listing_status_id', config('listings.statuses.draft'));
+    }
+
+    /**
+     * Adds a condition for status "active" to the builder
+     *
+     * @param Builder $query
+     */
+    public function scopeActiveOrDisabled(
+        Builder $query
+    ) {
+        return $query
+            ->whereIn(
+        'listings.listing_status_id',
+                [
+                    config('listings.statuses.active'),
+                    config('listings.statuses.disabled'),
+                ]
+            );
     }
 
     public function getDisplayDateAttribute()

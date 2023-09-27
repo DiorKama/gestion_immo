@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('page-title', 'Retrouvez tous biens immobiliers')
+
     <div class="listings-cards section-item">
         <div class="listings-cards__inner section-item__inner">
             <div class="listings-cards__row section-item__row">

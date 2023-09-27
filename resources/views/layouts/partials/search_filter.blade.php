@@ -4,54 +4,34 @@
         method="GET"
         class="search-form"
     >
-        <div class="search-form__filters">
-            <div class="col">
-                <input type="text" class="form-control" name="q" placeholder="Recherchez ...">
+        <div class="search-form__filters mb-2">
+            <div class="search-form__filters__inner row">
+                <div class="col">
+                    <input type="text" class="form-control form-control-sm" name="q" placeholder="Recherchez ...">
+                </div>
+
+                <div class="col">
+                    <input type="text" class="form-control form-control-sm js-autocomplete" name="category_id" data-url="{{ route('admin.ajax.categories.autocomplete') }}" data-value="{{ Request::input('category_id_autocomplete') }}" data-parameter="q" placeholder="Catégorie ...">
+                </div>
+
+                <div class="col">
+                    <input type="text" class="form-control form-control-sm js-autocomplete" name="user_id" data-url="{{ route('admin.ajax.users.autocomplete') }}" data-value="{{ Request::input('user_id_autocomplete') }}" data-parameter="q" placeholder="Utilisateur ...">
+                </div>
             </div>
         </div>
 
         <div class="search-form__actions">
-            <div class="search-form__col--action">
-                <button type="submit" class="btn btn-primary">
+            <div class="search-form__col--action d-inline-block">
+                <button type="submit" class="btn btn-primary btn-sm">
                     {{ __('Rechercher') }}
                 </button>
-
-                {{-- @foreach($filters as $key => $value)
-                    @if(is_array($value))
-                        @php($formKey = Str::snake(Str::singular($key)) . '_id')
-                        <div class="col">
-                            @if(in_array($key, ['users']))
-                                Form::formField(
-                                    $formKey,
-                                    'text',
-                                    null,
-                                    [
-                                        'class' => 'form-control js-autocomplete',
-                                    ],
-                                    false
-                                )
-                            @else
-                                Form::select(
-                                    $formKey,
-                                    [
-                                        null => 'All ' . ucwords(str_replace('_',' ',Str::snake($key)))
-                                    ] + $value,
-                                    Request::input($formKey),
-                                    [
-                                        'class' => 'form-control',
-                                    ]
-                                )
-                            @endif
-                        </div>
-                    @endif
-                @endforeach --}}
 
                 @yield('customFilters')
             </div>
 
-            <div class="search-formh__col--action">
+            <div class="search-formh__col--action d-inline-block">
                 <a
-                    class="btn btn-default"
+                    class="btn btn-default btn-sm"
                     href="{{ Request::url() }}"
                 >
                     {{ __('Réinitialiser') }}

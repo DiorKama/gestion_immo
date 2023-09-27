@@ -187,4 +187,19 @@ class CategoryService
             return $result;
         });
     }
+
+    public function autocomplete(
+        string $text
+    ) {
+        if (blank($text)) {
+            return [];
+        }
+
+        $query = Category::query()
+            ->where('title', 'LIKE', "%{$text}%");
+
+        return $query
+            ->pluck('title', 'id')
+            ->all();
+    }
 }

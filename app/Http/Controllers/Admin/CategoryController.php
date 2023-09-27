@@ -31,4 +31,14 @@ class CategoryController extends AbstractAdminController
         $_categoriesList = resolve(CategoryService::class)->getCategoriesAsList(null, '-- ');
         return view("admin.categories.edit", compact('_categoriesList', 'category'));
     }
+
+    public function autocomplete(
+        Request $request,
+        CategoryService $searchService
+    ) {
+        return $searchService
+            ->autocomplete(
+                $request->get('q')
+            );
+    }
 }

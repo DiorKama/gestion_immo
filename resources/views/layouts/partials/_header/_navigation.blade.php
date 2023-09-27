@@ -69,6 +69,35 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                                {{ __('Acheter') }}
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Maisons à vendre</a>
+                                <a class="dropdown-item" href="#">Terrains à vendre</a>
+                                <a class="dropdown-item" href="#">Appartements à vendre</a>
+                                <a class="dropdown-item" href="#">Propriétés commerciales à vendre</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown">
+                                {{ __('Louer') }}
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <a class="dropdown-item" href="#">Maisons de vacances</a>
+                                <a class="dropdown-item" href="#">Chambres à louer</a>
+                                <a class="dropdown-item" href="#">Chambres vide</a>
+                                <a class="dropdown-item" href="#">Appartements meublés</a>
+                                <a class="dropdown-item" href="#">Propriétés commerciales à louer</a>
+                                <a class="dropdown-item" href="#">Maisons à louer</a>
+                                <a class="dropdown-item" href="#">Appartements à louer</a>
+                            </div>
+                        </li>
+
                         <li class="nav-item">
                             <a
                                 class="nav-link"
@@ -78,11 +107,6 @@
                             >
                                 <i class="fas fa-phone"></i>
                                 {{ __('Appelez nous') }}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                {{ __('Obtenir un devis') }}
                             </a>
                         </li>
                     </ul>

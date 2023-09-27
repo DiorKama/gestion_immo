@@ -170,50 +170,6 @@ body {
     }
 }
 
-.footer {
-    background-color: $footer-bg;
-    color: $white;
-
-    &__inner {
-        @include make-col(1, 1);
-        padding-right: calc($grid-gutter-width / 2);
-        padding-left: calc($grid-gutter-width / 2);
-    }
-
-    &__row {
-        @include make-row($grid-gutter-width);
-    }
-
-    &__aside,
-    &__content {
-        padding-right: calc($grid-gutter-width / 2);
-        padding-left: calc($grid-gutter-width / 2);
-    }
-
-    &__aside {
-        @include make-col(3, 12);
-    }
-
-    &__content {
-        @include make-col(9, 12);
-    }
-}
-
-.footer-links {
-    &__list {
-        padding-left: 0;
-        list-style: none;
-    }
-
-    &__list-social-item__link {
-        color: $white;
-
-        @include hover-focus() {
-            color: $white;
-        }
-    }
-}
-
 .listings-cards {
     &__row {
         @include make-row($grid-gutter-width);

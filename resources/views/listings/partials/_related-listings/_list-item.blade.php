@@ -1,8 +1,14 @@
 <div class="listings-slider__item">
     <div class="listings-slider__item__inner">
         <div class="listings-slider__item__thumbnail">
-            <a href="">
-                <img src="https://placehold.co/250x200?text=Image" class="listing-card__image__resource d-block w-100" alt="...">
+            <a
+                href="{{ $listingUrl}}"
+            >
+                @if( isset($image) && ! empty($image) )
+                    <img src="{{ fullImageUrl('listing-thumb-360w', $listing->files()->first()->path) }}" class="listing-card__image__resource d-block w-100">
+                @else
+                    <img src="https://placehold.co/250x200?text=Image" class="listing-card__image__resource d-block w-100" alt="...">
+                @endif
             </a>
         </div>
         <div class="listings-slider__item__details py-2">

@@ -9,7 +9,7 @@
 
 __webpack_require__(/*! ./bootstrap */ "./resources/assets/core-site/scripts/bootstrap.js");
 window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js");
+//window.Popper = require('popper.js');
 __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 var MobileDetect = __webpack_require__(/*! mobile-detect */ "./node_modules/mobile-detect/mobile-detect.js");
 var md = new MobileDetect(window.navigator.userAgent);

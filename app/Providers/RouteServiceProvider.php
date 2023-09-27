@@ -47,6 +47,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /*Route::bind('cat', function (string $value) {
+            return Category::where('slug', $value)->firstOrFail();
+        });*/
+
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
@@ -63,11 +67,31 @@ class RouteServiceProvider extends ServiceProvider
         /** @var Router $router */
         $router = $this->app['router'];
 
+        $router->bind('dbCategory', [$this, 'bindDBCategory']);
+
         collect($this->models)
             ->each(
                 function ($className, $model) use ($router) {
                     $router->model($model, $className);
                 }
             );
+    }
+
+    public function bindDBCategory($slug, $route)
+    {
+        if (
+            is_numeric($slug)
+            && $category = Category::find($slug)
+        ) {
+            return $category;
+        }
+
+        $category = Category::query()
+            ->where('slug', $slug)
+            ->first();
+
+        if ($category) {
+            return $category;
+        }
     }
 }

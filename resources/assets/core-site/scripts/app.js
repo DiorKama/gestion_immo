@@ -1,7 +1,7 @@
 require('./bootstrap');
 
 window.$ = window.jQuery = require('jquery');
-window.Popper = require('popper.js');
+//window.Popper = require('popper.js');
 require('bootstrap');
 
 const MobileDetect = require('mobile-detect');

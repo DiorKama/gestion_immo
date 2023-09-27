@@ -95,7 +95,8 @@ class ListingController extends AbstractAdminController
     {
         return $this
             ->entity
-            ->where('listing_status_id', '!=' , config('listings.statuses.draft'))
+            ->crudFilter($request->all())
+            ->activeOrDisabled()
             ->paginate($request->get('perPage') ?: config('limit'));
     }
 }

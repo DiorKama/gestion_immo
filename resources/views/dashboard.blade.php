@@ -1,11 +1,5 @@
 <x-master-layout>
 <!-- Content Header (Page header) -->
-<div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-4 pb-4">
-        </div>
-      </div>
-    </div>
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">

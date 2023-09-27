@@ -86,6 +86,8 @@
                             <hr>
                         </div>
 
+                        {{-- dd($_categories) --}}
+
                         @if ( isset($_categories) && !empty($_categories) )
                             <nav
                                 class="categories-nav"
@@ -96,7 +98,7 @@
                                             <li class="categories-nav__inner__item">
                                                 <a
                                                     href="{{ route('listings.category', [
-                                                        'category' => $category['slug']
+                                                        'dbCategory' => $category['slug']
                                                     ]) }}"
                                                     class="header-nav__inner__item__link"
                                                 >

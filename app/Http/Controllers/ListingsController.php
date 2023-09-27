@@ -25,9 +25,17 @@ class ListingsController extends Controller
 
     public function category(
         Request $request,
-        Category $category
+        $dbCategory
     ) {
-
+        return view('listings.category', [
+            'category' => $dbCategory,
+            'listings' => $dbCategory->listings()
+                ->with(['category'])
+                ->where('listing_status_id' , config('listings.statuses.active'))
+                ->orderByDesc('created_at')
+                ->paginate()
+                ->withQueryString()
+        ]);
     }
 
     public function show(

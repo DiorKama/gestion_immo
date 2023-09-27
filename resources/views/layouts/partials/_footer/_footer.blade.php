@@ -1,3 +1,8 @@
+@php
+    $customerServiceContact = contact_phone($_setting);
+    $salesServiceContact = contact_phone($_setting, true);
+@endphp
+
 <div class="footer__inner">
     <div class="footer__row align-items-end py-5">
         <div class="footer__aside">
@@ -14,6 +19,32 @@
             <div class="row d-flex align-items-end">
                 <div class="col-sm-4 col-12">
                     <p>{{ isset($_setting->address) && !empty($_setting->address) ? $_setting->address : 'Boulevard Canal VI Dakar Sénégal (+221) 33 xxx xx xx' }}</p>
+
+                    <div class="footer-contact-content">
+                        <a class="footer-contact-item" rel="noopener noindex nofollow" href="tel:{{ $customerServiceContact['tel'] }}">
+                            <span class="footer-contact-item__icon">
+                                <i class="fa fa-phone"></i>
+                            </span>
+                            <strong class="footer-contact-item__title">
+                                <span class="footer-contact-item__label">
+                                    {{ __('Service client') }}
+                                </span>
+                                {{ $customerServiceContact['value'] }}
+                            </strong>
+                        </a>
+
+                        <a class="footer-contact-item" rel="noopener noindex nofollow" href="tel:{{ $salesServiceContact['tel'] }}">
+                            <span class="footer-contact-item__icon">
+                                <i class="fa fa-phone"></i>
+                            </span>
+                            <strong class="footer-contact-item__title">
+                                <span class="footer-contact-item__label">
+                                    {{ __('Service commercial') }}
+                                </span>
+                            {{ $salesServiceContact['value'] }}
+                        </strong>
+                        </a>
+                    </div>
                 </div>
                 <div class="col-sm-5 offset-sm-3  col-12 text-sm-right text-center">
                     <div class="footer-link">

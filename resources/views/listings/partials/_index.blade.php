@@ -1,4 +1,4 @@
-<div class="listings-cards__list">
+<div class="listings-cards__list w-100">
     @if ( $listings->isNotEmpty() )
         @for ($count = 0; $count < $listings->count();)
             <div class="listings-cards__row row mt-5">

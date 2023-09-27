@@ -14,7 +14,7 @@
     <ul class="navbar-nav ml-auto">
         @auth
             <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="javascript:;" role="button" data-bs-toggle="dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="javascript:;" role="button" data-toggle="dropdown">
                     <i class="fas fa-user"></i>
                     {{ Auth::user()->firstName }}
                 </a>

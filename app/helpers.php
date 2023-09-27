@@ -348,9 +348,18 @@ if (!function_exists('format_phone_number_local_display')) {
 
 if (!function_exists('contact_phone')) {
     function contact_phone(
-        $listing,
-        $setting = null
+        $setting = null,
+        $office = false
     ) {
+        if ($office) {
+            return [
+                'value' =>
+                    format_phone_number_local_display($setting->phone_number)
+                    ?? $setting->phone_number,
+                'tel' => str_replace(' ', '', $setting->phone_number),
+            ];
+        }
+
         return [
             'value' =>
                 format_phone_number_local_display($setting->mobile_number)

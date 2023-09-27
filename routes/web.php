@@ -40,7 +40,9 @@ require __DIR__.'/auth.php';
 
 Route::get('/annonces', [ListingsController::class, 'index'])->where(['id' => '[0-9]+', 'slug' => '[a-z0-9\-]+'])->name('listings.index');
 
-Route::get('/{category}', [ListingsController::class, 'category'])->name('listings.category');
+//Route::get('/{category}', [ListingsController::class, 'category'])->name('listings.category');
+
+Route::get( '/categories-de-biens/{dbCategory}', [ListingsController::class, 'category'])->name('listings.category');
 
 Route::get( '/biens-immobiliers/{slug}/{id}', [ListingsController::class, 'show'])->name('listings.show');
 
@@ -118,4 +120,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/banners/edit/{banner}',  [BannerController::class, 'edit'])->name('admin.banners.edit');
     Route::put('/banners/update/{banner}',  [BannerController::class, 'update'])->name('admin.banners.update');
     Route::delete('/banners/delete/{banner}', [BannerController::class, 'destroy'])->name('admin.banners.delete');
+
+    Route::get('ajax/users/autocomplete', [UserController::class, 'autocomplete'])->name('admin.ajax.users.autocomplete');
+    Route::get('ajax/categories/autocomplete', [CategoryController::class, 'autocomplete'])->name('admin.ajax.categories.autocomplete');
 });

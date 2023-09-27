@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('page-title', $listing->title)
+
     @section('header-styles')
         @parent
 
@@ -7,7 +9,7 @@
         <link href="{{ asset('/plugins/slick-1.8.1/slick.min.css') }}" rel="stylesheet">
 
         <style>
-            .pswp__caption__center {
+            /*.pswp__caption__center {
                 text-align: center;
             }
             figure {
@@ -18,23 +20,9 @@
             img {
 
                 width: 100%;
-            }
+            }*/
         </style>
     @endsection
-    {{-- dd($listing->category) --}}
-
-        {{-- @include(
-            'listings.partials._show._item._gallery',
-            [
-                'items' => collect($listing->files)->where('group', 'picture'),
-            ]
-        )
-
-        @include('listings.partials._show._item._details')
-
-        @include('listings.partials._show._item._properties')
-
-        @include('listings.partials._show._item._social') --}}
 
     @section('header-section')
         @include('listings.partials._show._item._gallery')
@@ -47,7 +35,7 @@
                     @include('listings.partials._show._item._header', [
                         'title' => $listing->title,
                         'categoryUrl' => route('listings.category', [
-                            'category' => $listing->category->slug
+                            'dbCategory' => $listing->category->slug
                         ]),
                         'categoryTitle' => $listing->category->title,
                         'price' => listing_price($listing),
@@ -60,7 +48,7 @@
                         ])
                     </div>
 
-                    <div class="listing-item__share-bar">
+                    <div class="listing-item__share-bar mt-3">
                         @include('listings.partials._show._contact._share')
                     </div>
                 </div>
@@ -141,46 +129,12 @@
     @section('footer-scripts')
         @parent
 
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
         <script src="{{ asset('/plugins/slick-1.8.1/slick.min.js') }}"></script>
 
         <script type="text/javascript">
             jQuery(document).ready(function($) {
-                // Init empty gallery array
-                var container = [];
-
-                // Loop over gallery items and push it to the array
-                $('#gallery--getting-started').find('figure').each(function() {
-                    var $link = $(this).find('a'),
-                        item = {
-                            src: $link.attr('href'),
-                            w: $link.data('width'),
-                            h: $link.data('height'),
-                            title: $link.data('caption')
-                        };
-                    container.push(item);
-                });
-
-                // Define click event on gallery item
-                $('.gallery-item__link').click(function(event) {
-
-                    // Prevent location change
-                    event.preventDefault();
-
-                    // Define object and gallery options
-                    var $pswp = $('.pswp')[0],
-                        options = {
-                            index: $(this).parent('figure').index(),
-                            bgOpacity: 0.85,
-                            showHideOpacity: true
-                        };
-
-                    // Initialize PhotoSwipe
-                    var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
-                    gallery.init();
-                });
-
                 var $_similar_items = $('.listings-slider__row');
                 if ( $_similar_items.length ) {
                     $_similar_items.slick({
@@ -262,6 +216,171 @@
 
                     window.open($this.data('whatsapp'));
                 });
+
+                /*var initPhotoSwipeFromDOM = function(gallerySelector) {
+                    var parseThumbnailElements = function (el) {
+                        var thumbElements = el.querySelectorAll('.gallery-item');
+
+                        //console.log(el);
+
+                        var items = [];
+
+                        for (var i = 0; i < thumbElements.length; i++) {
+                            var figureEl = thumbElements[i];
+
+                            if (figureEl.nodeType !== 1) {
+                                continue;
+                            }
+
+                            var linkEl = figureEl.children[0];
+                            var size = linkEl.getAttribute('data-size').split('x');
+                            var item = {
+                                src: linkEl.getAttribute('href'),
+                                w: parseInt(size[0], 10),
+                                h: parseInt(size[1], 10)
+                            };
+                            if (figureEl.children.length > 1) {
+                                item.title = figureEl.children[1].innerHTML;
+                            }
+                            items.push(item);
+                        }
+                        return items;
+                    }
+
+                    var onThumbnailsClick = function(e) {
+                        //console.log(e);
+
+                        e = e || window.event;
+                        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+                        var eTarget = e.target || e.srcElement;
+                        var clickedListItem = closest(eTarget, function(el) {
+                            return el.tagName && el.tagName.toUpperCase() === 'FIGURE';
+                        });
+                        if (!clickedListItem) {
+                            return;
+                        }
+
+                        console.log(clickedListItem);
+
+                        //var clickedGallery = clickedListItem.parentNode;
+
+                        var clickedGallery = clickedListItem.closest('.gallery');
+
+                        console.log(clickedGallery);
+
+                        var index = Array.prototype.indexOf.call(clickedGallery.children, clickedListItem);
+
+                        console.log(index);
+
+                        if (index >= 0) {
+                            openPhotoSwipe(index, clickedGallery);
+                        }
+                        return false;
+                    }
+
+                    var openPhotoSwipe = function(index, galleryElement, disableAnimation) {
+                        var pswpElement = document.querySelectorAll('.pswp')[0];
+                        var items = parseThumbnailElements(galleryElement);
+
+                        var options = {
+                            index: index,
+                            galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                            //pinchToClose: false,
+                            //zoomEl: false,
+                            //tapToToggleControls: false,
+
+                            //initialZoomLevel: 'fill',
+                            //secondaryZoomLevel: 'fit',
+
+                            closeOnScroll: !1
+                        };
+                        if (disableAnimation) {
+                            options.showAnimationDuration = 0;
+                        }
+                        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+
+
+                        gallery.init();
+                    }
+
+                    var closest = function closest(el, fn) {
+                        return el && (fn(el) ? el : closest(el.parentNode, fn));
+                    };
+
+                    var galleryElements = $(gallerySelector);
+
+                    console.log(galleryElements);
+
+                    galleryElements.each(function(index) {
+                        $(this).on('click', onThumbnailsClick);
+                    });
+                };
+
+                initPhotoSwipeFromDOM('.gallery');*/
+
+                var initPhotoSwipeFromDOM = function (gallerySelector) {
+                    var parseThumbnailElements = function (el) {
+                        var thumbElements = el.querySelectorAll('.gallery-item');
+
+                        var items = [];
+
+                        for (var i = 0; i < thumbElements.length; i++) {
+                            var figureEl = thumbElements[i];
+
+                            if (figureEl.nodeType !== 1) {
+                                continue;
+                            }
+
+                            var linkEl = figureEl.querySelector('.gallery-item__link');
+                            var size = linkEl.getAttribute('data-size').split('x');
+                            var item = {
+                                src: linkEl.getAttribute('href'),
+                                w: parseInt(size[0], 10),
+                                h: parseInt(size[1], 10)
+                            };
+
+                            var captionEl = figureEl.querySelector('.gallery__image__resource');
+                            if (captionEl) {
+                                item.title = captionEl.getAttribute('alt');
+                            }
+
+                            items.push(item);
+                        }
+                        return items;
+                    };
+
+                    var openPhotoSwipe = function (index, galleryElement, disableAnimation) {
+                        var pswpElement = document.querySelectorAll('.pswp')[0];
+                        var items = parseThumbnailElements(galleryElement);
+
+                        var options = {
+                            index: index,
+                            galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                            closeOnScroll: false
+                        };
+
+                        if (disableAnimation) {
+                            options.showAnimationDuration = 0;
+                        }
+
+                        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+
+                        gallery.init();
+                    };
+
+                    var galleryElements = document.querySelectorAll(gallerySelector);
+
+                    galleryElements.forEach(function (galleryElement) {
+                        galleryElement.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            openPhotoSwipe(0, galleryElement); // Start with the first image
+                        });
+                    });
+                };
+
+                initPhotoSwipeFromDOM('.gallery');
+
+
             });
         </script>
     @endsection

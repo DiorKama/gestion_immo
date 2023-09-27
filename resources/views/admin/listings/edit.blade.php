@@ -352,54 +352,56 @@
                 }
             })(jQuery);
 
-            Dropzone.autoDiscover = false;
+            $(document).ready(function () {
+                Dropzone.autoDiscover = false;
 
-            $('[data-file-upload]').each(function() {
-                var $upload = $(this);
+                $('[data-file-upload]').each(function() {
+                    var $upload = $(this);
 
-                var options = {
-                    maxFiles: $upload.data('file-upload-max-files') || null,
-                    maxFilesize: $upload.data('file-upload-max-size'),
-                    form: '[data-file-upload-form]',
-                    fileInput: '[data-file-upload-file]',
-                    fileTypes: $upload.data('file-upload-types'),
-                    imageDeleteForm: '[data-image-delete]',
-                    previewContainer: '[data-file-upload-preview-container]',
-                    uploadedPreviewContainer: '[data-file-upload-uploaded-preview-container]',
-                    uploadedPreviewItem: '[data-file-upload-uploaded-preview-item]',
-                    clickableTrigger: '[data-file-upload-clickable-trigger]',
-                    onTotalUploadProgress: true,
-                    onQueueComplete: true,
-                };
+                    var options = {
+                        maxFiles: $upload.data('file-upload-max-files') || null,
+                        maxFilesize: $upload.data('file-upload-max-size'),
+                        form: '[data-file-upload-form]',
+                        fileInput: '[data-file-upload-file]',
+                        fileTypes: $upload.data('file-upload-types'),
+                        imageDeleteForm: '[data-image-delete]',
+                        previewContainer: '[data-file-upload-preview-container]',
+                        uploadedPreviewContainer: '[data-file-upload-uploaded-preview-container]',
+                        uploadedPreviewItem: '[data-file-upload-uploaded-preview-item]',
+                        clickableTrigger: '[data-file-upload-clickable-trigger]',
+                        onTotalUploadProgress: true,
+                        onQueueComplete: true,
+                    };
 
-                $upload.fileUpload(options);
-            });
+                    $upload.fileUpload(options);
+                });
 
-            $('[data-image-delete]').each(function() {
-                var $form = $(this);
+                $('[data-image-delete]').each(function() {
+                    var $form = $(this);
 
-                $form.on('submit', function(e) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    e.preventDefault();
-                    var elem = $(this);
+                    $form.on('submit', function(e) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        e.preventDefault();
+                        var elem = $(this);
 
-                    $.ajax({
-                        url: elem.attr('action'),
-                        type: 'POST',
-                        data: $(elem[0]).serializeArray(),
-                        beforeSend: function(xhr) {
-                            elem.trigger('ajax:send', xhr);
-                        },
-                        complete: function(xhr, status) {
-                            elem.trigger('ajax:complete', [xhr, status]);
-                        },
-                        error: function(xhr, status, error) {
-                            elem.trigger('ajax:error', [xhr, status, error]);
-                        },
+                        $.ajax({
+                            url: elem.attr('action'),
+                            type: 'POST',
+                            data: $(elem[0]).serializeArray(),
+                            beforeSend: function(xhr) {
+                                elem.trigger('ajax:send', xhr);
+                            },
+                            complete: function(xhr, status) {
+                                elem.trigger('ajax:complete', [xhr, status]);
+                            },
+                            error: function(xhr, status, error) {
+                                elem.trigger('ajax:error', [xhr, status, error]);
+                            },
+                        });
                     });
                 });
             });

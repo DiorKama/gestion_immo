@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\AbstractEntity;
 use App\Models\User;
 use App\Services\CountryService;
+use App\Services\UserService;
 use App\UseCases\RegisterUser;
 use App\UseCases\UpdateUser;
 use Illuminate\Http\Request;
@@ -23,13 +24,6 @@ class UserController extends AbstractAdminController
         parent::__construct($user);
         $this->middleware('auth');
     }
-
-    /*public function index(Request $request)
-    {
-        return view('admin.users.index', [
-            'users' => $users = User::paginate($request->get('perPage') ?: config('limit'))
-        ]);
-    }*/
 
     public function create()
     {
@@ -78,6 +72,16 @@ class UserController extends AbstractAdminController
             resolve(UpdateUserRequest::class),
             resolve(UpdateUser::class)
         );
+    }
+
+    public function autocomplete(
+        Request $request,
+        UserService $userService
+    ) {
+        return $userService
+            ->autocomplete(
+                $request->get('q')
+            );
     }
 
     /*

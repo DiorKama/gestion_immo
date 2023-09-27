@@ -1,5 +1,5 @@
 @php
-    $contact = contact_phone($listing, $_setting);
+    $contact = contact_phone($_setting);
 @endphp
 
 <form
@@ -26,7 +26,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    {{ isset($_setting) ? $_setting->name : 'App Name' }}
+                    {{ __(':listingTitle - :siteName', [
+                        'listingTitle' => $listing->title,
+                        'siteName' => isset($_setting) ? $_setting->name : 'App Name'
+                    ]) }}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

@@ -3,7 +3,13 @@
 
 <div class="listings-cards__list-item">
     <div class="listing-card">
-        @include('listings.partials._card._image')
+        @include('listings.partials._card._image', [
+            'image' => $listing->files()->first(),
+            'url' => route('listings.show', [
+                'slug' => $listing->slug,
+                'id' => $listing->id,
+            ])
+        ])
 
         <div class="listing-card__content py-2">
             <div class="listing-card__content__inner">
@@ -19,7 +25,7 @@
                     </a>
                 </h2>
                 <div class="listing-card__properties">
-                    <ul class="listing-card__attribute-list list-inline mb-0">
+                    <!--<ul class="listing-card__attribute-list list-inline mb-0">
                         <li class="listing-card__attribute list-inline-item">
                             Ref. 123456
                         </li>
@@ -32,11 +38,19 @@
                         <li class="listing-card__attribute list-inline-item">
                             Ref. 123456
                         </li>
-                    </ul>
+                    </ul>-->
+
+                    {{-- dd($listing->location) --}}
                 </div>
                 <div class="listing-card__address">
-                    <span class="town-suburb d-inline-block">Grand-Yoff,</span>
-                    <span class="province font-weight-bold d-inline-block">Dakar</span>
+                    <span class="town-suburb d-inline-block">
+                        @if ($listing->location_title)
+                            {{ $listing->location_title }},
+                        @endif
+                    </span>
+                    <span class="province font-weight-bold d-inline-block">
+                        {{ $listing->region_title }}
+                    </span>
                 </div>
                 <h3 class="listing-card__price font-weight-bold text-uppercase my-2">
                     {!! listing_price($listing) !!}
