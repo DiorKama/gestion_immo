@@ -1,11 +1,5 @@
 <x-master-layout>
 <!-- Content Header (Page header) -->
-<div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-4 pb-4">
-        </div>
-      </div>
-    </div>
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">
@@ -50,7 +44,7 @@
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">Détails<i class=" text-white fas fa-arrow-circle-right"></i></a>
+              <a href="" class="small-box-footer">Détails<i class=" text-white fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

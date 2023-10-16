@@ -4,13 +4,14 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ListingController;
+use App\Http\Controllers\Admin\ListingFileController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ListingsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\OptionController;
 use App\Http\Controllers\Admin\ProfileController;
 
 /*
@@ -24,33 +25,28 @@ use App\Http\Controllers\Admin\ProfileController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('home');
-});
+})->name('home');*/
 
-Route::get('/recherche', function () {
-    return view('search');
-});
-
-Route::get('/details', function () {
-    return view('details');
-});
+Route::get('/', HomeController::class)->name('home');
 
 require __DIR__.'/auth.php';
 
-//options
-/*Route::get('/option/index', [OptionController::class, 'index'])->name('option.index');
-Route::get('/option/delete/{option}', [OptionController::class, 'delete'])->name('option.delete');
-Route::get('/option/show/{option}',  [OptionController::class, 'show'])->name('option.show');
-Route::get('/option/edit/{option}',  [OptionController::class, 'edit'])->name('option.edit');
-Route::put('/option/update/{option}',  [OptionController::class, 'update'])->name('option.update');
-Route::get('/option/create',  [OptionController::class, 'create'])->name('option.create');
-Route::post('/option/store',  [OptionController::class, 'store'])->name('option.store');*/
+Route::get('/annonces', [ListingsController::class, 'index'])->where(['id' => '[0-9]+', 'slug' => '[a-z0-9\-]+'])->name('listings.index');
 
-Route::prefix('admin')->group(function () {
+Route::get( '/categories-de-biens/{dbCategory}', [ListingsController::class, 'category'])->name('listings.category');
+
+Route::get( '/biens-immobiliers/{slug}/{id}', [ListingsController::class, 'show'])->name('listings.show');
+
+Route::post( '/biens-immobiliers/{listing}/view-phone', [ListingsController::class, 'viewPhone'])->name('listings.view-phone');
+
+Route::post( '/biens-immobiliers/{listing}/view-whatsapp', [ListingsController::class, 'viewWhatsapp'])->name('listings.view-whatsapp');
+
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('admin.dashboard');
+    })/*->middleware(['auth', 'verified'])*/->name('admin.dashboard');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('admin.settings.index');
     Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('admin.settings.edit');
@@ -78,11 +74,19 @@ Route::prefix('admin')->group(function () {
     Route::delete('/locations/delete/{location}', [LocationController::class, 'destroy'])->name('admin.locations.delete');
 
     Route::get('/listings', [ListingController::class, 'index'])->name('admin.listings.index');
-    Route::get('/listings/create',  [ListingController::class, 'create'])->name('admin.listings.create');
+    Route::get('/listings/create/{listing?}',  [ListingController::class, 'createListing'])->name('admin.listings.create');
     Route::post('/listings/store',  [ListingController::class, 'store'])->name('admin.listings.store');
     Route::get('/listings/edit/{listing}',  [ListingController::class, 'edit'])->name('admin.listings.edit');
     Route::put('/listings/update/{listing}',  [ListingController::class, 'update'])->name('admin.listings.update');
     Route::delete('/listings/delete/{listing}', [ListingController::class, 'destroy'])->name('admin.listings.delete');
+
+    Route::get('/listings/files/{listing}', [ListingFileController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.listings.photos.index');
+    Route::get('/listings/files/{listing}/{group}', [ListingFileController::class, 'preview'])->name('admin.listings.photos.previews');
+    Route::post('/listings/files/{listing}/{group}', [ListingFileController::class, 'store'])->name('admin.listings.photos.store');
+    Route::delete('/listings/files/{listing}/{group}/{file}', [ListingFileController::class, 'delete'])->name('admin.listings.photos.delete');
+    /*Route::put('/listings/files/{listing}/sort', [ListingFileController::class, 'sort'])->name('admin.listings.photos.sort');
+    Route::put('/listings/files/{listing}/{file}/rotate', [ListingFileController::class, 'sort'])->name('admin.listings.photos.rotate');
+    Route::get('/listings/files/{listing}/{file}/download', [ListingFileController::class, 'download'])->name('admin.listings.photos.download');*/
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('/categories/create',  [CategoryController::class, 'create'])->name('admin.categories.create');
@@ -109,4 +113,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/banners/edit/{banner}',  [BannerController::class, 'edit'])->name('admin.banners.edit');
     Route::put('/banners/update/{banner}',  [BannerController::class, 'update'])->name('admin.banners.update');
     Route::delete('/banners/delete/{banner}', [BannerController::class, 'destroy'])->name('admin.banners.delete');
+
+    Route::get('ajax/users/autocomplete', [UserController::class, 'autocomplete'])->name('admin.ajax.users.autocomplete');
+    Route::get('ajax/categories/autocomplete', [CategoryController::class, 'autocomplete'])->name('admin.ajax.categories.autocomplete');
+    Route::get('ajax/countries/autocomplete', [CountryController::class, 'autocomplete'])->name('admin.ajax.countries.autocomplete');
+    Route::get('ajax/regions/autocomplete', [RegionController::class, 'autocomplete'])->name('admin.ajax.regions.autocomplete');
 });

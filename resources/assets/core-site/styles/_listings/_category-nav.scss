@@ -1,0 +1,22 @@
+.category-nav {
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__list-item {
+        display: block;
+    }
+
+    &__list-link {
+        color: $default-color;
+        display: block;
+        font-weight: $font-weight-normal;
+        padding: 6px ($grid-gutter-width * .25);
+
+        @include hover-focus() {
+            color: $default-color;
+        }
+    }
+}

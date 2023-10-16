@@ -19,6 +19,8 @@
                         </div>
 
                         <div class="card-body">
+                            @include('layouts.partials.search_filter')
+
                             <div class="table-responsive py-5">
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -29,7 +31,6 @@
                                             <th>{{ __('Téléphone') }}</th>
                                             <th>{{ __('Compte vérifié') }}</th>
                                             <th>{{ __('Crée le') }}</th>
-                                            <th>{{ __('Mise à jour') }}</th>
                                             <th>{{ __('Actions') }}</th>
                                         </tr>
                                     </thead>
@@ -41,15 +42,15 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->phone_number }}</td>
                                                 <td>{{ !is_null($user->email_verified_at) ? __('Oui') : __('Non') }}</td>
-                                                <td>{{ $user->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                                <td>{{ $user->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ formatFrenchDate($user->created_at) }}</td>
                                                 <td>
                                                     <a
                                                         href="javascript:;"
-                                                        class="btn btn-info btn-xs"
+                                                        class="btn btn-info btn-sm"
                                                         data-toggle="modal" data-target="#user-details-{{ $user->id }}"
                                                     >
                                                         <i class="fa fa-eye"></i>
+                                                        {{ __('Détails') }}
                                                     </a>
 
                                                     <!-- Modal -->
@@ -64,25 +65,19 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
-                                                                        <dt>{{ __('Nom & Prénoms') }}</dt>
-                                                                        <dd>{{ $user->full_name }}</dd>
-                                                                        
                                                                         <dt>{{ __('E-mail') }}</dt>
-                                                                        <dd>{{ $user->email }}</dd>
-                                                                        
-                                                                        <dt>{{ __('Téléphone') }}</dt>
+                                                                        <dd>
+                                                                            {{ $user->email }}
+                                                                            @if( !is_null($user->email_verified_at) )
+                                                                                <small class="text-muted d-block">{{ __('Cet E-mail a été confirmée.') }}</small>
+                                                                            @endif
+                                                                        </dd>
+
+                                                                        <dt>{{ __('N° de téléphone') }}</dt>
                                                                         <dd>{{ $user->phone_number }}</dd>
 
-                                                                        <dt>{{ __('Compte vérifié') }}</dt>
-                                                                        <dd>{{ !is_null($user->email_verified_at) ? __('Oui') : __('Non') }}</dd>
-
-                                                                        <dt>{{ __('Créé le') }}</dt>
-                                                                        <dd>{{ $user->created_at }}</dd>
-
-                                                                        <dt>{{ __('Mise à jour') }}</dt>
-                                                                        <dd>{{ $user->updated_at }}</dd>
-
-                                                                        
+                                                                        <dt>{{ __('Date d\'inscription') }}</dt>
+                                                                        <dd>{{ formatFrenchDate($user->updated_at) }}</dd>
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -96,9 +91,10 @@
                                                         href="{{ route('admin.users.edit', [
                                                         'user' => $user->id
                                                     ]) }}"
-                                                        class="btn btn-primary btn-xs"
+                                                        class="btn btn-primary btn-sm"
                                                     >
                                                         <i class="fa fa-pencil"></i>
+                                                        {{ __('Modifier') }}
                                                     </a>
 
                                                     <form action="{{ route('admin.users.delete', [
@@ -108,10 +104,11 @@
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-xs"
+                                                            class="btn btn-danger btn-sm"
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cet utilisateur?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            {{ __('Supprimer') }}
                                                         </button>
                                                     </form>
                                                 </td>

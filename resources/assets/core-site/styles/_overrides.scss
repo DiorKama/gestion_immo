@@ -1,0 +1,33 @@
+body {
+    font-size: $font-size-sm;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $default-color;
+}
+
+.btn-primary {
+    @include button-variant($red, $red);
+}
+
+.vertical-text {
+    text-orientation: mixed;
+    white-space: nowrap;
+    transform-origin: center;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    padding: 0;
+    display: inline-block;
+    line-height: 1;
+    margin: 0;
+    overflow: hidden;
+
+    &:before {
+        width: 24px;
+        content: "";
+        display: block;
+        margin-top: 6px;
+        height: 3px;
+        background-color: $red;
+        transform: rotate(90deg);
+    }
+}

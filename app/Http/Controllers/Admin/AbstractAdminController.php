@@ -84,14 +84,17 @@ class AbstractAdminController extends Controller
         if ($useCase) {
             $this->entity = $useCase->handle($data);
         } else {
-            foreach ($this->files as $fileGroup => $fileName) {
-                if (
-                    isset($data[$fileGroup])
-                    && isset($data[$fileGroup][$fileName])
-                ) {
-                    unset($data[$fileGroup][$fileName]);
-                    if (!$data[$fileGroup]) {
-                        unset($data[$fileGroup]);
+
+            if ( isset($this->files) ) {
+                foreach ($this->files as $fileGroup => $fileName) {
+                    if (
+                        isset($data[$fileGroup])
+                        && isset($data[$fileGroup][$fileName])
+                    ) {
+                        unset($data[$fileGroup][$fileName]);
+                        if (!$data[$fileGroup]) {
+                            unset($data[$fileGroup]);
+                        }
                     }
                 }
             }
@@ -103,22 +106,26 @@ class AbstractAdminController extends Controller
                 );
         }
 
-        $fileUploadError = false;
-        foreach ($this->files as $fileGroup => $fileName) {
-            $file = "${fileGroup}.${fileName}";
-            if ($request->hasFile($file)) {
-                $uploadResult = $this->uploadImage(
-                    $request->file($file),
-                    $fileGroup
-                );
-                if ($uploadResult['success'] !== true) {
-                    $fileUploadError = $uploadResult['error'];
+        if ( isset($this->files) ) {
+            $fileUploadError = false;
+
+            foreach ($this->files as $fileGroup => $fileName) {
+                $file = "${fileGroup}.${fileName}";
+                if ($request->hasFile($file)) {
+                    $uploadResult = $this->uploadImage(
+                        $request->file($file),
+                        $fileGroup
+                    );
+                    if ($uploadResult['success'] !== true) {
+                        $fileUploadError = $uploadResult['error'];
+                    }
                 }
             }
-        }
 
-        if ($fileUploadError) {
-            return back()->withErrors($fileUploadError);
+
+            if ($fileUploadError) {
+                return back()->withErrors($fileUploadError);
+            }
         }
 
         $message = __(
@@ -186,22 +193,24 @@ class AbstractAdminController extends Controller
                 ->withErrors($useCase->getMessageBag());
         }
 
-        $fileUploadError = false;
-        foreach ($this->files as $fileGroup => $fileName) {
-            $file = "${fileGroup}.${fileName}";
+        if ( isset($this->files) ) {
+            $fileUploadError = false;
+            foreach ($this->files as $fileGroup => $fileName) {
+                $file = "${fileGroup}.${fileName}";
 
-            if ($request->hasFile($file)) {
-                $uploadResult = $this->uploadImage(
-                    $request->file($file),
-                    $fileGroup
-                );
-                if ($uploadResult['success'] !== true) {
-                    $fileUploadError = $uploadResult['error'];
+                if ($request->hasFile($file)) {
+                    $uploadResult = $this->uploadImage(
+                        $request->file($file),
+                        $fileGroup
+                    );
+                    if ($uploadResult['success'] !== true) {
+                        $fileUploadError = $uploadResult['error'];
+                    }
                 }
             }
-        }
-        if ($fileUploadError) {
-            return back()->withErrors($fileUploadError);
+            if ($fileUploadError) {
+                return back()->withErrors($fileUploadError);
+            }
         }
 
         $redirect = $request->redirect();

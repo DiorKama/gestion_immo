@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Country;
 use App\Models\Region;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,25 +15,29 @@ class RegionSeeder extends Seeder
     public function run(): void
     {
         $regions = [
-            ['title' => 'Dakar','slug' => 'dakar'],
-            ['title' => 'Diourbel','slug' => 'diourbel'],
-            ['title' => 'Fatick','slug' => 'fatick'],
-            ['title' => 'Kaolack','slug' => 'kaolack'],
-            ['title' => 'Kolda','slug' => 'kolda'],
-            ['title' => 'Louga','slug' => 'louga'],
-            ['title' => 'Matam','slug' => 'matam'],
-            ['title' => 'Saint-Louis','slug' => 'saint-louis'],
-            ['title' => 'Tambacounda','slug' => 'tambacounda'],
-            ['title' => 'Thiès','slug' => 'thies'],
-            ['title' => 'Ziguinchor','slug' => 'ziguinchor'],
-            ['title' => 'Sédhiou','slug' => 'sedhiou'],
-            ['title' => 'Kaffrine','slug' => 'kaffrine'],
-            ['title' => 'Kedougou','slug' => 'kedougou'],
-            ['title' => 'Autres','slug' => 'autres']
+            ['title' => 'Dakar', 'slug' => 'dakar', 'country' => 'SN',],
+            ['title' => 'Diourbel', 'slug' => 'diourbel', 'country' => 'SN',],
+            ['title' => 'Fatick', 'slug' => 'fatick', 'country' => 'SN',],
+            ['title' => 'Kaolack', 'slug' => 'kaolack', 'country' => 'SN',],
+            ['title' => 'Kolda', 'slug' => 'kolda', 'country' => 'SN',],
+            ['title' => 'Louga', 'slug' => 'louga', 'country' => 'SN',],
+            ['title' => 'Matam', 'slug' => 'matam', 'country' => 'SN',],
+            ['title' => 'Saint-Louis', 'slug' => 'saint-louis', 'country' => 'SN',],
+            ['title' => 'Tambacounda', 'slug' => 'tambacounda', 'country' => 'SN',],
+            ['title' => 'Thiès', 'slug' => 'thies', 'country' => 'SN',],
+            ['title' => 'Ziguinchor', 'slug' => 'ziguinchor', 'country' => 'SN',],
+            ['title' => 'Sédhiou', 'slug' => 'sedhiou', 'country' => 'SN',],
+            ['title' => 'Kaffrine', 'slug' => 'kaffrine', 'country' => 'SN',],
+            ['title' => 'Kedougou', 'slug' => 'kedougou', 'country' => 'SN',],
+            ['title' => 'Autres', 'slug' => 'autres', 'country' => 'SN',]
         ];
 
         foreach ($regions as $region) {
-            Region::factory()->create($region);
+            Region::factory()->create([
+                'title' => $region['title'],
+                'country_id' => Country::where(['iso' => $region['country']])->first()->id,
+                'slug' => $region['slug'],
+            ]);
         }
     }
 }

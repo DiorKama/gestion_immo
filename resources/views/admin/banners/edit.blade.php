@@ -28,46 +28,52 @@
                                     </div>
                                 @endif
 
-                                <div class="form-group">
-                                    <label>{{ __('Titre de la bannière') }}</label>
-                                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $banner->title) }}" placeholder="{{ __('Titre ...') }}" required>
-                                    @error("title")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ __('Titre de la bannière') }}</label>
+                                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $banner->title) }}" placeholder="{{ __('Titre ...') }}" required>
+                                            @error("title")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('Lien de redirection') }}</label>
-                                    <input type="text" name="url" class="form-control @error('url') is-invalid @enderror" value="{{ old('url', $banner->url) }}" placeholder="{{ __('Url ...') }}" required>
-                                    @error("url")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <div class="form-group">
+                                            <label>{{ __('Lien de redirection') }}</label>
+                                            <input type="text" name="url" class="form-control @error('url') is-invalid @enderror" value="{{ old('url', $banner->url) }}" placeholder="{{ __('Url ...') }}" required>
+                                            @error("url")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('Type de Bannière') }}</label>
-                                    <select class="form-control @error('parent_id') is-invalid @enderror" name="type_banner">
-                                        <option value="">{{ __('Séléctionnez ...') }}</option>
-                                        @foreach(config('banners.types') as $key => $value)
-                                            <option value="{{ $key }}" @selected(old('type_banner', $banner->type_banner) == $key)>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error("type_banner")
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                @if($banner->backgroundImage)
-                                    <div class="form-group">
-                                        <img src="{{ fullImageUrl('banner-thumb-160w', $banner->backgroundImage->path) }}" alt="">
+                                        <div class="form-group">
+                                            <label>{{ __('Type de Bannière') }}</label>
+                                            <select class="form-control @error('parent_id') is-invalid @enderror" name="type_banner">
+                                                <option value="">{{ __('Séléctionnez ...') }}</option>
+                                                @foreach(config('banners.types') as $key => $value)
+                                                    <option value="{{ $key }}" @selected(old('type_banner', $banner->type_banner) == $key)>{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error("type_banner")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                @endif
 
-                                @if($banner->mobileBackgroundImage)
-                                    <div class="form-group">
-                                        <img src="{{ fullImageUrl('banner-thumb-160w', $banner->mobileBackgroundImage->path) }}" alt="">
+                                    <div class="col-md-6">
+                                        @if($banner->backgroundImage)
+                                            <div class="form-group">
+                                                <img class="w-100" src="{{ fullImageUrl('banner-thumb-1240w', $banner->backgroundImage->path) }}" alt="">
+                                            </div>
+                                        @endif
+
+                                        @if($banner->mobileBackgroundImage)
+                                            <div class="form-group">
+                                                <img src="{{ fullImageUrl('banner-thumb-360w', $banner->mobileBackgroundImage->path) }}" alt="">
+                                            </div>
+                                        @endif
                                     </div>
-                                @endif
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{ __('Modifier') }}</button>

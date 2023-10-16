@@ -19,13 +19,14 @@
                         </div>
 
                         <div class="card-body">
+                            @include('layouts.partials.search_filter')
+
                             <div class="table-responsive py-5">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                     <tr>
                                         <th>{{ __('#') }}</th>
                                         <th>{{ __('Titre Bannière') }}</th>
-                                        <th>{{ __('Url') }}</th>
                                         <th>{{ __('Type Bannière') }}</th>
                                         <th>{{ __('Statut') }}</th>
                                         <th>{{ __('Créé le') }}</th>
@@ -37,19 +38,24 @@
                                         @foreach($banners as $banner)
                                             <tr>
                                                 <td>{{ $banner->id }}</td>
-                                                <td>{{ $banner->title }}</td>
-                                                <td>{{ $banner->url }}</td>
+                                                <td>
+                                                    {{ $banner->title }}<br>
+                                                    @if( $banner->url )
+                                                        <small class="text-muted">{{ $banner->url }}</small>
+                                                    @endif
+                                                </td>
                                                 <td>{{ config('banners.types.' . $banner->type_banner) }}</td>
                                                 <td>{{ $banner->enabled ? __('Oui') : __('Non')}}</td>
-                                                <td>{{ $banner->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                                <td>{{ $banner->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ formatFrenchDate($banner->created_at) }}</td>
+                                                <td>{{ formatFrenchDate($banner->updated_at) }}</td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
-                                                        class="btn btn-info btn-xs"
+                                                        class="btn btn-info btn-sm"
                                                         data-toggle="modal" data-target="#banner-details-{{ $banner->id }}"
                                                     >
                                                         <i class="fa fa-eye"></i>
+                                                        {{ __('Détails') }}
                                                     </a>
 
                                                     <!-- Modal -->
@@ -64,23 +70,6 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
-                                                                            <dt>{{ __('Titre Bannière') }}</dt>
-                                                                            <dd>{{ $banner->title }}</dd>
-
-                                                                            <dt>{{ __('Url') }}</dt>
-                                                                            <dd>{{ $banner->url }}</dd>
-
-                                                                            <dt>{{ __('Type Bannière') }}</dt>
-                                                                            <dd>{{ config('banners.types.' . $banner->type_banner) }}</dd>
-
-                                                                            <dt>{{ __('Statut') }}</dt>
-                                                                            <dd>{{ $banner->enabled ? __('Oui') : __('Non') }}</dd>
-
-                                                                            <dt>{{ __('Créé le') }}</dt>
-                                                                            <dd>{{ $banner->created_at }}</dd>
-
-                                                                            <dt>{{ __('Mise à jour') }}</dt>
-                                                                            <dd>{{ $banner->updated_at }}</dd>
 
                                                                     </dl>
                                                                 </div>
@@ -94,9 +83,10 @@
                                                     <a
                                                         href="{{ route('admin.banners.edit', [
                                                         'banner' => $banner->id]) }}"
-                                                        class="btn btn-primary btn-xs"
+                                                        class="btn btn-primary btn-sm"
                                                     >
                                                         <i class="fa fa-pencil"></i>
+                                                        {{ __('Modifier') }}
                                                     </a>
 
                                                     <form action="{{ route('admin.banners.delete', [
@@ -106,10 +96,11 @@
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-xs"
+                                                            class="btn btn-danger btn-sm"
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette banière?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            {{ __('Supprimer') }}
                                                         </button>
                                                     </form>
                                                 </td>

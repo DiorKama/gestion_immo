@@ -26,21 +26,29 @@ class ListingController extends AbstractAdminController
         $this->middleware('auth');
     }
 
-    public function create()
-    {
-        $listing = Listing::firstOrCreate([
-            'user_id' => auth()->user()->id,
-            'listing_status_id' => config('listings.statuses.draft'),
-        ]);
-
-        $_categories = resolve(CategoryService::class)->getCategories();
+    public function createListing(
+        AbstractEntity $listing
+    ) {
+        $_listingCategories = resolve(CategoryService::class)->getCategories();
         $_locations = resolve(LocationService::class)->getLocationsAsList();
+
+        if ( is_null($listing->id) ) {
+            $listing = Listing::firstOrCreate([
+                'user_id' => auth()->user()->id,
+                'listing_status_id' => config('listings.statuses.draft'),
+            ]);
+        } else {
+            if ( config('listings.statuses.draft') != $listing->listing_status_id ) {
+                return redirect()
+                    ->route('admin.listings.edit', $listing);
+            }
+        }
 
         return view(
             'admin.listings.create',
             compact(
                 'listing',
-                '_categories',
+                '_listingCategories',
                 '_locations'
             )
         );
@@ -73,11 +81,11 @@ class ListingController extends AbstractAdminController
     public function edit(
         AbstractEntity $listing
     ) {
-        $_categories = resolve(CategoryService::class)->getCategories();
+        $_listingCategories = resolve(CategoryService::class)->getCategories();
         $_locations = resolve(LocationService::class)->getLocationsAsList();
 
         return view("admin.listings.edit", compact(
-            '_categories',
+            '_listingCategories',
             '_locations',
             'listing'
         ));
@@ -87,7 +95,8 @@ class ListingController extends AbstractAdminController
     {
         return $this
             ->entity
-            ->where('listing_status_id', '!=' , config('listings.statuses.draft'))
+            ->crudFilter($request->all())
+            ->activeOrDisabled()
             ->paginate($request->get('perPage') ?: config('limit'));
     }
 }

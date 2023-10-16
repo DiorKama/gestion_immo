@@ -3,6 +3,16 @@
 
     @section('page-header-title', __('Tous les biens immobiliers'))
 
+    @section('customFilters')
+        <div class="col">
+            <input type="text" class="form-control form-control-sm js-autocomplete" name="category_id" data-url="{{ route('admin.ajax.categories.autocomplete') }}" data-value="{{ Request::input('category_id_autocomplete') }}" data-parameter="q" placeholder="Catégorie ...">
+        </div>
+
+        <div class="col">
+            <input type="text" class="form-control form-control-sm js-autocomplete" name="user_id" data-url="{{ route('admin.ajax.users.autocomplete') }}" data-value="{{ Request::input('user_id_autocomplete') }}" data-parameter="q" placeholder="Utilisateur ...">
+        </div>
+    @stop
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -19,40 +29,80 @@
                         </div>
 
                         <div class="card-body">
+                            @include('layouts.partials.search_filter')
+
                             <div class="table-responsive py-5">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('#') }}</th>
-                                            <th>{{ __('Title') }}</th>
-                                            <th>{{ __('Catégorie') }}</th>
-                                            <th>{{ __('Adresse') }}</th>
-                                            <th>{{ __('Publié par') }}</th>
-                                            <th>{{ __('Statut') }}</th>
-                                            <th>{{ __('Prix') }}</th>
-                                            <th>{{ __('Créé le') }}</th>
-                                            <th>{{ __('Mis à jour le') }}</th>
-                                            <th>{{ __('Actions') }}</th>
+                                            <th style="width: 1%">{{ __('#') }}</th>
+                                            <th style="width: 22%">{{ __('Title') }}</th>
+                                            <th style="width: 10%">{{ __('Catégorie') }}</th>
+                                            <th style="width: 10%">{{ __('Adresse') }}</th>
+                                            <th style="width: 10%">{{ __('Publié par') }}</th>
+                                            <th style="width: 5%">{{ __('Statut') }}</th>
+                                            <th style="width: 12%">{{ __('Prix') }}</th>
+                                            <th style="width: 10%">{{ __('Mis à jour le') }}</th>
+                                            <th style="width: 20%">{{ __('Actions') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($listings as $listing)
                                             <tr>
                                                 <td>{{ $listing->id }}</td>
-                                                <td>{{ $listing->title }}</td>
+                                                <td>
+                                                    {{ $listing->title }}<br>
+                                                    <small class="text-muted">{{ formatFrenchDate($listing->created_at) }}</small>
+                                                    <div class="listing-card-extra__counters">
+                                                        <div class="listing-card-extra__item d-inline-block">
+                                                            <b class="badge badge-secondary badge--icon">
+                                                                <i class="fa fa-eye"></i>
+                                                                {{ $listing->views ?? 0 }}
+                                                            </b>
+                                                        </div>
+
+                                                        <div class="listing-card-extra__item d-inline-block">
+                                                            <b class="badge badge-secondary badge--icon">
+                                                                <i class="fa fa-phone"></i>
+                                                                {{ $listing->phone_number_views ?? 0 }}
+                                                            </b>
+                                                        </div>
+
+                                                        <div class="listing-card-extra__item d-inline-block">
+                                                            <b class="badge badge-secondary badge--icon">
+                                                                <i class="fa fa-whatsapp"></i>
+                                                                {{ $listing->whatsapp_views ?? 0 }}
+                                                            </b>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td>{{ $listing->category->title }}</td>
                                                 <td>{{ $listing->location->title }}</td>
                                                 <td>{{ $listing->user->full_name }}</td>
-                                                <td>{{ $listing->status->title ?? __('Inconnu') }}</td>
-                                                <td>{{ $listing->price }}</td>
-                                                <td>{{ $listing->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                                <td>{{ $listing->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>
+                                                    @if ( config('listings.statuses.active') == $listing->listing_status_id )
+                                                        <span class="badge badge-success">
+                                                            {{ $listing->status->title }}
+                                                        </span>
+                                                    @else
+                                                        <span class="badge badge-danger">
+                                                            {{ $listing->status->title ?? __('Inconnu') }}
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {!! listing_price($listing) !!}
+                                                </td>
+                                                <td class="text-muted">
+                                                    {{ formatFrenchDate($listing->updated_at) }}
+                                                </td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
-                                                        class="btn btn-info btn-xs"
+                                                        class="btn btn-info btn-sm"
                                                         data-toggle="modal" data-target="#location-details-{{ $listing->id }}">
                                                         <i class="fa fa-eye"></i>
+                                                        {{ __('Détails') }}
                                                     </a>
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="location-details-{{ $listing->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,47 +116,47 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
-                                                                            <dt>{{ __('Category') }}</dt>
-                                                                            <dd>{{ $listing->category->title }}</dd>
+                                                                        <dt>{{ __('Category') }}</dt>
+                                                                        <dd>{{ $listing->category->title }}</dd>
 
-                                                                            <dt>{{ __('Localités') }}</dt>
-                                                                            <dd>{{ $listing->location->title }}</dd>
+                                                                        <dt>{{ __('Localités') }}</dt>
+                                                                        <dd>{{ $listing->location->title }}</dd>
 
-                                                                            <dt>{{ __('Utilisateur') }}</dt>
-                                                                            <dd>{{ $listing->user->full_name }}</dd>
+                                                                        <dt>{{ __('Utilisateur') }}</dt>
+                                                                        <dd>{{ $listing->user->full_name }}</dd>
 
-                                                                            <dt>{{ __('Statut') }}</dt>
-                                                                            <dd>{{ $listing->enabled ? 'Activé' : 'Désactivé'  }}</dd>
+                                                                        <dt>{{ __('Statut') }}</dt>
+                                                                        <dd>{{ $listing->enabled ? 'Activé' : 'Désactivé'  }}</dd>
 
-                                                                            <dt>{{ __('Description') }}</dt>
-                                                                            <dd class="text-wrap">{{ $listing->description }}</dd>
+                                                                        <dt>{{ __('Description') }}</dt>
+                                                                        <dd class="text-wrap">{{ $listing->description }}</dd>
 
-                                                                            <dt>{{ __('Surface') }}</dt>
-                                                                            <dd>{{ $listing->area }}m²</dd>
+                                                                        <dt>{{ __('Surface') }}</dt>
+                                                                        <dd>{{ $listing->area }}m²</dd>
 
-                                                                            <dt>{{ __('Nbre de Pièces') }}</dt>
-                                                                            <dd>{{ $listing->rooms }}</dd>
+                                                                        <dt>{{ __('Nbre de Pièces') }}</dt>
+                                                                        <dd>{{ $listing->rooms }}</dd>
 
-                                                                            <dt>{{ __('Nbre de Chambres') }}</dt>
-                                                                            <dd>{{ $listing->bedrooms }}</dd>
+                                                                        <dt>{{ __('Nbre de Chambres') }}</dt>
+                                                                        <dd>{{ $listing->bedrooms }}</dd>
 
-                                                                            <dt>{{ __('Nbre de Salle de bain') }}</dt>
-                                                                            <dd>{{ $listing->bathrooms }}</dd>
+                                                                        <dt>{{ __('Nbre de Salle de bain') }}</dt>
+                                                                        <dd>{{ $listing->bathrooms }}</dd>
 
-                                                                            <dt>{{ __('Prix') }}</dt>
-                                                                            <dd>{{ $listing->price }}</dd>
+                                                                        <dt>{{ __('Prix') }}</dt>
+                                                                        <dd>{{ $listing->price }}</dd>
 
-                                                                            <dt>{{ __('Vendu') }}</dt>
-                                                                            <dd>{{ $listing->sold ? 'Oui' : 'Non'  }}</dd>
+                                                                        <dt>{{ __('Vendu') }}</dt>
+                                                                        <dd>{{ $listing->sold ? 'Oui' : 'Non'  }}</dd>
 
-                                                                            <dt>{{ __('Mise En ligne') }}</dt>
-                                                                            <dd>{{ $listing->first_online_at }}</dd>
+                                                                        <dt>{{ __('Mise En ligne') }}</dt>
+                                                                        <dd>{{ $listing->first_online_at }}</dd>
 
-                                                                            <dt>{{ __('Créé le') }}</dt>
-                                                                            <dd>{{ $listing->created_at }}</dd>
+                                                                        <dt>{{ __('Créé le') }}</dt>
+                                                                        <dd>{{ $listing->created_at }}</dd>
 
-                                                                            <dt>{{ __('Mise à jour') }}</dt>
-                                                                            <dd>{{ $listing->updated_at }}</dd>
+                                                                        <dt>{{ __('Mise à jour') }}</dt>
+                                                                        <dd>{{ $listing->updated_at }}</dd>
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -120,9 +170,10 @@
                                                         href="{{ route('admin.listings.edit', [
                                                         'listing' => $listing->id
                                                     ]) }}"
-                                                        class="btn btn-primary btn-xs"
+                                                        class="btn btn-primary btn-sm"
                                                     >
                                                         <i class="fa fa-pencil"></i>
+                                                        {{ __('Modifier') }}
                                                     </a>
 
                                                     <form action="{{ route('admin.listings.delete', [
@@ -132,10 +183,11 @@
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-xs"
+                                                            class="btn btn-danger btn-sm"
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette localité?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            {{ __('Supprimer') }}
                                                         </button>
                                                     </form>
                                                 </td>

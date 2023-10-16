@@ -5,17 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\AbstractEntity;
 use App\Models\User;
 use App\Services\CountryService;
+use App\Services\UserService;
+use App\UseCases\RegisterUser;
+use App\UseCases\UpdateUser;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends AbstractAdminController
 {
-    public function index(Request $request)
-    {
-        return view('admin.users.index', [
-            'users' => $users = User::paginate($request->get('perPage') ?: config('limit'))
-        ]);
+    /**
+     * @param User $user
+     */
+    public function __construct(
+        User $user
+    ) {
+        parent::__construct($user);
+        $this->middleware('auth');
     }
 
     public function create()
@@ -25,19 +32,21 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function store(
-        StoreUserRequest $request
+        $request = null,
+        $useCase = null
     ) {
-        $user = User::create($request->validated());
-        return redirect()
-            ->route('admin.users.index')
-            ->withMessage(__(':userFullName a été ajouté avec succès !', [
-                'userFullName' => $user->full_name
-            ]));
+        return parent::store(
+            $request,
+            resolve(RegisterUser::class)
+        );
     }
 
     public function edit(
-        User $user
+        AbstractEntity $user
     ) {
         $_countryCodes = resolve(CountryService::class)->getAreaCodesAsLookup();
         return view('admin.users.edit', compact(
@@ -45,6 +54,37 @@ class UserController extends Controller
             '_countryCodes'
         ));
     }
+
+    /**
+     * @param AbstractEntity $entity
+     * @param null $request
+     * @param null $useCase
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(
+        AbstractEntity $entity,
+        $request = null,
+        $useCase = null
+    ) {
+        return parent::update(
+            $entity,
+            resolve(UpdateUserRequest::class),
+            resolve(UpdateUser::class)
+        );
+    }
+
+    public function autocomplete(
+        Request $request,
+        UserService $userService
+    ) {
+        return $userService
+            ->autocomplete(
+                $request->get('q')
+            );
+    }
+
+    /*
 
     public function update(
         UpdateUserRequest $request,
@@ -80,5 +120,5 @@ class UserController extends Controller
         return redirect()
             ->route('admin.users.index')
             ->withMessage(__('Erreur survenue. Merci de réessayer.'));
-    }
+    }*/
 }

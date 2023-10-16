@@ -28,4 +28,19 @@ class CountryService
             )
             ->all();
     }
+
+    public function autocomplete(
+        string $text
+    ) {
+        if (blank($text)) {
+            return [];
+        }
+
+        $query = Country::query()
+            ->where('title', 'LIKE', "%{$text}%");
+
+        return $query
+            ->pluck('title', 'id')
+            ->all();
+    }
 }

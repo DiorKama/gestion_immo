@@ -1,69 +1,73 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Forgot Password</title>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>@yield('page-title', 'Mot de passe oublié')</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="../../index2.html"><b>Admin_immo</b></a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">{{ __("Vous avez oublié votre mot de passe ? Indiquez-nous votre adresse électronique et nous vous enverrons un lien de réinitialisation du mot de passe qui vous permettra d'en choisir un nouveau.") }}</p>
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+        <!-- icheck bootstrap -->
+        <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('/assets/core-admin/styles/app.css') }}">
+    </head>
+    <body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="card">
+            <div class="card-body login-card-body">
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
 
-      <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+                    <div class="auth-widget__header">
+                        <div class="auth-widget__header__avatar mb-3">
+                            <div class="aspect-square-ratio-box">
+                                <div class="aspect-ratio-box-inside text-center">
+                                    <div class="flexbox-centering">
+                                        <div class="viewport-sizing">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-      <form action="{{ route('password.email') }}" method="post">
-      @csrf
-        <div class="input-group mb-3">
-          <x-text-input id="email" class="form-control" placeholder="Email" type="email" name="email" :value="old('email')" required autofocus />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+                        <h1 class="auth-widget__header__title text-uppercase mb-4">
+                            {{ __('Mot de passe oublié') }}
+                        </h1>
+
+                        <p class="login-box-msg">{{ __("Vous avez oublié votre mot de passe ? Indiquez-nous votre adresse électronique et nous vous enverrons un lien de réinitialisation du mot de passe qui vous permettra d'en choisir un nouveau.") }}</p>
+                    </div>
+
+                    <div class="auth-widget__content">
+                        <div class="auth-form__group mb-2 text">
+                            <input type="email" name="email" placeholder="{{ __('E-mail') }}" class="auth-form__input" required="required" value="{{ old('email') }}">
+                            <span class="auth-form__focus-input"></span>
+                            <span class="auth-form__icon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                        </div>
+
+                        <div class="form-submit-btn-container mt-3">
+                            <button type="submit" class="btn auth-form__btn btn-block">{{ __('Reininitialiser') }}</button>
+                        </div>
+                    </div>
+
+                    @if (Route::has('login'))
+                        <div class="auth-widget__footer">
+                            <div class="auth-widget__footer__col text-center mt-3">
+                                <a class="auth-widget__footer__link" href="{{ route('login') }}">{{ __('Se connecter ?') }}</a>
+                            </div>
+                        </div>
+                    @endif
+                </form>
             </div>
-          </div>
-          <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-        <div class="row">
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Reininitialiser mot de passe</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-
-      <!-- <p class="mt-3 mb-1">
-        <a href="login.html">Login</a>
-      </p>
-      <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
-      </p> -->
     </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-</body>
+        <script src="../../plugins/jquery/jquery.min.js"></script>
+        <script src="{{ asset('assets/core-admin/scripts/app.js')}}"></script>
+    </body>
 </html>

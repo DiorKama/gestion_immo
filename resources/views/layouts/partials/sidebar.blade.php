@@ -1,8 +1,10 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('admin.dashboard') }}" class="brand-link text-decoration-none">
-      <img src="/images/expat.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Gestion Immo</span>
+      <img src="" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">
+          {{ isset($_setting) ? $_setting->name : 'App Name' }}
+      </span>
     </a>
 <div class="sidebar">
       <nav class="mt-2">
@@ -20,7 +22,7 @@
 
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tree"></i>
+                    <i class="nav-icon fas fa-file"></i>
                     <p>
                         Biens Immobilier
                         <i class="fas fa-angle-left right"></i>
@@ -30,13 +32,13 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.listings.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Listes Biens</p>
+                            <p>Listes des biens</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.listings.create') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Ajout Biens</p>
+                            <p>Ajouter un bien</p>
                         </a>
                     </li>
                 </ul>
@@ -44,7 +46,7 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-list"></i>
               <p>
                 Categories
                 <i class="fas fa-angle-left right"></i>
@@ -65,52 +67,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Bannière
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin.banners.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listes Bannières</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ajout Bannière</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          {{--<li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Gérer les images
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('file.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Liste des images</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('file.create') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ajout des images</p>
-                </a>
-              </li>
-            </ul>
-          </li>--}}
 
             <li class="nav-item">
                 <a href="#" class="nav-link">

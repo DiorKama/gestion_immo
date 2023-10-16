@@ -1,0 +1,17 @@
+body {
+    position: relative;
+    padding: 0;
+    font-size: $font-size-base * .8
+}
+
+.table td {
+    vertical-align: middle
+}
+
+.card-title {
+    margin-bottom: 0;
+}
+
+.dropzone {
+    border-style: dotted !important;
+}

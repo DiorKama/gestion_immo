@@ -19,6 +19,8 @@
                         </div>
 
                         <div class="card-body">
+                            @include('layouts.partials.search_filter')
+
                             <div class="table-responsive py-5">
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -27,6 +29,7 @@
                                             <th>{{ __('Nom du pays') }}</th>
                                             <th>{{ __('Code du pays') }}</th>
                                             <th>{{ __('Indicatif du pays') }}</th>
+                                            <th>{{ __('Statut') }}</th>
                                             <th>{{ __('Créé le') }}</th>
                                             <th>{{ __('Mis à jour le') }}</th>
                                             <th>{{ __('Actions') }}</th>
@@ -35,19 +38,35 @@
                                     <tbody>
                                         @foreach($countries as $country)
                                             <tr>
-                                                <td>{{ $country->id }}</td>
-                                                <td>{{ $country->title }}</td>
-                                                <td>{{ $country->iso }}</td>
-                                                <td>{{ $country->area_code }}</td>
-                                                <td>{{ $country->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                                <td>{{ $country->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>
+                                                    {{ $country->id }}
+                                                </td>
+                                                <td>
+                                                    {{ $country->title }}
+                                                </td>
+                                                <td>
+                                                    {{ $country->iso }}
+                                                </td>
+                                                <td>
+                                                    {{ $country->area_code }}
+                                                </td>
+                                                <td>
+                                                    {{ $country->enabled ? __('Oui') : __('Non') }}
+                                                </td>
+                                                <td>
+                                                    {{ formatFrenchDate($country->created_at) }}
+                                                </td>
+                                                <td>
+                                                    {{ formatFrenchDate($country->updated_at) }}
+                                                </td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
-                                                        class="btn btn-info btn-xs"
+                                                        class="btn btn-info btn-sm"
                                                         data-toggle="modal" data-target="#country-details-{{ $country->id }}"
                                                     >
                                                         <i class="fa fa-eye"></i>
+                                                        {{ __('Détails') }}
                                                     </a>
 
                                                     <!-- Modal -->
@@ -62,22 +81,17 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
-
-                                                                       <dt>{{ __('Nom du pays') }}</dt>
-                                                                        <dd>{{ $country->title }}</dd>
-
                                                                         <dt>{{ __('Code du pays') }}</dt>
                                                                         <dd>{{ $country->iso }}</dd>
 
                                                                         <dt>{{ __('Indicatif du pays') }}</dt>
                                                                         <dd>{{ $country->area_code }}</dd>
 
-                                                                        <dt>{{ __('Créé le') }}</dt>
-                                                                        <dd>{{ $country->created_at }}</dd>
+                                                                        <dt>{{ __('Statut') }}</dt>
+                                                                        <dd>{{ $country->enabled ? __('Oui') : __('Non') }}</dd>
 
-                                                                        <dt>{{ __('Mise à jour') }}</dt>
-                                                                        <dd>{{ $country->updated_at }}</dd>
-
+                                                                        <dt>{{ __('Dernière mise à jour') }}</dt>
+                                                                        <dd>{{ formatFrenchDate($country->updated_at) }}</dd>
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -91,9 +105,10 @@
                                                         href="{{ route('admin.countries.edit', [
                                                         'country' => $country->id
                                                     ]) }}"
-                                                        class="btn btn-primary btn-xs"
+                                                        class="btn btn-primary btn-sm"
                                                     >
                                                         <i class="fa fa-pencil"></i>
+                                                        {{ __('Modifier') }}
                                                     </a>
 
                                                     <form action="{{ route('admin.countries.delete', [
@@ -103,10 +118,11 @@
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-xs"
+                                                            class="btn btn-danger btn-sm"
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette region?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            {{ __('Supprimer') }}
                                                         </button>
                                                     </form>
                                                 </td>

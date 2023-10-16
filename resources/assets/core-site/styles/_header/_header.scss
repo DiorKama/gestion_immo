@@ -1,0 +1,114 @@
+.header {
+    &__container {
+        @include make-container();
+        @include make-container-max-widths();
+    }
+
+    &__inner {
+        @include make-row($grid-gutter-width);
+        padding-left: calc($grid-gutter-width / 2);
+        padding-right: calc($grid-gutter-width / 2);
+    }
+
+    &__aside {
+        @include make-col(2, 12);
+
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        padding-left: calc($grid-gutter-width / 2);
+        padding-right: calc($grid-gutter-width / 2);
+        background-color: $header-aside-bg;
+        text-align: center;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+    }
+
+    &__content {
+        @include make-col(10, 12);
+    }
+
+    @include media-breakpoint-down(sm) {
+        &__aside {
+            display: none;
+        }
+
+        &__content {
+            @include make-col(1, 1);
+        }
+    }
+
+    &__title {
+        transform: rotate(-90deg);
+        white-space: nowrap;
+        font-size: $font-size-base * .8;
+        color: $white;
+        text-transform: uppercase;
+        margin-bottom: 100px;
+        letter-spacing: $spacer * .25;
+        font-weight: $font-weight-normal;
+    }
+
+    &__list-social {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    &__list-social-item__link {
+        color: $white;
+
+        @include hover-focus() {
+            color: $white;
+        }
+    }
+}
+
+.section {
+    &-item {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    &-item__row {
+        @include make-row($grid-gutter-width);
+    }
+
+    &-item__header_inner {
+        transform: rotate(-90deg);
+        display: inline-block;
+    }
+
+    &-item__header__title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        white-space: nowrap;
+    }
+
+    &-item__header__title + hr {
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+        width: $spacer * 2;
+        border: 3px solid $red;
+        margin-left: 0;
+    }
+}
+
+.about-us {
+    &__aside,
+    &__content {
+        padding-left: calc($grid-gutter-width / 2);
+        padding-right: calc($grid-gutter-width / 2);
+    }
+
+    &__aside {
+        @include make-col(7, 12);
+    }
+
+    &__content {
+        @include make-col(5, 12);
+    }
+}

@@ -12,36 +12,62 @@
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <div class="nav-item dropdown">
-          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-          {{ Auth::user()->firstName }}
-          </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a
-                class="dropdown-item"
-                href="{{ route('admin.profile.edit') }}"
-            >
-                {{ __('Modifier mon profil') }}
-            </a>
+        @auth
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="javascript:;" role="button" data-toggle="dropdown">
+                    <i class="fas fa-user"></i>
+                    {{ Auth::user()->firstName }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a
+                            class="dropdown-item"
+                            href="{{ route('admin.profile.edit') }}"
+                        >
+                            {{ __('Modifier mon profil') }}
+                        </a>
+                    </li>
 
-            <a
-                class="dropdown-item"
-                href="{{ route('admin.profile.update-password') }}"
-            >
-                {{ __('Changer le mot de passe') }}
-            </a>
+                    <li>
+                        <a
+                            class="dropdown-item"
+                            href="{{ route('admin.profile.update-password') }}"
+                        >
+                            {{ __('Changer le mot de passe') }}
+                        </a>
+                    </li>
 
-            <div class="dropdown-divider"></div>
+                    {{--<div class="dropdown-divider"></div>--}}
 
-            <a class="dropdown-item" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-                  {{ __('Déconnexion') }}
-              </a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                  @csrf
-              </form>
-          </div>
-      </div>
+                    {{--<a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                          {{ __('Déconnexion') }}
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                          @csrf
+                      </form>--}}
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                >
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
+        @endauth
+
+        @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">
+                    {{ __('Se connecter') }}
+                </a>
+            </li>
+        @endguest
     </ul>
   </nav>

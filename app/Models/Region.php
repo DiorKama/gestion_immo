@@ -19,6 +19,7 @@ class Region extends AbstractEntity
      */
     public static $rules = [
         'title' => 'sometimes|required|unique:regions',
+        'country_id' => 'required|exists:countries,id',
         'enabled' => 'sometimes|boolean',
     ];
 
@@ -42,6 +43,10 @@ class Region extends AbstractEntity
 
     public function locations() {
         return $this->hasMany(Location::class);
+    }
+
+    public function country() {
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
     public function listings() {

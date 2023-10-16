@@ -102,6 +102,11 @@ Breadcrumbs::for('admin.listings.create', function (BreadcrumbTrail $trail) {
     $trail->push(__('Ajouter un nouvelle annonce'), route('admin.listings.create'));
 });
 
+Breadcrumbs::for('admin.listings.photos.index', function (BreadcrumbTrail $trail, Listing $listing) {
+    $trail->parent('admin.listings.create', $listing);
+    $trail->push(__('Téléchargez les photos'), route('admin.listings.photos.index', $listing));
+});
+
 Breadcrumbs::for('admin.listings.edit', function (BreadcrumbTrail $trail, Listing $listing) {
     $trail->parent('admin.listings.index');
     $trail->push($listing->title, route('admin.listings.edit', $listing));

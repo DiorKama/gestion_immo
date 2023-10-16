@@ -30,15 +30,16 @@
                                         <td>{{ $setting->name }}</td>
                                         <td>{{ Str::limit($setting->about, 20, '...') }}</td>
                                         <td>{{ $setting->address }}</td>
-                                        <td>{{ $setting->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                        <td>{{ $setting->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                        <td>{{ formatFrenchDate($setting->created_at) }}</td>
+                                        <td>{{ formatFrenchDate($setting->updated_at) }}</td>
                                         <td>
                                             <a
                                                 href=""
-                                                class="btn btn-info btn-xs"
+                                                class="btn btn-info btn-sm"
                                                 data-toggle="modal" data-target="#setting-details"
                                             >
                                                 <i class="fa fa-eye"></i>
+                                                {{ __('Détails') }}
                                             </a>
 
                                             <!-- Modal -->
@@ -53,6 +54,9 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <dl>
+                                                                <dt>{{ __('Slogan') }}</dt>
+                                                                <dd>{{ $setting->slogan }}</dd>
+
                                                                 <dt>{{ __('À propos') }}</dt>
                                                                 <dd>{{ $setting->about }}</dd>
 
@@ -63,10 +67,18 @@
                                                                 <dd>{{ $setting->mobile_number }}</dd>
 
                                                                 <dt>{{ __('N° Fixe') }}</dt>
-                                                                <dd>{{ $setting->phone_number }}</dd>
+                                                                <dd>
+                                                                    {{ $setting->phone_number }}
+                                                                    @if( $setting->is_whatsapp_available )
+                                                                        <small class="d-block text-muted">Ce numéro est actif sur WhatsApp.</small>
+                                                                    @endif
+                                                                </dd>
 
                                                                 <dt>{{ __('E-mail') }}</dt>
                                                                 <dd>{{ $setting->email }}</dd>
+
+                                                                <dt>{{ __('Dernière mise à jour') }}</dt>
+                                                                <dd>{{ formatFrenchDate($setting->updated_at) }}</dd>
                                                             </dl>
                                                         </div>
                                                         <div class="modal-footer">
@@ -80,9 +92,10 @@
                                                 href="{{ route('admin.settings.edit', [
                                                     'setting' => $setting->id
                                                 ]) }}"
-                                                class="btn btn-primary btn-xs"
+                                                class="btn btn-primary btn-sm"
                                             >
                                                 <i class="fa fa-pencil"></i>
+                                                {{ __('Modifier') }}
                                             </a>
                                         </td>
                                     </tr>

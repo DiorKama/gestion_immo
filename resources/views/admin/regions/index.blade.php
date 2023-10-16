@@ -3,6 +3,12 @@
 
     @section('page-header-title', __('Toutes les régions'))
 
+    @section('customFilters')
+        <div class="col">
+            <input type="text" class="form-control form-control-sm js-autocomplete" name="country_id" data-url="{{ route('admin.ajax.countries.autocomplete') }}" data-value="{{ Request::input('country_id_autocomplete') }}" data-parameter="q" placeholder="Pays ...">
+        </div>
+    @stop
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -19,12 +25,15 @@
                         </div>
 
                         <div class="card-body">
+                            @include('layouts.partials.search_filter')
+
                             <div class="table-responsive py-5">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>{{ __('#') }}</th>
                                             <th>{{ __('Nom') }}</th>
+                                            <th>{{ __('Pays') }}</th>
                                             <th>{{ __('Actif') }}</th>
                                             <th>{{ __('Créé le') }}</th>
                                             <th>{{ __('Mis à jour le') }}</th>
@@ -36,16 +45,18 @@
                                             <tr>
                                                 <td>{{ $region->id }}</td>
                                                 <td>{{ $region->title }}</td>
+                                                <td>{{ $region->country->title }}</td>
                                                 <td>{{ $region->enabled ? __('Oui') : __('Non')}}</td>
-                                                <td>{{ $region->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                                <td>{{ $region->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ formatFrenchDate($region->created_at) }}</td>
+                                                <td>{{ formatFrenchDate($region->updated_at) }}</td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
-                                                        class="btn btn-info btn-xs"
+                                                        class="btn btn-info btn-sm"
                                                         data-toggle="modal" data-target="#region-details-{{ $region->id }}"
                                                     >
                                                         <i class="fa fa-eye"></i>
+                                                        {{ __('Détails') }}
                                                     </a>
 
                                                     <!-- Modal -->
@@ -60,17 +71,14 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
-                                                                        <dt>{{ __('Nom') }}</dt>
-                                                                        <dd>{{ $region->title }}</dd>
+                                                                        <dt>{{ __('Pays') }}</dt>
+                                                                        <dd>{{ $region->country->title }}</dd>
 
-                                                                        <dt>{{ __('Actif') }}</dt>
+                                                                        <dt>{{ __('Statut') }}</dt>
                                                                         <dd>{{ $region->enabled ? __('Oui') : __('Non') }}</dd>
 
-                                                                        <dt>{{ __('Créé le') }}</dt>
-                                                                        <dd>{{ $region->created_at }}</dd>
-
-                                                                        <dt>{{ __('Mise à jour') }}</dt>
-                                                                        <dd>{{ $region->updated_at }}</dd>
+                                                                        <dt>{{ __('Dernière mise à jour') }}</dt>
+                                                                        <dd>{{ formatFrenchDate($region->updated_at) }}</dd>
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -84,9 +92,10 @@
                                                         href="{{ route('admin.regions.edit', [
                                                         'region' => $region->id
                                                     ]) }}"
-                                                        class="btn btn-primary btn-xs"
+                                                        class="btn btn-primary btn-sm"
                                                     >
                                                         <i class="fa fa-pencil"></i>
+                                                        {{ __('Modifier') }}
                                                     </a>
 
                                                     <form action="{{ route('admin.regions.delete', [
@@ -96,10 +105,11 @@
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-xs"
+                                                            class="btn btn-danger btn-sm"
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette region?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            {{ __('Supprimer') }}
                                                         </button>
                                                     </form>
                                                 </td>

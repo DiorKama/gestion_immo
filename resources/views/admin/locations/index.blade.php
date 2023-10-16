@@ -3,6 +3,16 @@
 
     @section('page-header-title', __('Toutes les localités'))
 
+    @section('customFilters')
+        <div class="col">
+            <input type="text" class="form-control form-control-sm js-autocomplete" name="region_id" data-url="{{ route('admin.ajax.regions.autocomplete') }}" data-value="{{ Request::input('region_id_autocomplete') }}" data-parameter="q" placeholder="Région ...">
+        </div>
+
+        <div class="col">
+            <input type="text" class="form-control form-control-sm js-autocomplete" name="country_id" data-url="{{ route('admin.ajax.countries.autocomplete') }}" data-value="{{ Request::input('country_id_autocomplete') }}" data-parameter="q" placeholder="Pays ...">
+        </div>
+    @stop
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -19,6 +29,8 @@
                         </div>
 
                         <div class="card-body">
+                            @include('layouts.partials.search_filter')
+
                             <div class="table-responsive py-5">
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -39,15 +51,16 @@
                                                 <td>{{ $location->title }}</td>
                                                 <td>{{ $location->region->title }}</td>
                                                 <td>{{ $location->country->title }}</td>
-                                                <td>{{ $location->created_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
-                                                <td>{{ $location->updated_at->locale('fr_FR')->isoFormat('DD MMM YYYY à HH:mm:ss', 'Do MMM YYYY à HH:mm:ss') }}</td>
+                                                <td>{{ formatFrenchDate($location->created_at) }}</td>
+                                                <td>{{ formatFrenchDate($location->updated_at) }}</td>
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
-                                                        class="btn btn-info btn-xs"
+                                                        class="btn btn-info btn-sm"
                                                         data-toggle="modal" data-target="#location-details-{{ $location->id }}"
                                                     >
                                                         <i class="fa fa-eye"></i>
+                                                        {{ __('Détails') }}
                                                     </a>
 
                                                     <!-- Modal -->
@@ -62,21 +75,17 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <dl>
-                                                                       <dt>{{ __('Nom localité') }}</dt>
-                                                                        <dd>{{ $location->title }}</dd>
+                                                                        <dt>{{ __('Pays') }}</dt>
+                                                                        <dd>{{ $location->country->title }}</dd>
 
                                                                         <dt>{{ __('Region') }}</dt>
                                                                         <dd>{{ $location->region->title }}</dd>
 
-                                                                        <dt>{{ __('Pays') }}</dt>
-                                                                        <dd>{{ $location->country->title }}</dd>
+                                                                        <dt>{{ __('Statut') }}</dt>
+                                                                        <dd>{{ $location->enabled ? __('Oui') : __('Non') }}</dd>
 
-                                                                        <dt>{{ __('Créé le') }}</dt>
-                                                                        <dd>{{ $location->created_at }}</dd>
-
-                                                                        <dt>{{ __('Mise à jour') }}</dt>
-                                                                        <dd>{{ $location->updated_at }}</dd>
-
+                                                                        <dt>{{ __('Dernière mise à jour') }}</dt>
+                                                                        <dd>{{ formatFrenchDate($location->updated_at) }}</dd>
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -90,9 +99,10 @@
                                                         href="{{ route('admin.locations.edit', [
                                                         'location' => $location->id
                                                     ]) }}"
-                                                        class="btn btn-primary btn-xs"
+                                                        class="btn btn-primary btn-sm"
                                                     >
                                                         <i class="fa fa-pencil"></i>
+                                                        {{ __('Modifier') }}
                                                     </a>
 
                                                     <form action="{{ route('admin.locations.delete', [
@@ -102,10 +112,11 @@
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-xs"
+                                                            class="btn btn-danger btn-sm"
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette localité?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            {{ __('Supprimer') }}
                                                         </button>
                                                     </form>
                                                 </td>

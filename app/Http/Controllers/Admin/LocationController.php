@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\AbstractEntity;
 use App\Models\Location;
+use App\Models\Region;
 use App\Services\LocationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -18,6 +19,14 @@ class LocationController extends AbstractAdminController
     ) {
         parent::__construct($location);
         $this->middleware('auth');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFilters()
+    {
+
     }
 
     public function create()

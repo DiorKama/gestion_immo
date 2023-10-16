@@ -7,4 +7,11 @@ return [
         'disabled' => 3,
         'deleted' => 4,
     ],
+    'upload' => [
+        'group' => [
+            'listing_gallery' => [
+                'enabled' => true,
+            ],
+        ],
+    ],
 ];

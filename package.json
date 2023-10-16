@@ -21,7 +21,10 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.7",
+        "admin-lte": "^3.2.0",
         "bootstrap": "^4.6.2",
-        "jquery": "^3.7.0"
+        "devbridge-autocomplete": "^1.4.11",
+        "jquery": "^3.7.0",
+        "mobile-detect": "^1.4.5"
     }
 }

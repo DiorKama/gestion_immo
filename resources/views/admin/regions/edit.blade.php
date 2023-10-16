@@ -28,13 +28,23 @@
                                     </div>
                                 @endif
 
-                                    <div class="form-group">
-                                        <label>{{ __('Nom de la region') }}</label>
-                                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') ?? $region->title }}" placeholder="{{ __('Region ...') }}" required>
-                                        @error("title")
+                                <div class="form-group">
+                                    <label>{{ __('Pays') }}</label>
+                                    <select name="country_id" class="form-control @error('country_id') is-invalid @enderror">
+                                        <option value="{{ $region->country->id }}" selected>{{ $region->country->title }}</option>
+                                    </select>
+                                    @error("country_id")
                                         <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ __('Nom de la region') }}</label>
+                                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') ?? $region->title }}" placeholder="{{ __('Region ...') }}" required>
+                                    @error("title")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{ __('Modifier') }}</button>

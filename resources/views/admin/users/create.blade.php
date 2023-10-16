@@ -61,7 +61,7 @@
 
                                 <div class="form-group">
                                     <label>{{ __('Numéro de téléphone') }}</label>
-                                    <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('mobile_number') }}" placeholder="{{ __('77 xxx xxx ...') }}" required>
+                                    <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}" placeholder="{{ __('77 xxx xxx ...') }}" required>
                                     @error("phone_number")
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
