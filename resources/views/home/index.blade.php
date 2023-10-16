@@ -15,10 +15,10 @@
                 <div class="about-us__content d-flex flex-column justify-content-between">
                     <div class="about-us__header section-item__header">
                         <div class="about-us__header__inner section-item__header__inner">
-                            <h2 class="about-us__header__title section-item__header__title">
+                            <h2 class="about-us__header__title section-item__header__title vertical-text">
                                 {{ __('A propos') }}
+                                <hr>
                             </h2>
-                            <hr>
                         </div>
                     </div>
                     <div class="about-us_description">
@@ -35,118 +35,22 @@
 
     <div class="our-deals section-item">
         <div class="our-deals__inner section-item__inner">
-            <div class="our-deals__row section-item__row align-items-end">
-                <!--<div class="row d-flex align-items-center">-->
-                <div class="our-deals__aside col-3">
-                    <div class="our-deals__header section-item__header">
-                        <div class="our-deals__header__inner section-item__header__inner">
-                            <h2 class="our-deals__header__title section-item__header__title">
-                                {{ __('Nos bons plans') }}
-                            </h2>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-                <div class="our-deals__content col-9">
-                    <div class="listings-featured home__section home__section--listings-featured">
-                        <div class="listings-featured__inner container">
-                            <div class="row align-items-start">
-                                <div class="listings-slider listings-slider--featured col">
-                                    <div class="listings-slider__container">
-                                        <div class="featured-listings-slider__row row justify-content-start my-3">
-                                            <?php for ($i=0; $i < 5; $i++) { ?>
-                                            <div class="listings-slider__item border-transparent">
-                                                <div class="listings-slider__item__inner bg-light">
-                                                    <a href="">
-                                                        <img src="https://placehold.co/400x300?text=Featured" class="d-block w-100" alt="...">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include(
+                'home.partials._premium-listings',
+                [
+                    'title' => __('Nos bons plans'),
+                    'premiumListings' => $premiumListings,
+                ]
+            )
         </div>
     </div>
 
     <div class="our-properties section-item">
         <div class="our-properties__inner section-item__inner">
-            <div class="our-properties__row section-item__row align-items-end">
-                <div class="our-properties__aside col-12 col-sm-3 mb-sm-0 mb-3">
-                    <div class="our-deals__header section-item__header">
-                        <div class="our-deals__header__inner section-item__header__inner">
-                            <h2 class="our-deals__header__title section-item__header__title">
-                                {{ __('Nos biens immobiliers') }}
-                            </h2>
-                            <hr>
-                        </div>
-
-                        {{-- dd($_categories) --}}
-
-                        @if ( isset($_categories) && !empty($_categories) )
-                            <nav
-                                class="categories-nav"
-                            >
-                                <div class="categories-nav__inner-container">
-                                    <ul class="categories-nav__inner">
-                                        @foreach ($_categories as $category)
-                                            <li class="categories-nav__inner__item">
-                                                <a
-                                                    href="{{ route('listings.category', [
-                                                        'dbCategory' => $category['slug']
-                                                    ]) }}"
-                                                    class="header-nav__inner__item__link"
-                                                >
-                                                    {{ $category['title'] }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </nav>
-                        @else
-                            <p class="text-muted mt-5">{{ __('Aucune catégorie à afficher.') }}</p>
-                        @endif
-
-                        <div class="mt-3">
-                            <a
-                                class="btn btn-primary"
-                                href="{{ route('listings.index') }}"
-                            >
-                                {{ __('Tous les biens') }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="our-properties__content col-12 col-sm-9">
-                    <div class="latest-listings home__section home__section--latest-listings">
-                        <div class="latest-listings__inner container">
-                            <div class="row align-items-start">
-                                <div class="listings-slider listings-slider--featured col">
-                                    <div class="listings-slider__container">
-                                        <div class="latest-listings-slider__row row justify-content-start my-3">
-                                            <?php for ($i=0; $i < 8; $i++) { ?>
-                                            <div class="listings-slider__item border-transparent">
-                                                <div class="listings-slider__item__inner bg-light">
-                                                    <a href="">
-                                                        <img src="https://placehold.co/300x400?text=Annonce+Deux" class="d-block w-100" alt="...">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('home.partials._latest-listings', [
+                'title' => __('Nos biens immobiliers '),
+                'latestListings' => $latestListings,
+            ])
         </div>
     </div>
 
@@ -165,7 +69,7 @@
                     dots: false,
                     infinite: true,
                     speed: 300,
-                    slidesToShow: 2,
+                    slidesToShow: 1,
                     slidesToScroll: 1,
                     prevArrow: '<span class="listings-slider__nav listings-slider__nav--prev"><i class="fas fa-chevron-left"></i></span>',
                     nextArrow: '<span class="listings-slider__nav listings-slider__nav--next"><i class="fas fa-chevron-right"></i></span>',
@@ -173,8 +77,8 @@
                         {
                             breakpoint: 1024,
                             settings: {
-                                slidesToShow: 5,
-                                slidesToScroll: 5,
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
                                 infinite: true,
                                 dots: true
                             }
@@ -203,16 +107,16 @@
                     dots: false,
                     infinite: true,
                     speed: 300,
-                    slidesToShow: 4,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
-                    prevArrow: '<span class="listings-slider__nav listings-slider__nav--prev"><i class="fas fa-chevron-left"></i></span>',
-                    nextArrow: '<span class="listings-slider__nav listings-slider__nav--next"><i class="fas fa-chevron-right"></i></span>',
+                    prevArrow: '<span class="listings-slider__nav listings-slider__nav--prev--latest"><i class="fas fa-chevron-left"></i></span>',
+                    nextArrow: '<span class="listings-slider__nav listings-slider__nav--next--latest"><i class="fas fa-chevron-right"></i></span>',
                     responsive: [
                         {
                             breakpoint: 1024,
                             settings: {
-                                slidesToShow: 5,
-                                slidesToScroll: 5,
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
                                 infinite: true,
                                 dots: true
                             }

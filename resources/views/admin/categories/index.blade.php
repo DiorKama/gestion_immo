@@ -46,10 +46,31 @@
                                                 <td>{{ formatFrenchDate($category->created_at) }}</td>
                                                 <td>{{ formatFrenchDate($category->updated_at) }}</td>
                                                 <td class="text-nowrap">
-                                                    <button type="button" class="btn btn-primary"><a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}" class="text-white" style="text-decoration: none;"><i class="fa fa-pencil" aria-hidden="true"></i></a></button>
-                                                    <button type="button" class="btn btn-danger" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer ce catégorie?')) { window.location.href = '{{ route('admin.categories.delete', ['category' => $category->id])  }}' }">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </button>
+                                                    <a
+                                                        href="{{ route('admin.categories.edit', [
+                                                        'category' => $category->id
+                                                    ]) }}"
+                                                        class="btn btn-primary btn-sm"
+                                                    >
+                                                        <i class="fa fa-pencil"></i>
+                                                        {{ __('Modifier') }}
+                                                    </a>
+
+                                                    <form action="{{ route('admin.categories.delete', [
+                                                        'category' => $category->id
+                                                    ]) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-danger btn-sm"
+                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette catégorie?'))"
+                                                        >
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            {{ __('Supprimer') }}
+                                                        </button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

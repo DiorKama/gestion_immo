@@ -25,6 +25,11 @@ return [
             'w' => 100,
             'h' => 100,
         ],
+        'listing-gallery-thumb-192w' => [
+            //4:3
+            'w' => 192,
+            'h' => 144,
+        ],
         'listing-gallery-thumb-640w' => [
             'w' => 640,
             'h' => 475,

@@ -8,10 +8,9 @@
         <div class="footer__aside">
             <div class="our-deals__header section-item__header">
                 <div class="our-deals__header__inner section-item__header__inner">
-                    <h2 class="our-deals__header__title section-item__header__title">
+                    <h2 class="our-deals__header__title section-item__header__title vertical-text">
                         {{ __('Contact') }}
                     </h2>
-                    <hr>
                 </div>
             </div>
         </div>

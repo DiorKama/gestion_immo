@@ -51,7 +51,7 @@
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
-                                                        class="btn btn-info btn-xs"
+                                                        class="btn btn-info btn-sm"
                                                         data-toggle="modal" data-target="#banner-details-{{ $banner->id }}"
                                                     >
                                                         <i class="fa fa-eye"></i>
@@ -83,7 +83,7 @@
                                                     <a
                                                         href="{{ route('admin.banners.edit', [
                                                         'banner' => $banner->id]) }}"
-                                                        class="btn btn-primary btn-xs"
+                                                        class="btn btn-primary btn-sm"
                                                     >
                                                         <i class="fa fa-pencil"></i>
                                                         {{ __('Modifier') }}
@@ -96,7 +96,7 @@
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-xs"
+                                                            class="btn btn-danger btn-sm"
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette banière?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>

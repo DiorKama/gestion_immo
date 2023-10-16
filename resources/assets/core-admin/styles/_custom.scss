@@ -1,3 +1,9 @@
+body {
+    position: relative;
+    padding: 0;
+    font-size: $font-size-base * .8
+}
+
 .table td {
     vertical-align: middle
 }

@@ -49,6 +49,10 @@ class Country extends AbstractEntity
         return $this->hasMany(Location::class);
     }
 
+    public function regions() {
+        return $this->hasMany(Region::class);
+    }
+
     public function scopeOnlyEnabled(Builder $query)
     {
         $query->where('enabled', 1);

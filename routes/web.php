@@ -116,4 +116,6 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('ajax/users/autocomplete', [UserController::class, 'autocomplete'])->name('admin.ajax.users.autocomplete');
     Route::get('ajax/categories/autocomplete', [CategoryController::class, 'autocomplete'])->name('admin.ajax.categories.autocomplete');
+    Route::get('ajax/countries/autocomplete', [CountryController::class, 'autocomplete'])->name('admin.ajax.countries.autocomplete');
+    Route::get('ajax/regions/autocomplete', [RegionController::class, 'autocomplete'])->name('admin.ajax.regions.autocomplete');
 });

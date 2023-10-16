@@ -20,7 +20,7 @@
                                 class="gallery__image__resource w-100"
                                 src="{{ fullImageUrl('listing-gallery-thumb-1280w', $firstFile->path) }}"
                                 itemprop="thumbnail"
-                                alt="Image 1"
+                                alt="{{ $listing->title }}"
                             />
                         </a>
                     </figure>
@@ -50,7 +50,7 @@
                                             class="gallery__image__resource w-100"
                                             src="{{ fullImageUrl('listing-gallery-thumb-640w', $file->path) }}"
                                             itemprop="thumbnail"
-                                            alt="Image 1"
+                                            alt="{{ $listing->title }}"
                                         />
                                     </a>
                                 </figure>
@@ -70,7 +70,7 @@
                                             class="gallery__image__resource"
                                             src="{{ fullImageUrl('listing-gallery-thumb-100w', $file->path) }}"
                                             itemprop="thumbnail"
-                                            alt="Image 1"
+                                            alt="{{ $listing->title }}"
                                         />
                                     </a>
                                 </figure>

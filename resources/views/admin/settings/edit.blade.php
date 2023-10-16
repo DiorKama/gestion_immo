@@ -99,7 +99,7 @@
                                         </div>
 
                                         <div class="form-check">
-                                            <input type="checkbox" name="is_whatsapp_available" class="form-check-input">
+                                            <input type="checkbox" name="is_whatsapp_available" class="form-check-input" @checked(old('is_whatsapp_available', $setting->is_whatsapp_available))>
                                             <label class="form-check-label">{{ __('Ce numéro fonction sur WhatsApp') }}</label>
                                         </div>
                                     </div>

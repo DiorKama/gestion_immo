@@ -3,6 +3,16 @@
 
     @section('page-header-title', __('Tous les biens immobiliers'))
 
+    @section('customFilters')
+        <div class="col">
+            <input type="text" class="form-control form-control-sm js-autocomplete" name="category_id" data-url="{{ route('admin.ajax.categories.autocomplete') }}" data-value="{{ Request::input('category_id_autocomplete') }}" data-parameter="q" placeholder="Catégorie ...">
+        </div>
+
+        <div class="col">
+            <input type="text" class="form-control form-control-sm js-autocomplete" name="user_id" data-url="{{ route('admin.ajax.users.autocomplete') }}" data-value="{{ Request::input('user_id_autocomplete') }}" data-parameter="q" placeholder="Utilisateur ...">
+        </div>
+    @stop
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -89,7 +99,7 @@
                                                 <td class="text-nowrap">
                                                     <a
                                                         href="javascript:;"
-                                                        class="btn btn-info btn-xs"
+                                                        class="btn btn-info btn-sm"
                                                         data-toggle="modal" data-target="#location-details-{{ $listing->id }}">
                                                         <i class="fa fa-eye"></i>
                                                         {{ __('Détails') }}
@@ -160,7 +170,7 @@
                                                         href="{{ route('admin.listings.edit', [
                                                         'listing' => $listing->id
                                                     ]) }}"
-                                                        class="btn btn-primary btn-xs"
+                                                        class="btn btn-primary btn-sm"
                                                     >
                                                         <i class="fa fa-pencil"></i>
                                                         {{ __('Modifier') }}
@@ -173,7 +183,7 @@
                                                         @method('DELETE')
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-xs"
+                                                            class="btn btn-danger btn-sm"
                                                             onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette localité?'))"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>

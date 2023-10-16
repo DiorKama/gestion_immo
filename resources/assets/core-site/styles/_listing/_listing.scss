@@ -268,9 +268,9 @@
         text-align: justify;
         font-style: normal;
         font-weight: 700;
-        font-size: $font-size-base * 1.2;
-        line-height: 1.2rem;
-        max-height: 2.4rem;
+        font-size: $font-size-base;
+        line-height: 1rem;
+        max-height: 2rem;
         word-break: break-word;
         overflow: hidden;
         white-space: nowrap;
@@ -306,7 +306,9 @@
     }
 }
 
-.listings-slider__row {
+.listings-slider__row,
+.featured-listings-slider__row,
+.latest-listings-slider__row {
     visibility: hidden;
     opacity: 0;
     transition: opacity 1s;
