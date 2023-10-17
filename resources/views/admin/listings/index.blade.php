@@ -115,7 +115,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <dl>
+                                                                    <dl class="dl-horizontal">
                                                                         <dt>{{ __('Category') }}</dt>
                                                                         <dd>{{ $listing->category->title }}</dd>
 

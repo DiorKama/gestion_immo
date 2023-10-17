@@ -61,15 +61,45 @@
                                     </div>
 
                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ __('Desktop') }}</label>
+                                            <input type="file" name="banner_bg[image]" class="form-control @error('banner_bg[image]') is-invalid @enderror">
+                                            @error("file")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
                                         @if($banner->backgroundImage)
-                                            <div class="form-group">
+                                            <div class="d-block mb-2">
                                                 <img class="w-100" src="{{ fullImageUrl('banner-thumb-1240w', $banner->backgroundImage->path) }}" alt="">
+                                            </div>
+
+                                            <div class="form-check mb-4">
+                                                <input class="form-check-input" type="checkbox" value="1" name="banner_bg[delete]" id="bannerBgDeleteChek">
+                                                <label class="form-check-label" for="bannerBgDeleteChek">
+                                                    {{ __('Supprimer l\'image') }}
+                                                </label>
                                             </div>
                                         @endif
 
+                                        <div class="form-group">
+                                            <label>{{ __('Mobile') }}</label>
+                                            <input type="file" name="mobile_banner_bg[image]" class="form-control @error('mobile_banner_bg[image]') is-invalid @enderror">
+                                            @error("file")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
                                         @if($banner->mobileBackgroundImage)
-                                            <div class="form-group">
+                                            <div class="d-block mb-2">
                                                 <img src="{{ fullImageUrl('banner-thumb-360w', $banner->mobileBackgroundImage->path) }}" alt="">
+                                            </div>
+
+                                            <div class="form-check mb-4">
+                                                <input class="form-check-input" type="checkbox" value="1" name="mobile_banner_bg[delete]" id="bannerBgDeleteChek">
+                                                <label class="form-check-label" for="bannerBgDeleteChek">
+                                                    {{ __('Supprimer l\'image') }}
+                                                </label>
                                             </div>
                                         @endif
                                     </div>

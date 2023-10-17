@@ -196,4 +196,16 @@ trait CanUploadImage
     {
         return $file->delete();
     }
+
+    protected function deleteImages(
+        string $group
+    ) {
+        $this
+            ->entity
+            ->files()
+            ->where('group', $group)
+            ->each(function ($file) {
+                $this->deleteFileRecord($file);
+            });
+    }
 }

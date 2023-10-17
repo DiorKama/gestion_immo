@@ -41,7 +41,11 @@
                                                 <td>{{ $user->full_name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->phone_number }}</td>
-                                                <td>{{ !is_null($user->email_verified_at) ? __('Oui') : __('Non') }}</td>
+                                                <td>
+                                                    <span class="badge badge-{{ !is_null($user->email_verified_at) ? 'success' : 'danger' }}">
+                                                        {{ !is_null($user->email_verified_at) ? __('Oui') : __('Non')}}
+                                                    </span>
+                                                </td>
                                                 <td>{{ formatFrenchDate($user->created_at) }}</td>
                                                 <td>
                                                     <a
@@ -64,7 +68,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <dl>
+                                                                    <dl class="dl-horizontal">
                                                                         <dt>{{ __('E-mail') }}</dt>
                                                                         <dd>
                                                                             {{ $user->email }}

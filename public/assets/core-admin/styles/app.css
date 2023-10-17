@@ -8969,7 +8969,7 @@ button.bg-dark:focus {
   text-align: justify !important;
 }
 
-.text-wrap {
+.text-wrap, .dl-horizontal > dd {
   white-space: normal !important;
 }
 
@@ -8977,7 +8977,7 @@ button.bg-dark:focus {
   white-space: nowrap !important;
 }
 
-.text-truncate {
+.text-truncate, .dl-horizontal > dt {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -8987,7 +8987,7 @@ button.bg-dark:focus {
   text-align: left !important;
 }
 
-.text-right {
+.text-right, .dl-horizontal > dt {
   text-align: right !important;
 }
 
@@ -9269,18 +9269,39 @@ body {
   font-size: 0.8rem;
 }
 
+.content-header h1 {
+  font-size: 1.2rem;
+}
+
 .table td {
   vertical-align: middle;
 }
 
 .card-title {
   margin-bottom: 0;
+  font-size: 1rem;
 }
 
 .dropzone {
   border-style: dotted !important;
 }
 
+.dl-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.dl-horizontal > * {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.dl-horizontal > dt, .dl-horizontal > dd {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
 .auth-widget__header__avatar {
   width: 100px;
   height: 100px;

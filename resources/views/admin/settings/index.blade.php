@@ -53,7 +53,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <dl>
+                                                            <dl class="dl-horizontal">
                                                                 <dt>{{ __('Slogan') }}</dt>
                                                                 <dd>{{ $setting->slogan }}</dd>
 
