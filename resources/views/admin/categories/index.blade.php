@@ -39,7 +39,11 @@
                                             <tr>
                                                 <td>{{$category->id}}</td>
                                                 <td>{{$category->title}}</td>
-                                                <td>{{ $category->enabled ? 'Oui' : 'Non' }}</td>
+                                                <td>
+                                                    <span class="badge badge-{{ $category->enabled ? 'success' : 'danger' }}">
+                                                        {{ $category->enabled ? __('Actif') : __('Inactif')}}
+                                                    </span>
+                                                </td>
                                                 <td>{{ Str::limit($category->description, 60) }}</td>
                                                 <td>{{$category->sort_order}}</td>
                                                 <td>{{$category->parent ? $category->parent->title : '' }}</td>

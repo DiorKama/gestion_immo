@@ -198,6 +198,13 @@ class AbstractAdminController extends Controller
             foreach ($this->files as $fileGroup => $fileName) {
                 $file = "${fileGroup}.${fileName}";
 
+                if (
+                    $request->input("${fileGroup}.delete")
+                    || $request->hasFile($file)
+                ) {
+                    $this->deleteImages($fileGroup);
+                }
+
                 if ($request->hasFile($file)) {
                     $uploadResult = $this->uploadImage(
                         $request->file($file),

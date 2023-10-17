@@ -46,7 +46,11 @@
                                                 <td>{{ $region->id }}</td>
                                                 <td>{{ $region->title }}</td>
                                                 <td>{{ $region->country->title }}</td>
-                                                <td>{{ $region->enabled ? __('Oui') : __('Non')}}</td>
+                                                <td>
+                                                    <span class="badge badge-{{ $region->enabled ? 'success' : 'danger' }}">
+                                                        {{ $region->enabled ? __('Actif') : __('Inactif')}}
+                                                    </span>
+                                                </td>
                                                 <td>{{ formatFrenchDate($region->created_at) }}</td>
                                                 <td>{{ formatFrenchDate($region->updated_at) }}</td>
                                                 <td class="text-nowrap">
@@ -70,7 +74,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <dl>
+                                                                    <dl class="dl-horizontal">
                                                                         <dt>{{ __('Pays') }}</dt>
                                                                         <dd>{{ $region->country->title }}</dd>
 

@@ -39,6 +39,7 @@
                                             <th>{{ __('Nom') }}</th>
                                             <th>{{ __('Region') }}</th>
                                             <th>{{ __('Pays') }}</th>
+                                            <th>{{ __('Statut') }}</th>
                                             <th>{{ __('Créé le') }}</th>
                                             <th>{{ __('Mis à jour le') }}</th>
                                             <th>{{ __('Actions') }}</th>
@@ -51,6 +52,11 @@
                                                 <td>{{ $location->title }}</td>
                                                 <td>{{ $location->region->title }}</td>
                                                 <td>{{ $location->country->title }}</td>
+                                                <td>
+                                                    <span class="badge badge-{{ $location->enabled ? 'success' : 'danger' }}">
+                                                        {{ $location->enabled ? __('Actif') : __('Inactif')}}
+                                                    </span>
+                                                </td>
                                                 <td>{{ formatFrenchDate($location->created_at) }}</td>
                                                 <td>{{ formatFrenchDate($location->updated_at) }}</td>
                                                 <td class="text-nowrap">
@@ -74,7 +80,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <dl>
+                                                                    <dl class="dl-horizontal">
                                                                         <dt>{{ __('Pays') }}</dt>
                                                                         <dd>{{ $location->country->title }}</dd>
 

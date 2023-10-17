@@ -51,7 +51,9 @@
                                                     {{ $country->area_code }}
                                                 </td>
                                                 <td>
-                                                    {{ $country->enabled ? __('Oui') : __('Non') }}
+                                                    <span class="badge badge-{{ $country->enabled ? 'success' : 'danger' }}">
+                                                        {{ $country->enabled ? __('Actif') : __('Inactif')}}
+                                                    </span>
                                                 </td>
                                                 <td>
                                                     {{ formatFrenchDate($country->created_at) }}
@@ -80,7 +82,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <dl>
+                                                                    <dl class="dl-horizontal">
                                                                         <dt>{{ __('Code du pays') }}</dt>
                                                                         <dd>{{ $country->iso }}</dd>
 

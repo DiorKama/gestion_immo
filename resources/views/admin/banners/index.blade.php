@@ -45,7 +45,11 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ config('banners.types.' . $banner->type_banner) }}</td>
-                                                <td>{{ $banner->enabled ? __('Oui') : __('Non')}}</td>
+                                                <td>
+                                                    <span class="badge badge-{{ $banner->enabled ? 'success' : 'danger' }}">
+                                                        {{ $banner->enabled ? __('Actif') : __('Inactif')}}
+                                                    </span>
+                                                </td>
                                                 <td>{{ formatFrenchDate($banner->created_at) }}</td>
                                                 <td>{{ formatFrenchDate($banner->updated_at) }}</td>
                                                 <td class="text-nowrap">
@@ -69,8 +73,20 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <dl>
+                                                                    <dl class="dl-horizontal">
+                                                                        <dt>{{ __('Type de bannière') }}</dt>
+                                                                        <dd>{{ config('banners.types.' . $banner->type_banner) }}</dd>
 
+                                                                        @if( $banner->url )
+                                                                            <dt>{{ __('URL') }}</dt>
+                                                                            <dd>{{ $banner->url }}</dd>
+                                                                        @endif
+
+                                                                        <dt>{{ __('Statut') }}</dt>
+                                                                        <dd>{{ $banner->enabled ? __('Oui') : __('Non') }}</dd>
+
+                                                                        <dt>{{ __('Dernière mise à jour') }}</dt>
+                                                                        <dd>{{ formatFrenchDate($banner->updated_at) }}</dd>
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">
