@@ -339,4 +339,72 @@ class AbstractAdminController extends Controller
         return $request
             ?: resolve(AdminRequest::class);
     }
+
+    public function enable(
+        AbstractEntity $entity,
+        $request = null,
+        $useCase = null
+    ) {
+        $this->entity = $entity;
+
+        $message = __(
+            'form.enable',
+            [
+                'title' => (string) $this->entity->title,
+            ]
+        );
+
+        if ($useCase) {
+            $useCase->handle($this->entity);
+        } else {
+            $this->entity->update([
+                'enabled' => true
+            ]);
+        }
+
+        $redirect = request('redirect');
+
+        if ($redirect) {
+            return redirect()
+                ->to($redirect)
+                ->withMessage($message);
+        }
+
+        return back()
+            ->withMessage($message);
+    }
+
+    public function disable(
+        AbstractEntity $entity,
+        $request = null,
+        $useCase = null
+    ) {
+        $this->entity = $entity;
+
+        $message = __(
+            'form.disable',
+            [
+                'title' => (string) $this->entity->title,
+            ]
+        );
+
+        if ($useCase) {
+            $useCase->handle($this->entity);
+        } else {
+            $this->entity->update([
+                'enabled' => false
+            ]);
+        }
+
+        $redirect = request('redirect');
+
+        if ($redirect) {
+            return redirect()
+                ->to($redirect)
+                ->withMessage($message);
+        }
+
+        return back()
+            ->withMessage($message);
+    }
 }

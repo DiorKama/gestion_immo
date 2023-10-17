@@ -58,6 +58,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/countries/edit/{country}', [CountryController::class, 'edit'])->name('admin.countries.edit');
     Route::put('/countries/update/{country}', [CountryController::class, 'update'])->name('admin.countries.update');
     Route::delete('/countries/delete/{country}', [CountryController::class, 'destroy'])->name('admin.countries.delete');
+    Route::post('/countries/enable/{country}', [CategoryController::class, 'enable'])->name('admin.countries.enable');
+    Route::post('/countries/disable/{country}', [CategoryController::class, 'disable'])->name('admin.countries.disable');
 
     Route::get('/regions', [RegionController::class, 'index'])->name('admin.regions.index');
     Route::get('/regions/create',  [RegionController::class, 'create'])->name('admin.regions.create');
@@ -65,6 +67,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/regions/edit/{region}', [RegionController::class, 'edit'])->name('admin.regions.edit');
     Route::put('/regions/update/{region}', [RegionController::class, 'update'])->name('admin.regions.update');
     Route::delete('/regions/delete/{region}', [RegionController::class, 'destroy'])->name('admin.regions.delete');
+    Route::post('/regions/enable/{region}', [RegionController::class, 'enable'])->name('admin.regions.enable');
+    Route::post('/regions/disable/{region}', [RegionController::class, 'disable'])->name('admin.regions.disable');
 
     Route::get('/locations', [LocationController::class, 'index'])->name('admin.locations.index');
     Route::get('/locations/create',  [LocationController::class, 'create'])->name('admin.locations.create');
@@ -72,6 +76,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/locations/edit/{location}', [LocationController::class, 'edit'])->name('admin.locations.edit');
     Route::put('/locations/update/{location}', [LocationController::class, 'update'])->name('admin.locations.update');
     Route::delete('/locations/delete/{location}', [LocationController::class, 'destroy'])->name('admin.locations.delete');
+    Route::post('/locations/enable/{location}', [CategoryController::class, 'enable'])->name('admin.locations.enable');
+    Route::post('/locations/disable/{location}', [CategoryController::class, 'disable'])->name('admin.locations.disable');
 
     Route::get('/listings', [ListingController::class, 'index'])->name('admin.listings.index');
     Route::get('/listings/create/{listing?}',  [ListingController::class, 'createListing'])->name('admin.listings.create');
@@ -94,6 +100,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/categories/edit/{category}',  [CategoryController::class, 'edit'])->name('admin.categories.edit');
     Route::put('/categories/update/{category}',  [CategoryController::class, 'update'])->name('admin.categories.update');
     Route::get('/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.delete');
+    Route::post('/categories/enable/{category}', [CategoryController::class, 'enable'])->name('admin.categories.enable');
+    Route::post('/categories/disable/{category}', [CategoryController::class, 'disable'])->name('admin.categories.disable');
 
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('/users/create',  [UserController::class, 'create'])->name('admin.users.create');
@@ -113,6 +121,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/banners/edit/{banner}',  [BannerController::class, 'edit'])->name('admin.banners.edit');
     Route::put('/banners/update/{banner}',  [BannerController::class, 'update'])->name('admin.banners.update');
     Route::delete('/banners/delete/{banner}', [BannerController::class, 'destroy'])->name('admin.banners.delete');
+    Route::post('/banners/enable/{banner}', [BannerController::class, 'enable'])->name('admin.banners.enable');
+    Route::post('/banners/disable/{banner}', [BannerController::class, 'disable'])->name('admin.banners.disable');
 
     Route::get('ajax/users/autocomplete', [UserController::class, 'autocomplete'])->name('admin.ajax.users.autocomplete');
     Route::get('ajax/categories/autocomplete', [CategoryController::class, 'autocomplete'])->name('admin.ajax.categories.autocomplete');
