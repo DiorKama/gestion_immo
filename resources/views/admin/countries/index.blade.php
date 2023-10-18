@@ -113,6 +113,36 @@
                                                         {{ __('Modifier') }}
                                                     </a>
 
+                                                    @if($country->enabled)
+                                                        <form action="{{ route('admin.countries.disable', [
+                                                            'country' => $country->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver ce pays ?')')"
+                                                            >
+                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                                {{ __('Désactiver') }}
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('admin.countries.enable', [
+                                                            'country' => $country->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-success btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir activer ce pays ?')')"
+                                                            >
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                                {{ __('Activer') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
+
                                                     <form action="{{ route('admin.countries.delete', [
                                                         'country' => $country->id
                                                     ]) }}" method="POST" class="d-inline">
@@ -121,7 +151,7 @@
                                                         <button
                                                             type="submit"
                                                             class="btn btn-danger btn-sm"
-                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette region?'))"
+                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer ce pays ?')')"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             {{ __('Supprimer') }}

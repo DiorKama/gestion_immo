@@ -102,6 +102,36 @@
                                                         {{ __('Modifier') }}
                                                     </a>
 
+                                                    @if($region->enabled)
+                                                        <form action="{{ route('admin.regions.disable', [
+                                                            'region' => $region->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver cette region ?')')"
+                                                            >
+                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                                {{ __('Désactiver') }}
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('admin.regions.enable', [
+                                                            'region' => $region->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-success btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir activer cette region ?')')"
+                                                            >
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                                {{ __('Activer') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
+
                                                     <form action="{{ route('admin.regions.delete', [
                                                         'region' => $region->id
                                                     ]) }}" method="POST" class="d-inline">
@@ -110,7 +140,7 @@
                                                         <button
                                                             type="submit"
                                                             class="btn btn-danger btn-sm"
-                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette region?'))"
+                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer cette region?')')"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             {{ __('Supprimer') }}

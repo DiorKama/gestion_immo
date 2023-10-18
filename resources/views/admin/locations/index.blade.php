@@ -111,6 +111,36 @@
                                                         {{ __('Modifier') }}
                                                     </a>
 
+                                                    @if($location->enabled)
+                                                        <form action="{{ route('admin.locations.disable', [
+                                                            'location' => $location->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver cette localité ?')')"
+                                                            >
+                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                                {{ __('Désactiver') }}
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('admin.locations.enable', [
+                                                            'location' => $location->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-success btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir activer cette localité ?')')"
+                                                            >
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                                {{ __('Activer') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
+
                                                     <form action="{{ route('admin.locations.delete', [
                                                         'location' => $location->id
                                                     ]) }}" method="POST" class="d-inline">
@@ -119,7 +149,7 @@
                                                         <button
                                                             type="submit"
                                                             class="btn btn-danger btn-sm"
-                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette localité?'))"
+                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer cette localité?')')"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             {{ __('Supprimer') }}

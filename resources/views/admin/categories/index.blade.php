@@ -60,6 +60,36 @@
                                                         {{ __('Modifier') }}
                                                     </a>
 
+                                                    @if($category->enabled)
+                                                        <form action="{{ route('admin.categories.disable', [
+                                                            'category' => $category->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver cette catégorie ?')')"
+                                                            >
+                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                                {{ __('Désactiver') }}
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('admin.categories.enable', [
+                                                            'category' => $category->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-success btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir activer cette catégorie ?')')"
+                                                            >
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                                {{ __('Activer') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
+
                                                     <form action="{{ route('admin.categories.delete', [
                                                         'category' => $category->id
                                                     ]) }}" method="POST" class="d-inline">
@@ -68,7 +98,7 @@
                                                         <button
                                                             type="submit"
                                                             class="btn btn-danger btn-sm"
-                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette catégorie?'))"
+                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer cette catégorie?')')"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             {{ __('Supprimer') }}

@@ -105,6 +105,36 @@
                                                         {{ __('Modifier') }}
                                                     </a>
 
+                                                    @if($banner->enabled)
+                                                        <form action="{{ route('admin.banners.disable', [
+                                                            'banner' => $banner->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver cette bannière ?')')"
+                                                            >
+                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                                {{ __('Désactiver') }}
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('admin.banners.enable', [
+                                                            'banner' => $banner->id
+                                                        ]) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-success btn-sm"
+                                                                onclick="return confirm('@lang('Êtes-vous sûr de vouloir activer cette bannière ?')')"
+                                                            >
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                                {{ __('Activer') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
+
                                                     <form action="{{ route('admin.banners.delete', [
                                                         'banner' => $banner->id
                                                     ]) }}" method="POST" class="d-inline">
@@ -113,7 +143,7 @@
                                                         <button
                                                             type="submit"
                                                             class="btn btn-danger btn-sm"
-                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette banière?'))"
+                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer cette bannière?')')"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             {{ __('Supprimer') }}
