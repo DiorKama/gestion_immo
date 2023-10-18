@@ -67,12 +67,12 @@ class Listing extends AbstractEntity implements CanHaveFiles
         return $this->belongsTo(Location::class, 'location_id');
     }
 
-    public function status() {
+    public function listingStatus() {
         return $this->belongsTo(ListingStatus::class, 'listing_status_id');
     }
 
     public function optionListing() {
-        return $this->hasMany(Opti<onListing::class);
+        return $this->hasMany(OptionListing::class);
     }
 
     public function getLocationTitleAttribute()
@@ -195,5 +195,17 @@ class Listing extends AbstractEntity implements CanHaveFiles
     public function getWhatsappViewsAttribute()
     {
         return $this->listingStatistic->whatsapp_views ?? 0;
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this
+            ->listingStatus
+            ->slug;
+    }
+
+    public function getIsEnabledAttribute()
+    {
+        return $this->listing_status_id == config('listings.statuses.active');
     }
 }

@@ -335,13 +335,6 @@
                         self._bindAjaxEvents();
                         self.onFilesChanged();
 
-                        if (options.onTotalUploadProgress) {
-                            self.dropzone.on('totaluploadprogress', options.onTotalUploadProgress);
-                        }
-                        if (options.onQueueComplete) {
-                            self.dropzone.on('queuecomplete', options.onQueueComplete);
-                        }
-
                         self.addClass('dropzone--active');
                     };
 
@@ -365,8 +358,6 @@
                     uploadedPreviewContainer: '[data-file-upload-uploaded-preview-container]',
                     uploadedPreviewItem: '[data-file-upload-uploaded-preview-item]',
                     clickableTrigger: '[data-file-upload-clickable-trigger]',
-                    onTotalUploadProgress: true,
-                    onQueueComplete: true,
                 };
 
                 $upload.fileUpload(options);

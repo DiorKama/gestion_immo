@@ -12,7 +12,11 @@ class CreateListing
     ) {
         $listingid = Arr::get($data, 'listing_id');
         $listing = Listing::find($listingid);
-        $listing->fill(Arr::except($data, ['listing_id']));
+        $listing->fill(Arr::except(array_merge(
+            $data, [
+                'listing_status_id' => config('listings.statuses.active')
+            ]
+        ), ['listing_id']));
 
         if ( $listing->save() ) {
             return $listing;

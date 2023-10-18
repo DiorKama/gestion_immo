@@ -82,11 +82,11 @@
                                                 <td>
                                                     @if ( config('listings.statuses.active') == $listing->listing_status_id )
                                                         <span class="badge badge-success">
-                                                            {{ $listing->status->title }}
+                                                            {{ $listing->listingStatus->title }}
                                                         </span>
                                                     @else
                                                         <span class="badge badge-danger">
-                                                            {{ $listing->status->title ?? __('Inconnu') }}
+                                                            {{ $listing->listingStatus->title ?? __('Inconnu') }}
                                                         </span>
                                                     @endif
                                                 </td>
@@ -176,7 +176,81 @@
                                                         {{ __('Modifier') }}
                                                     </a>
 
-                                                    <form action="{{ route('admin.listings.delete', [
+                                                    <!--<button
+                                                        type="submit"
+                                                        class="btn btn-secondary btn-sm"
+                                                        onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver ce bien ?')')"
+                                                    >
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                        {{ __('Désactiver') }}
+                                                    </button>
+
+                                                    <button
+                                                        type="submit"
+                                                        class="btn btn-secondary btn-sm"
+                                                        onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver cette region ?')')"
+                                                    >
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                        {{ __('Ajouter au bons plans') }}
+                                                    </button>-->
+
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-warning btn-sm">{{ __('Actions') }}</button>
+                                                        <button type="button" class="btn btn-warning btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+
+                                                            @if( $listing->is_enabled )
+                                                                <form action="{{ route('admin.listings.disable', [
+                                                                    'listing' => $listing->id
+                                                                ]) }}" method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button
+                                                                        type="submit"
+                                                                        class="dropdown-item"
+                                                                        onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver ce bien ?')')"
+                                                                    >
+                                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                                        {{ __('Désactiver') }}
+                                                                    </button>
+                                                                </form>
+                                                            @else
+                                                                <form action="{{ route('admin.listings.enable', [
+                                                                    'listing' => $listing->id
+                                                                ]) }}" method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button
+                                                                        type="submit"
+                                                                        class="dropdown-item"
+                                                                        onclick="return confirm('@lang('Êtes-vous sûr de vouloir activer ce bien ?')')"
+                                                                    >
+                                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                                        {{ __('Activer') }}
+                                                                    </button>
+                                                                </form>
+                                                            @endif
+
+                                                            <a class="dropdown-item" href="#">{{ __('Ajouter au bons plans') }}</a>
+
+                                                            <form action="{{ route('admin.listings.delete', [
+                                                                'listing' => $listing->id
+                                                            ]) }}" method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button
+                                                                    type="submit"
+                                                                    class="dropdown-item"
+                                                                    onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer ce bien ?')')"
+                                                                >
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                    {{ __('Supprimer') }}
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--<form action="{{ route('admin.listings.delete', [
                                                         'listing' => $listing->id
                                                     ]) }}" method="POST" class="d-inline">
                                                         @csrf
@@ -184,12 +258,12 @@
                                                         <button
                                                             type="submit"
                                                             class="btn btn-danger btn-sm"
-                                                            onclick="return confirm(__('Êtes-vous sûr de vouloir supprimer cette localité?'))"
+                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer ce bien ?')')"
                                                         >
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             {{ __('Supprimer') }}
                                                         </button>
-                                                    </form>
+                                                    </form>-->
                                                 </td>
                                             </tr>
                                         @endforeach

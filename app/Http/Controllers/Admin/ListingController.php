@@ -6,6 +6,7 @@ use App\Http\Requests\StoreListingRequest;
 use App\Services\CategoryService;
 use App\Services\LocationService;
 use App\UseCases\CreateListing;
+use App\UseCases\UpdateListingStatus;
 use Carbon\Carbon;
 use App\Models\Listing;
 use App\Models\AbstractEntity;
@@ -98,5 +99,53 @@ class ListingController extends AbstractAdminController
             ->crudFilter($request->all())
             ->activeOrDisabled()
             ->paginate($request->get('perPage') ?: config('limit'));
+    }
+
+    public function enable(
+        AbstractEntity $entity,
+        $request = null,
+        $useCase = null
+    ) {
+        $useCase = resolve(UpdateListingStatus::class);
+
+        $listing = $useCase->handle(
+            $entity,
+            config('listings.statuses.active')
+        );
+
+        if ($listing) {
+            return redirect()
+                ->route('admin.listings.index')
+                ->withMessage(__('votre annonce :listingTitle a été activée avec succès', [
+                    'listingTitle' => $listing->title
+                ]));
+        }
+
+        return back()
+            ->withMessage(__('Erreur survenue. Merci de réessayer.'));
+    }
+
+    public function disable(
+        AbstractEntity $entity,
+        $request = null,
+        $useCase = null
+    ) {
+        $useCase = resolve(UpdateListingStatus::class);
+
+        $listing = $useCase->handle(
+            $entity,
+            config('listings.statuses.disabled')
+        );
+
+        if ($listing) {
+            return redirect()
+                ->route('admin.listings.index')
+                ->withMessage(__('votre annonce :listingTitle a été désactivée avec succès', [
+                    'listingTitle' => $listing->title
+                ]));
+        }
+
+        return back()
+            ->withMessage(__('Erreur survenue. Merci de réessayer.'));
     }
 }

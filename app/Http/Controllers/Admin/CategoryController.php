@@ -32,6 +32,28 @@ class CategoryController extends AbstractAdminController
         return view("admin.categories.edit", compact('_categoriesList', 'category'));
     }
 
+    public function destroy(
+        AbstractEntity $entity,
+        $useCase = null
+    ) {
+        $this->entity = $entity;
+        $messageKey = $this->entity->listings()->exists() ? 'not-deleted' : 'deleted';
+
+        $message = __(
+            "form.$messageKey",
+            [
+                'title' => (string) $this->entity,
+            ]
+        );
+
+        if ( !$this->entity->listings()->exists() ) {
+            $this->entity->delete();
+        }
+
+        return back()
+            ->withMessage($message);
+    }
+
     public function autocomplete(
         Request $request,
         CategoryService $searchService

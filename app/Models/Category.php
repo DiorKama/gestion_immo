@@ -7,6 +7,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Validation\Rule;
 
 class Category extends AbstractEntity
 {
@@ -17,7 +18,7 @@ class Category extends AbstractEntity
      * @var array
      */
     public static $rules = [
-        'title' => 'required|max:255|unique:categories',
+        'title' => 'sometimes|required',
         'description' => 'required',
         'sort_order' => 'required|integer',
         'parent_id' =>  'nullable|exists:categories,id',

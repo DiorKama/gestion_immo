@@ -16,7 +16,7 @@ class Product extends AbstractEntity
      * @var array
      */
     public static $rules = [
-        'title' => 'required|max:255|unique:categories',
+        'title' => 'required|max:255|unique:products',
         'lifetime' => 'integer',
     ];
 

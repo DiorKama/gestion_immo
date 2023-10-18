@@ -173,7 +173,8 @@
     </section>
 
     @section('footer-scripts')
-        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+        <!--<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>-->
+        <script src="https://unpkg.com/dropzone@5/dist/dropzone.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
         <script type="text/javascript">
@@ -338,13 +339,6 @@
                         self._bindAjaxEvents();
                         self.onFilesChanged();
 
-                        if (options.onTotalUploadProgress) {
-                            self.dropzone.on('totaluploadprogress', options.onTotalUploadProgress);
-                        }
-                        if (options.onQueueComplete) {
-                            self.dropzone.on('queuecomplete', options.onQueueComplete);
-                        }
-
                         self.addClass('dropzone--active');
                     };
 
@@ -352,9 +346,9 @@
                 }
             })(jQuery);
 
-            $(document).ready(function () {
-                Dropzone.autoDiscover = false;
+            Dropzone.autoDiscover = false;
 
+            $(document).ready(function () {
                 $('[data-file-upload]').each(function() {
                     var $upload = $(this);
 
@@ -369,8 +363,6 @@
                         uploadedPreviewContainer: '[data-file-upload-uploaded-preview-container]',
                         uploadedPreviewItem: '[data-file-upload-uploaded-preview-item]',
                         clickableTrigger: '[data-file-upload-clickable-trigger]',
-                        onTotalUploadProgress: true,
-                        onQueueComplete: true,
                     };
 
                     $upload.fileUpload(options);

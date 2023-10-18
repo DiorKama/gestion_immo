@@ -85,6 +85,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/listings/edit/{listing}',  [ListingController::class, 'edit'])->name('admin.listings.edit');
     Route::put('/listings/update/{listing}',  [ListingController::class, 'update'])->name('admin.listings.update');
     Route::delete('/listings/delete/{listing}', [ListingController::class, 'destroy'])->name('admin.listings.delete');
+    Route::post('/listings/enable/{listing}', [ListingController::class, 'enable'])->name('admin.listings.enable');
+    Route::post('/listings/disable/{listing}', [ListingController::class, 'disable'])->name('admin.listings.disable');
+
 
     Route::get('/listings/files/{listing}', [ListingFileController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.listings.photos.index');
     Route::get('/listings/files/{listing}/{group}', [ListingFileController::class, 'preview'])->name('admin.listings.photos.previews');
@@ -99,7 +102,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/categories/store',  [CategoryController::class, 'store'])->name('admin.categories.store');
     Route::get('/categories/edit/{category}',  [CategoryController::class, 'edit'])->name('admin.categories.edit');
     Route::put('/categories/update/{category}',  [CategoryController::class, 'update'])->name('admin.categories.update');
-    Route::get('/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.delete');
+    Route::delete('/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.delete');
     Route::post('/categories/enable/{category}', [CategoryController::class, 'enable'])->name('admin.categories.enable');
     Route::post('/categories/disable/{category}', [CategoryController::class, 'disable'])->name('admin.categories.disable');
 

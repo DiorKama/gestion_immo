@@ -103,8 +103,11 @@ class ImageResize
         return '/storage/' . $resizePath;*/
     }
 
-    private function filePlaceholder()
-    {
-        return "placeholder.svg";
+    public function buildUrlPlaceholder(
+        string $resizeKey
+    ) {
+        $targetWidth = Arr::get(config("imageresize.sizes.{$resizeKey}"), 'w');
+        $targetHeight = Arr::get(config("imageresize.sizes.{$resizeKey}"), 'h');
+        return "https://placehold.co/{$targetWidth}x{$targetHeight}";
     }
 }
