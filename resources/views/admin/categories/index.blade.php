@@ -67,7 +67,7 @@
                                                             @csrf
                                                             <button
                                                                 type="submit"
-                                                                class="btn btn-danger btn-sm"
+                                                                class="btn btn-secondary btn-sm"
                                                                 onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver cette catégorie ?')')"
                                                             >
                                                                 <i class="fa fa-times" aria-hidden="true"></i>

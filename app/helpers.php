@@ -40,7 +40,6 @@ if (!function_exists('entity_type')) {
 }
 
 if (!function_exists('fullImageUrl')) {
-
     /**
      * @param string $resizeType
      * @param string $fullS3ImageUrl
@@ -53,11 +52,17 @@ if (!function_exists('fullImageUrl')) {
         string $fullS3ImageUrl,
         array $imageParams = null
     ) {
-        return (new ImageResize)->buildUrl(
-            $resizeType,
-            $fullS3ImageUrl,
-            $imageParams ?: []
-        );
+        if ( $fullS3ImageUrl == '' ) {
+            return (new ImageResize)->buildUrlPlaceholder(
+                $resizeType
+            );
+        } else {
+            return (new ImageResize)->buildUrl(
+                $resizeType,
+                $fullS3ImageUrl,
+                $imageParams ?: []
+            );
+        }
     }
 }
 

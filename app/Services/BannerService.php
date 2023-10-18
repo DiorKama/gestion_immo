@@ -43,8 +43,8 @@ class BannerService
                     'id' => $item->id,
                     'title' => $item->title,
                     'url' => $item->url,
-                    'image' => $item->backgroundImage->path,
-                    'mobile_image' => $item->mobileBackgroundImage->path,
+                    'image' => $item->backgroundImage ? $item->backgroundImage->path : '',
+                    'mobile_image' => $item->mobileBackgroundImage ? $item->mobileBackgroundImage->path : '',
                 ]);
             });
         }

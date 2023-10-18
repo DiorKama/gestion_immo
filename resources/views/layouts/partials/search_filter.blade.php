@@ -7,7 +7,7 @@
         <div class="search-form__filters mb-2">
             <div class="search-form__filters__inner row">
                 <div class="col">
-                    <input type="text" class="form-control form-control-sm" name="q" placeholder="Recherchez ...">
+                    <input type="text" class="form-control form-control-sm" name="q" placeholder="Recherchez ..." value="{{ Request::input('q') }}">
                 </div>
 
                 @yield('customFilters')
