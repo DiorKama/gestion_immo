@@ -1,3 +1,5 @@
+@inject('productModel','App\Models\Product')
+
 <x-master-layout>
     @section('page-title', __('Liste des biens immobiliers'))
 
@@ -176,31 +178,12 @@
                                                         {{ __('Modifier') }}
                                                     </a>
 
-                                                    <!--<button
-                                                        type="submit"
-                                                        class="btn btn-secondary btn-sm"
-                                                        onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver ce bien ?')')"
-                                                    >
-                                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                                        {{ __('Désactiver') }}
-                                                    </button>
-
-                                                    <button
-                                                        type="submit"
-                                                        class="btn btn-secondary btn-sm"
-                                                        onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver cette region ?')')"
-                                                    >
-                                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                                        {{ __('Ajouter au bons plans') }}
-                                                    </button>-->
-
                                                     <div class="btn-group">
                                                         <button type="button" class="btn btn-warning btn-sm">{{ __('Actions') }}</button>
                                                         <button type="button" class="btn btn-warning btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                                                             <span class="sr-only">Toggle Dropdown</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right" role="menu">
-
                                                             @if( $listing->is_enabled )
                                                                 <form action="{{ route('admin.listings.disable', [
                                                                     'listing' => $listing->id
@@ -231,7 +214,38 @@
                                                                 </form>
                                                             @endif
 
-                                                            <a class="dropdown-item" href="#">{{ __('Ajouter au bons plans') }}</a>
+                                                            @if( $listing->is_enabled )
+                                                                @if( $listing->has_active_products )
+                                                                    <form class="unpromote-listing-form d-inline" action="{{ route('admin.ajax.featured-listings.delete', [
+                                                                        'featuredListing' => $listing->runningFeaturedEntities(
+                $productModel::PRODUCT_SLUGS
+            )->first()->id
+                                                                    ]) }}" method="POST">
+                                                                        @csrf
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="dropdown-item unpromote-listing-btn"
+                                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir retirer ce bien des bons plans ?')')"
+                                                                        >
+                                                                            <i class="fa fa-minus-square" aria-hidden="true"></i>
+                                                                            {{ __('Retirer des bons plans') }}
+                                                                        </button>
+                                                                    </form>
+                                                                @else
+                                                                    <form class="promote-listing-form d-inline" action="{{ route('admin.ajax.featured-listings.create', [
+                                                                        'listing' => $listing->id
+                                                                    ]) }}" method="POST">
+                                                                        @csrf
+                                                                        <button
+                                                                            type="submit"
+                                                                            class="dropdown-item promote-listing-btn"
+                                                                        >
+                                                                            <i class="fas fa-plus-square"></i>
+                                                                            {{ __('Ajouter aux bons plans') }}
+                                                                        </button>
+                                                                    </form>
+                                                                @endif
+                                                            @endif
 
                                                             <form action="{{ route('admin.listings.delete', [
                                                                 'listing' => $listing->id
@@ -249,21 +263,6 @@
                                                             </form>
                                                         </div>
                                                     </div>
-
-                                                    <!--<form action="{{ route('admin.listings.delete', [
-                                                        'listing' => $listing->id
-                                                    ]) }}" method="POST" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button
-                                                            type="submit"
-                                                            class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer ce bien ?')')"
-                                                        >
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                            {{ __('Supprimer') }}
-                                                        </button>
-                                                    </form>-->
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -280,4 +279,114 @@
             </div>
         </div>
     </section>
+
+    @include('admin.listings.partials._featured._modal')
+
+    @section('footer-scripts')
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <script type="text/javascript">
+            (function($) {
+                var $modal = $('.featured-listing-modal');
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $modal.on('hidden.bs.modal', function (event) {
+                    $(this).find('.modal-body').empty();
+                });
+
+                $('.promote-listing-form').on('submit', function (e) {
+                    e.preventDefault();
+                    var $form = $(this);
+
+                    $.post($form.attr('action'), {}, function(response) {
+                        $modal
+                            .find('.modal-body')
+                            .html(response.form);
+
+                        $modal
+                            .modal({
+                                keyboard: false,
+                                backdrop: 'static'
+                            }, 'show');
+                    }, 'json');
+                });
+
+                $modal
+                    .on('submit', '.form-featured-listing-store', function (e) {
+                        e.preventDefault();
+                        var $form = $(this);
+
+                        $.ajax({
+                            url: $form.attr('action'),
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data: $(this).serialize(),
+                        }).done(function(response) {
+                            $modal
+                                .modal('hide')
+                                .on('hidden.bs.modal', function () {
+                                    if ( response.result ) {
+                                        swal({
+                                            title: "{{ __('Félicitations !') }}",
+                                            text: "{{ __('Votre bien a bein été ajouté aux bons plans !') }}",
+                                            icon: "success",
+                                            button: "{{ __('OK') }}",
+                                            timer: 1500
+                                        });
+                                    } else {
+                                        swal({
+                                            title: "{{ __('Oops !') }}",
+                                            text: "{{ __('Erreur survenue. merci de réessayer.') }}",
+                                            icon: "error",
+                                            timer: 1500
+                                        });
+                                    }
+                                });
+
+                            window.setTimeout(function() {
+                                window.location.reload(true);
+                            }, 3000);
+
+                        }).fail(function(jqXHR, textStatus) {
+                            console.log(jqXHR);
+                        });
+                    });
+
+                $('.unpromote-listing-form').on('submit', function (e) {
+                    e.preventDefault();
+                    var $form = $(this);
+
+                    $.post($form.attr('action'), {}, function(response) {
+                        console.log(response);
+
+                        if ( response.result ) {
+                            swal({
+                                title: "{{ __('Félicitations !') }}",
+                                text: "{{ __('Votre bien a bein été retiré des bons plans avec succès !') }}",
+                                icon: "success",
+                                button: "{{ __('OK') }}",
+                                timer: 1500
+                            });
+                        } else {
+                            swal({
+                                title: "{{ __('Oops !') }}",
+                                text: "{{ __('Erreur survenue. merci de réessayer.') }}",
+                                icon: "error",
+                                timer: 1500
+                            });
+                        }
+
+                        window.setTimeout(function() {
+                            window.location.reload(true);
+                        }, 3000);
+                    }, 'json');
+                });
+            })(jQuery);
+        </script>
+    @endsection
 </x-master-layout>

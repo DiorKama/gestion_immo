@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\FeaturedListing;
 use App\Models\File;
 use App\Models\Listing;
 use App\Models\Location;
+use App\Models\Product;
 use App\Models\Region;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -40,6 +42,8 @@ class RouteServiceProvider extends ServiceProvider
         'banner' => Banner::class,
         'user' => User::class,
         'file' => File::class,
+        'product' => Product::class,
+        'featuredListing' => FeaturedListing::class,
     ];
 
     /**
