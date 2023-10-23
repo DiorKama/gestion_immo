@@ -62,10 +62,7 @@
             <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-
-        <!-- jQuery -->
-        <!--<script src="{{-- asset('plugins/jquery/jquery.min.js') --}}"></script>-->
-        <!-- AdminLTE App -->
+        <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
         <script src="{{ asset('assets/core-admin/scripts/app.js')}}"></script>
         @yield('footer-scripts')
     </body>

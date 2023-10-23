@@ -148,4 +148,24 @@ class ListingController extends AbstractAdminController
         return back()
             ->withMessage(__('Erreur survenue. Merci de réessayer.'));
     }
+
+    public function promote(
+        AbstractEntity $entity,
+        $request = null
+    ) {
+        $_products = resolve(ListingService::class)->getProductsAsList();
+
+        $view = view('admin.listings.partials._featured._form')
+            ->with(
+                [
+                    'listing' => $entity,
+                    '_products' => $_products
+                ]
+            )
+            ->render();
+
+        return response()->json([
+            'form' => $view,
+        ]);
+    }
 }
