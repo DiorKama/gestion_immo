@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\FeaturedListing;
 use App\Models\Listing;
 use App\Models\Location;
+use App\Models\Product;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Carbon;
 
@@ -76,5 +77,15 @@ class ListingService
             ->orderByDesc('first_online_at')
             ->take(5)
             ->get();
+    }
+
+    public function getProductsAsList()
+    {
+        return Product::query()
+            // ->onlyEnabled()
+            ->orderBy('title')
+            ->get()
+            ->pluck('title', 'id')
+            ->all();
     }
 }

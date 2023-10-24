@@ -12,6 +12,13 @@ class Product extends AbstractEntity
     use HasFactory;
     use Sluggable;
 
+    public const PRODUCT_SLUGS = [
+        'bon-plan-hebdomadaire',
+        'bon-plan-mensuel',
+        'bon-plan-semi-annuel',
+        'bon-plan-annuel',
+    ];
+
     /**
      * @var array
      */

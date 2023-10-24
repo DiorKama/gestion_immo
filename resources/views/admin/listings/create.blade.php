@@ -48,7 +48,7 @@
                                         @endforeach
                                     </select>
                                     @error("category_id")
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
@@ -69,7 +69,7 @@
                                         @endforeach
                                     </select>
                                     @error("location_id")
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 

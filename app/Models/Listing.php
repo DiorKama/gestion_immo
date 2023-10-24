@@ -9,6 +9,7 @@ use App\Models\Region;
 use App\Models\Category;
 use App\Models\Location;
 use App\Models\OptionListing;
+use App\Services\ProductService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -24,6 +25,7 @@ class Listing extends AbstractEntity implements CanHaveFiles
 
     protected $appends = [
         'display_date',
+        'has_active_products',
     ];
 
     /**
@@ -69,6 +71,10 @@ class Listing extends AbstractEntity implements CanHaveFiles
 
     public function listingStatus() {
         return $this->belongsTo(ListingStatus::class, 'listing_status_id');
+    }
+
+    public function featureListings() {
+        return $this->hasMany(FeaturedListing::class);
     }
 
     public function optionListing() {
@@ -207,5 +213,47 @@ class Listing extends AbstractEntity implements CanHaveFiles
     public function getIsEnabledAttribute()
     {
         return $this->listing_status_id == config('listings.statuses.active');
+    }
+
+    public function getHasActiveProductsAttribute()
+    {
+        return $this
+            ->runningFeaturedEntities(
+                Product::PRODUCT_SLUGS
+            )
+            ->exists();
+    }
+
+    public function runningFeaturedEntities(
+        array $productSlugs = []
+    ) {
+        return $this
+            ->featuredEntitiesWithStatus(
+                [
+                    config('featured-listings.statuses.running'),
+                ],
+                $productSlugs
+            );
+    }
+
+    public function featuredEntitiesWithStatus(
+        array $listingStatusIds,
+        array $productSlugs = []
+    ) {
+        $productIds = resolve(ProductService::class)
+            ->resolveProductIdsFromSlugs($productSlugs);
+
+        return $this
+            ->featureListings()
+            ->whereIn(
+                'featured_status',
+                $listingStatusIds
+            )
+            ->when(
+                $productIds,
+                function (Builder $query, $productIds) {
+                    $query->whereIn('product_id', $productIds);
+                }
+            );
     }
 }

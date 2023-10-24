@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\FeaturedListingController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\ListingFileController;
 use App\Http\Controllers\Admin\LocationController;
@@ -132,4 +133,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('ajax/categories/autocomplete', [CategoryController::class, 'autocomplete'])->name('admin.ajax.categories.autocomplete');
     Route::get('ajax/countries/autocomplete', [CountryController::class, 'autocomplete'])->name('admin.ajax.countries.autocomplete');
     Route::get('ajax/regions/autocomplete', [RegionController::class, 'autocomplete'])->name('admin.ajax.regions.autocomplete');
+    Route::post('ajax/featured-listings/create/{listing}',  [FeaturedListingController::class, 'create'])->name('admin.ajax.featured-listings.create');
+    Route::post('ajax/featured-listings/store/{listing}',  [FeaturedListingController::class, 'store'])->name('admin.ajax.featured-listings.store');
+    Route::post('ajax/featured-listings/delete/{featuredListing}',  [FeaturedListingController::class, 'close'])->name('admin.ajax.featured-listings.delete');
 });
