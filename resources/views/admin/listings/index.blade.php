@@ -27,6 +27,14 @@
                                     <i class="fas fa-plus"></i>
                                     {{ __('Ajouter') }}
                                 </a>
+
+                                <a href="{{ route(
+                                    'admin.listings.download',
+                                    request()->query()
+                                ) }}" class="btn btn-tool btn-primary btn-sm">
+                                    <i class="fa-solid fas fa-download"></i>
+                                    {{ __('Télécharger') }}
+                                </a>
                             </div>
                         </div>
 

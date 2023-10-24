@@ -171,6 +171,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -185,7 +186,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

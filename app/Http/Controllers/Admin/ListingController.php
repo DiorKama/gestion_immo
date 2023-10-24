@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ListingsExport;
 use App\Http\Requests\StoreListingRequest;
 use App\Services\CategoryService;
 use App\Services\LocationService;
@@ -13,6 +14,7 @@ use App\Models\AbstractEntity;
 use App\Services\ListingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListingController extends AbstractAdminController
 {
@@ -167,5 +169,11 @@ class ListingController extends AbstractAdminController
         return response()->json([
             'form' => $view,
         ]);
+    }
+
+    public function download(
+        Request $request
+    ) {
+        return Excel::download(new ListingsExport($this->entity, $request), 'listings.xlsx');
     }
 }
