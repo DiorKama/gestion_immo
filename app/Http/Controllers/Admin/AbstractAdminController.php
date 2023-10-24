@@ -225,7 +225,7 @@ class AbstractAdminController extends Controller
         $message = __(
             'form.updated',
             [
-                'title' => (string) $entity,
+                'title' => __("{$this->resourceName}.updated"),
             ]
         );
 
@@ -249,7 +249,7 @@ class AbstractAdminController extends Controller
         $message = __(
             'form.deleted',
             [
-                'title' => (string) $this->entity,
+                'title' => __("{$this->resourceName}.added"),
             ]
         );
 
@@ -272,7 +272,7 @@ class AbstractAdminController extends Controller
                 __(
                     'form.deleted',
                     [
-                        'title' => (string) $this->entity,
+                        'title' => __("{$this->resourceName}.added"),
                     ]
                 )
             );
@@ -348,9 +348,9 @@ class AbstractAdminController extends Controller
         $this->entity = $entity;
 
         $message = __(
-            'form.enable',
+            'form.enabled',
             [
-                'title' => (string) $this->entity->title,
+                'title' => __("{$this->resourceName}.enabled"),
             ]
         );
 
@@ -382,9 +382,9 @@ class AbstractAdminController extends Controller
         $this->entity = $entity;
 
         $message = __(
-            'form.disable',
+            'form.disabled',
             [
-                'title' => (string) $this->entity->title,
+                'title' => __("{$this->resourceName}.disabled"),
             ]
         );
 
