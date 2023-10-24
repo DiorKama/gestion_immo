@@ -25,6 +25,14 @@
                                     <i class="fas fa-plus"></i>
                                     {{ __('Ajouter') }}
                                 </a>
+
+                                <a href="{{ route(
+                                    'admin.listings.download',
+                                    request()->query()
+                                ) }}" class="btn btn-tool btn-primary btn-sm">
+                                    <i class="fa-solid fas fa-download"></i>
+                                    {{ __('Télécharger') }}
+                                </a>
                             </div>
                         </div>
 
@@ -176,24 +184,6 @@
                                                         {{ __('Modifier') }}
                                                     </a>
 
-                                                    <!--<button
-                                                        type="submit"
-                                                        class="btn btn-secondary btn-sm"
-                                                        onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver ce bien ?')')"
-                                                    >
-                                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                                        {{ __('Désactiver') }}
-                                                    </button>
-
-                                                    <button
-                                                        type="submit"
-                                                        class="btn btn-secondary btn-sm"
-                                                        onclick="return confirm('@lang('Êtes-vous sûr de vouloir désactiver cette region ?')')"
-                                                    >
-                                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                                        {{ __('Ajouter au bons plans') }}
-                                                    </button>-->
-
                                                     <div class="btn-group">
                                                         <button type="button" class="btn btn-warning btn-sm">{{ __('Actions') }}</button>
                                                         <button type="button" class="btn btn-warning btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
@@ -249,21 +239,6 @@
                                                             </form>
                                                         </div>
                                                     </div>
-
-                                                    <!--<form action="{{ route('admin.listings.delete', [
-                                                        'listing' => $listing->id
-                                                    ]) }}" method="POST" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button
-                                                            type="submit"
-                                                            class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('@lang('Êtes-vous sûr de vouloir supprimer ce bien ?')')"
-                                                        >
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                            {{ __('Supprimer') }}
-                                                        </button>
-                                                    </form>-->
                                                 </td>
                                             </tr>
                                         @endforeach

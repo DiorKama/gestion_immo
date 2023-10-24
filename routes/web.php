@@ -87,6 +87,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/listings/delete/{listing}', [ListingController::class, 'destroy'])->name('admin.listings.delete');
     Route::post('/listings/enable/{listing}', [ListingController::class, 'enable'])->name('admin.listings.enable');
     Route::post('/listings/disable/{listing}', [ListingController::class, 'disable'])->name('admin.listings.disable');
+    Route::get('/listings/download', [ListingController::class, 'download'])->name('admin.listings.download');
 
 
     Route::get('/listings/files/{listing}', [ListingFileController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.listings.photos.index');
