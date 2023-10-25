@@ -10188,3 +10188,55 @@ body {
   font-size: 0.8rem;
   color: #6c757d;
 }
+
+.search__filter__container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  background-image: url("/assets/core-site/img/hero-image.webp");
+  background-position: center bottom;
+  display: flex;
+  min-height: 260px;
+  justify-content: center;
+  align-items: center;
+}
+.search__filter__inner {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 15px;
+}
+.search__filter__row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.search__filter__col {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.filter__row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -7.5px;
+  margin-left: -7.5px;
+}
+.filter__col {
+  flex: 0 0 31.25%;
+  max-width: 31.25%;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+}
+.filter__col--submit {
+  flex: 0 0 6.25%;
+  max-width: 6.25%;
+}

@@ -34,7 +34,7 @@ Route::get('/', HomeController::class)->name('home');
 
 require __DIR__.'/auth.php';
 
-Route::get('/annonces', [ListingsController::class, 'index'])->where(['id' => '[0-9]+', 'slug' => '[a-z0-9\-]+'])->name('listings.index');
+Route::get('/annonces', [ListingsController::class, 'index'])/*->where(['id' => '[0-9]+', 'slug' => '[a-z0-9\-]+'])*/->name('listings.index');
 
 Route::get( '/categories-de-biens/{dbCategory}', [ListingsController::class, 'category'])->name('listings.category');
 
@@ -43,6 +43,10 @@ Route::get( '/biens-immobiliers/{slug}/{id}', [ListingsController::class, 'show'
 Route::post( '/biens-immobiliers/{listing}/view-phone', [ListingsController::class, 'viewPhone'])->name('listings.view-phone');
 
 Route::post( '/biens-immobiliers/{listing}/view-whatsapp', [ListingsController::class, 'viewWhatsapp'])->name('listings.view-whatsapp');
+
+Route::get('/annonces/recherche', [ListingsController::class, 'search'])->name('listings.search');
+
+
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {

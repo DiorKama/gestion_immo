@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\BannerService;
 use App\Services\CategoryService;
+use App\Services\LocationService;
 use App\Services\SettingService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -29,6 +30,14 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $navCategories = resolve(CategoryService::class)->getHomeNavCategories();
             $view->with('_navCategories', $navCategories);
+        });
+
+        View::composer('*', function ($view) {
+            $listingCategories = resolve(CategoryService::class)->getCategories();
+            $view->with('_searchCategories', $listingCategories);
+
+            $locations = resolve(LocationService::class)->getLocationsAsList();
+            $view->with('_searchLocations', $locations);
         });
 
         View::composer('layouts.partials._header._carousel', function ($view) {

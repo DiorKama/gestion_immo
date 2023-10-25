@@ -30,7 +30,7 @@
                                     <label>{{ __('Titre Annonce') }}</label>
                                     <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $listing->title) }}" placeholder="{{ __('Titre Annonce...') }}" required>
                                     @error("title")
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
@@ -51,7 +51,7 @@
                                         @endforeach
                                     </select>
                                     @error("category_id")
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
