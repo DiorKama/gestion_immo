@@ -48,6 +48,21 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>{{ __('Type de bien') }}</label>
+                                    <select class="form-control @error('listing_type_id') is-invalid @enderror" name="listing_type_id">
+                                        <option value="">{{ __('Séléctionnez ...') }}</option>
+                                        @foreach($_listingTypesList as $typeID => $typeTitle)
+                                            <option value="{{ $typeID }}" @selected(old('listing_type_id', $category->listing_type_id) == $typeID)>{{ __("listings.type-label", [
+                                            'title' => __("listings.types.{$typeTitle}")
+                                        ]) }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error("parent_id")
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
                                     <label>{{ __('Description') }}</label>
                                     <textarea
                                         name="description"
