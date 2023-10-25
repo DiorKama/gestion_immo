@@ -22,14 +22,16 @@ class CategoryController extends AbstractAdminController
     public function create()
     {
         $_categoriesList = resolve(CategoryService::class)->getCategoriesAsList(null, '-- ');
-        return view('admin.categories.create', compact('_categoriesList'));
+        $_listingTypesList = resolve(CategoryService::class)->getListingTypesAsList();
+        return view('admin.categories.create', compact('_categoriesList', '_listingTypesList'));
     }
 
     public function edit(
         AbstractEntity $category
     ) {
         $_categoriesList = resolve(CategoryService::class)->getCategoriesAsList(null, '-- ');
-        return view("admin.categories.edit", compact('_categoriesList', 'category'));
+        $_listingTypesList = resolve(CategoryService::class)->getListingTypesAsList();
+        return view("admin.categories.edit", compact('_categoriesList', '_listingTypesList', 'category'));
     }
 
     public function destroy(

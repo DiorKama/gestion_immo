@@ -22,8 +22,13 @@ class ViewComposerServiceProvider extends ServiceProvider
         });
 
         View::composer('*', function ($view) {
-            $categories= resolve(CategoryService::class)->getHomeCategories();
+            $categories = resolve(CategoryService::class)->getHomeCategories();
             $view->with('_categories', $categories);
+        });
+
+        View::composer('*', function ($view) {
+            $navCategories = resolve(CategoryService::class)->getHomeNavCategories();
+            $view->with('_navCategories', $navCategories);
         });
 
         View::composer('layouts.partials._header._carousel', function ($view) {

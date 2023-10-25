@@ -22,6 +22,7 @@ class Category extends AbstractEntity
         'description' => 'required',
         'sort_order' => 'required|integer',
         'parent_id' =>  'nullable|exists:categories,id',
+        'listing_type_id' => 'nullable|exists:listing_types,id',
     ];
 
     protected $guarded = ['id'];

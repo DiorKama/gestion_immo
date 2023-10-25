@@ -14,4 +14,8 @@ return [
             ],
         ],
     ],
+    'listing-types' => [
+        'to-rent' => 1,
+        'for-sale' => 2,
+    ],
 ];

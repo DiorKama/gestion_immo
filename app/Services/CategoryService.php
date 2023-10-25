@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\ListingType;
 use Illuminate\Support\Facades\Cache;
 
 class CategoryService
@@ -188,6 +189,21 @@ class CategoryService
         });
     }
 
+    public function getHomeNavCategories()
+    {
+        return Cache::rememberForever('_category-nav', function () {
+            $grouped = Category::query()
+                ->select('id', 'title', 'slug', 'listing_type_id')
+                ->whereNotNull('parent_id')
+                ->onlyEnabled()
+                ->orderBy('sort_order')
+                ->get()
+                ->groupBy('listing_type_id');
+
+            return $grouped->toArray();
+        });
+    }
+
     public function autocomplete(
         string $text
     ) {
@@ -201,5 +217,16 @@ class CategoryService
         return $query
             ->pluck('title', 'id')
             ->all();
+    }
+
+    public function getListingTypesAsList()
+    {
+        return Cache::rememberForever('_listing-types', function () {
+            return ListingType::query()
+                ->orderBy('title')
+                ->get()
+                ->pluck('slug', 'id')
+                ->all();
+        });
     }
 }

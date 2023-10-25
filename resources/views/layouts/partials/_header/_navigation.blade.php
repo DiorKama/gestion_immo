@@ -69,34 +69,53 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                                {{ __('Acheter') }}
-                            </a>
+                        @if(
+                            isset($_navCategories[config('listings.listing-types.for-sale')])
+                            && !empty($_navCategories[config('listings.listing-types.for-sale')])
+                        )
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                                    {{ __('Acheter') }}
+                                </a>
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Maisons à vendre</a>
-                                <a class="dropdown-item" href="#">Terrains à vendre</a>
-                                <a class="dropdown-item" href="#">Appartements à vendre</a>
-                                <a class="dropdown-item" href="#">Propriétés commerciales à vendre</a>
-                            </div>
-                        </li>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach( $_navCategories[config('listings.listing-types.for-sale')] as $category )
+                                        <a
+                                            href="{{ route('listings.category', [
+                                            'dbCategory' => $category['slug']
+                                        ]) }}"
+                                            class="dropdown-item"
+                                        >
+                                            {{ $category['title'] }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </li>
+                        @endif
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown">
-                                {{ __('Louer') }}
-                            </a>
+                        @if(
+                            isset($_navCategories[config('listings.listing-types.to-rent')])
+                            && !empty($_navCategories[config('listings.listing-types.to-rent')])
+                        )
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown">
+                                    {{ __('Louer') }}
+                                </a>
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                <a class="dropdown-item" href="#">Maisons de vacances</a>
-                                <a class="dropdown-item" href="#">Chambres à louer</a>
-                                <a class="dropdown-item" href="#">Chambres vide</a>
-                                <a class="dropdown-item" href="#">Appartements meublés</a>
-                                <a class="dropdown-item" href="#">Propriétés commerciales à louer</a>
-                                <a class="dropdown-item" href="#">Maisons à louer</a>
-                                <a class="dropdown-item" href="#">Appartements à louer</a>
-                            </div>
-                        </li>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                    @foreach( $_navCategories[config('listings.listing-types.to-rent')] as $category )
+                                        <a
+                                            href="{{ route('listings.category', [
+                                            'dbCategory' => $category['slug']
+                                        ]) }}"
+                                            class="dropdown-item"
+                                        >
+                                            {{ $category['title'] }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </li>
+                        @endif
 
                         <li class="nav-item">
                             <a
