@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('page-title', 'Retrouvez tous biens immobiliers')
+    @section('page-title', 'Resultats de votre recherche')
 
     @section('header-section')
         @include('listings.partials._search')

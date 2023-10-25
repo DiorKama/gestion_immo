@@ -1,6 +1,10 @@
 <x-app-layout>
     @section('page-title', $category->title)
 
+    @section('header-section')
+        @include('listings.partials._search')
+    @endsection
+
     <div class="listings-cards section-item">
         <div class="listings-cards__inner section-item__inner">
             <div class="listings-cards__row section-item__row">

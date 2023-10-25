@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Listing;
 use App\Services\ListingStatisticsService;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -81,5 +82,50 @@ class ListingsController extends Controller
             ? jsend(true)
             : redirect()
                 ->to(listing_url($listing));
+    }
+
+    public function search(
+        Request $request
+    ) {
+        $q = $request->input('q') ?? null;
+        $category = $request->input('category_id') ?? null;
+        $location = $request->input('location_id') ?? null;
+        $budget = $request->input('budget') ?? null;
+
+        $listings = Listing::query()
+            ->with(['category'])
+            ->where('listing_status_id' , config('listings.statuses.active'))
+            ->when(
+                $q,
+                function (Builder $query, $q) {
+                    $query->where(
+                        'title',
+                        'LIKE',
+                        "%{$q}%"
+                    );
+                }
+            )
+            ->when(
+                $category, function (Builder $query, $category) {
+                    $query->where('category_id', $category);
+                }
+            )
+            ->when(
+                $location, function (Builder $query, $location) {
+                    $query->where('location_id', $location);
+                }
+            )
+            ->when(
+                $budget, function (Builder $query, $budget) {
+                    $query->where('price', '<=', $budget);
+                }
+            )
+            ->orderByDesc('created_at')
+            ->paginate()
+            ->withQueryString();
+
+        return view('listings.search', [
+            'listings' => $listings
+        ]);
     }
 }
