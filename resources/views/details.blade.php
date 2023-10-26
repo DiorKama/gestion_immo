@@ -176,7 +176,9 @@
                 <div class="listing-item__sidebar__inner p-2">
                     <div class="listing-item__sidebar__header">
                         <div class="listing-item__sidebar__logo">
-                            <img src="{{ asset('images/logo.png') }}" class="listing-item__sidebar__logo__img">
+                            @if( file_exists(public_path('logo.png')) )
+                                <img src="{{ asset('logo.png') }}" class="listing-item__sidebar__logo__img">
+                            @endif
                         </div>
                     </div>
                     <div class="listing-item__sidebar__contact">

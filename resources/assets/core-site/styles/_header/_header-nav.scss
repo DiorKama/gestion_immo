@@ -1,0 +1,46 @@
+.header {
+    &__navbar {
+        padding: $navbar-padding-y * 1.25 $navbar-padding-x;
+    }
+
+    &__menu-link {
+        color: $default-color;
+        background-color: transparent;
+        -webkit-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+        font-weight: $font-weight-bold;
+        margin-left: $grid-gutter-width * .25;
+        margin-right: $grid-gutter-width * .25;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &--dropdown-item {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        @include hover-focus() {
+            color: $red;
+        }
+
+        &--dropdown-item {
+            font-weight: $font-weight-normal;
+            font-size: $font-size-base * .9;
+            background-color: $gray-100;
+            color: $gray-600;
+        }
+    }
+
+    &__menu-link--call-us {
+        @include button-variant($red, $red);
+        padding: $btn-padding-y $btn-padding-x;
+        color: $white !important;
+    }
+}

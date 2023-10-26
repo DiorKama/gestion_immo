@@ -172,6 +172,7 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        App\Providers\AgentServiceProvider::class,
     ])->toArray(),
 
     /*

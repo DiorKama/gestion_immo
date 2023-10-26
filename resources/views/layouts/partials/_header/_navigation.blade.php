@@ -58,33 +58,39 @@
             </div>
         </div>
         <div class="header__content">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="header-logo navbar-brand" href="/">
-                    <img src="{{ asset('images/logo.png') }}" class="header-logo__img" height="30">
-                </a>
+            <nav class="header__navbar navbar navbar-expand-lg navbar-light bg-light">
+                @if( file_exists(public_path('logo.png')) )
+                    <a class="header__logo navbar-brand" href="/">
+                        <img src="{{ asset('logo.png') }}" class="header-logo__img" height="30">
+                    </a>
+                @else
+                    <a class="header__brand navbar-brand" href="/">
+                        {{ isset($_setting->name) && !empty($_setting->name) ? $_setting->name : __('Company Name') }}
+                    </a>
+                @endif
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="header__menu navbar-nav ml-auto">
                         @if(
                             isset($_navCategories[config('listings.listing-types.for-sale')])
                             && !empty($_navCategories[config('listings.listing-types.for-sale')])
                         )
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                            <li class="header__menu-item nav-item dropdown">
+                                <a class="header__menu-link nav-link dropdown-toggle" href="javascript:;" role="button" data-toggle="dropdown">
                                     {{ __('Acheter') }}
                                 </a>
 
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu">
                                     @foreach( $_navCategories[config('listings.listing-types.for-sale')] as $category )
                                         <a
                                             href="{{ route('listings.category', [
                                             'dbCategory' => $category['slug']
                                         ]) }}"
-                                            class="dropdown-item"
+                                            class="header__menu-link--dropdown-item dropdown-item"
                                         >
                                             {{ $category['title'] }}
                                         </a>
@@ -97,18 +103,18 @@
                             isset($_navCategories[config('listings.listing-types.to-rent')])
                             && !empty($_navCategories[config('listings.listing-types.to-rent')])
                         )
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown">
+                            <li class="header__menu-item nav-item dropdown">
+                                <a class="header__menu-link nav-link dropdown-toggle" href="javascript:;" role="button" data-toggle="dropdown">
                                     {{ __('Louer') }}
                                 </a>
 
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <div class="dropdown-menu">
                                     @foreach( $_navCategories[config('listings.listing-types.to-rent')] as $category )
                                         <a
                                             href="{{ route('listings.category', [
                                             'dbCategory' => $category['slug']
                                         ]) }}"
-                                            class="dropdown-item"
+                                            class="header__menu-link--dropdown-item dropdown-item"
                                         >
                                             {{ $category['title'] }}
                                         </a>
@@ -119,7 +125,7 @@
 
                         <li class="nav-item">
                             <a
-                                class="nav-link"
+                                class="header__menu-link nav-link header__menu-link--call-us"
                                 href="tel:{{ isset($_setting->phone_number) && !empty($_setting->phone_number) ?
                                     $_setting->phone_number :
                                     config('core.contact.default-customer-service') }}"

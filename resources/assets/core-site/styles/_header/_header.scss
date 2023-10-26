@@ -6,8 +6,8 @@
 
     &__inner {
         @include make-row($grid-gutter-width);
-        padding-left: calc($grid-gutter-width / 2);
-        padding-right: calc($grid-gutter-width / 2);
+        padding-left: $grid-gutter-width * .5;
+        padding-right: $grid-gutter-width * .5;
     }
 
     &__aside {
@@ -77,6 +77,19 @@
         @include make-row($grid-gutter-width);
     }
 
+    &-item__aside,
+    &-item__content {
+        padding-left: $grid-gutter-width * .5;
+        padding-right: $grid-gutter-width * .5;
+        @include make-col(1, 2);
+    }
+
+    &-item__header {
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 100%;
+    }
+
     &-item__header_inner {
         transform: rotate(-90deg);
         display: inline-block;
@@ -95,20 +108,135 @@
         border: 3px solid $red;
         margin-left: 0;
     }
+
+    @include media-breakpoint-down(sm) {
+        &-item__header {
+            flex: 0 0 percentage(math.div(1, 5));
+            max-width: percentage(math.div(1, 5));
+        }
+    }
 }
 
 .about-us {
-    &__aside,
-    &__content {
-        padding-left: calc($grid-gutter-width / 2);
-        padding-right: calc($grid-gutter-width / 2);
-    }
-
     &__aside {
         @include make-col(7, 12);
     }
 
     &__content {
         @include make-col(5, 12);
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
     }
+
+    &__content__inner {
+        @include make-row($grid-gutter-width);
+        justify-content: space-between;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &__header,
+    &_description {
+        @include make-col-ready($grid-gutter-width);
+    }
+
+    @include media-breakpoint-down(sm) {
+        &__aside {
+            @include make-col(9, 12);
+            @include make-col-offset(3, 12);
+            order: 1;
+        }
+
+        &__content {
+            @include make-col(1, 1);
+            order: 0;
+        }
+
+        &__content__inner {
+            flex-direction: row;
+        }
+
+        &__header {
+            @include make-col(3, 12);
+        }
+
+        &_description {
+            @include make-col(9, 12);
+        }
+    }
+}
+
+.our-deals {
+    &__row {
+        align-items: flex-end;
+    }
+
+    &__aside,
+    &__content {
+        padding-left: $grid-gutter-width * .5;
+        padding-right: $grid-gutter-width * .5;
+    }
+
+    &__aside {
+        @include make-col(3, 12);
+    }
+
+    &__content {
+        @include make-col(9, 12);
+    }
+
+    @include media-breakpoint-down(sm) {
+        &__row {
+            align-items: center;
+        }
+
+        &__aside {
+            @include make-col(3, 12);
+        }
+
+        &__content {
+            @include make-col(9, 12);
+        }
+    }
+}
+
+.our-properties {
+    &__row {
+        align-items: flex-end;
+    }
+
+    &__aside {
+        @include make-col(3, 12);
+    }
+
+    &__content {
+        @include make-col(9, 12);
+    }
+
+    @include media-breakpoint-down(sm) {
+        &__aside,
+        &__content {
+            @include make-col(1, 1);
+        }
+    }
+}
+
+.swiper-wrapper {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.swiper-slide {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.swiper-container,
+.swiper-container--related {
+    overflow-x: hidden;
 }

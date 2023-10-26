@@ -335,6 +335,87 @@
     }
 }
 
+.slick-dots {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 1rem 0;
+    list-style-type: none;
+    @extend .my-3;
+
+    li {
+        margin: 0 0.25rem;
+    }
+
+    position: relative;
+    list-style: none;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    li {
+        position: relative;
+        display: block;
+        float: left;
+        width: 8px;
+        height: 8px;
+        cursor: pointer;
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            visibility: hidden;
+            opacity: 0;
+            left: 0;
+            background-color: darken($red, 30%);
+            @include border-radius(50%);
+            -webkit-transform: translateY(-200%);
+            transform: translateY(-200%);
+            -webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease, visibility 0s 0.3s;
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s 0.3s;
+        }
+    }
+
+    button {
+        @extend .p-0;
+        @extend .m-0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        @include border-radius(50%);
+        background-color: $red;
+        border: none;
+        text-indent: -999em;
+        cursor: pointer;
+        position: absolute;
+        -webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+        transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    }
+
+    li:hover button,
+    li button:focus,
+    li.slick-active button {
+        background-color: $red;
+    }
+
+    li.slick-active::after {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        -webkit-transform: translateY(0%);
+        transform: translateY(0%);
+    }
+}
+
 .gallery {
     &,
     &--inactive {

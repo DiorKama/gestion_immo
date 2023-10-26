@@ -47,8 +47,8 @@
     }
 
     &__address {
-        color: #DC062B;
-        font-size: 14px;
+        color: $red;
+        font-size: $font-size-base * .8;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
@@ -62,5 +62,37 @@
     &__date {
         font-size: $font-size-base * .8;
         color: $gray-600;
+    }
+
+    @include media-breakpoint-down(sm) {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+
+        &__content--footer {
+            display: none;
+        }
+
+        &__aside,
+        &__details {
+            @include make-col(1, 1);
+        }
+
+        &__category {
+            font-size: $font-size-base * .8;
+        }
+
+        &__title {
+            font-size: $font-size-base;
+            line-height: 1rem;
+            max-height: 2rem;
+        }
+
+        &__price {
+            font-size: $font-size-base * 1.2;
+        }
+
+        &__address {
+            font-size: $font-size-base * .8;
+        }
     }
 }

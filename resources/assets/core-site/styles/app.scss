@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use "sass:math";
+
 @import '~bootstrap/scss/bootstrap';
 @import 'variables';
 @import 'overrides';

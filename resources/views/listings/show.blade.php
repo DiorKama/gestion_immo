@@ -7,21 +7,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
         <link href="{{ asset('/plugins/slick-1.8.1/slick.min.css') }}" rel="stylesheet">
-
-        <style>
-            /*.pswp__caption__center {
-                text-align: center;
-            }
-            figure {
-                display: inline-block;
-                width: 33.333%;
-                float: left;
-            }
-            img {
-
-                width: 100%;
-            }*/
-        </style>
     @endsection
 
     @section('header-section')
@@ -58,7 +43,9 @@
                 <div class="listing-item__sidebar__inner p-2">
                     <div class="listing-item__sidebar__header">
                         <div class="listing-item__sidebar__logo">
-                            <img src="{{ asset('images/logo.png') }}" class="listing-item__sidebar__logo__img">
+                            @if( file_exists(public_path('logo.png')) )
+                                <img src="{{ asset('logo.png') }}" class="listing-item__sidebar__logo__img">
+                            @endif
                         </div>
                     </div>
                     <div class="listing-item__sidebar__body">

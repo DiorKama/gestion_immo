@@ -58,7 +58,7 @@
                     </span>
                 </h4>
 
-                <h4 class="premium-listing-card__price font-weight-bold text-uppercase mt-4 mb-2">
+                <h4 class="premium-listing-card__price font-weight-bold text-uppercase mt-0 mb-2 mt-sm-4 mb-sm-0">
                     {!! listing_price($listing) !!}
                 </h4>
 
