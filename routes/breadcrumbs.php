@@ -154,3 +154,44 @@ Breadcrumbs::for('admin.banners.edit', function (BreadcrumbTrail $trail, Banner 
     $trail->parent('admin.banners.index');
     $trail->push($banner->title, route('admin.banners.edit', $banner));
 });
+
+// Home
+Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
+    $trail->push('Accueil', route('home'));
+});
+
+// Listings
+Breadcrumbs::for('listings.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('Dernières annonces'), route('listings.index'));
+});
+
+// Listings Search
+Breadcrumbs::for('listings.search', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('Resultats de la recherche'), route('listings.search'));
+});
+
+// Category
+Breadcrumbs::for('listings.category', function (BreadcrumbTrail $trail, $dbCategory) {
+    $trail->parent('home');
+    $trail->push($dbCategory->title, route('listings.category', [
+        'dbCategory' => $dbCategory->slug
+    ]));
+});
+
+// Listing
+Breadcrumbs::for('listings.show', function (BreadcrumbTrail $trail, $slug, $id) {
+    $listing = Listing::query()
+        ->where('slug', $slug)
+        ->where('id', $id)
+        ->active()
+        ->firstOrFail();
+
+    $trail->parent('listings.category', $listing->category);
+
+    $trail->push($listing->title, route('listings.show', [
+        'slug' => $listing->slug,
+        'id' => $listing->id,
+    ]));
+});

@@ -52,6 +52,9 @@
                 </div>
             <!-- /.content -->
             </div>
+
+            @yield('floating-buttons')
+
             <!-- /.content-wrapper -->
             @include('layouts.partials.footer')
 

@@ -16,6 +16,7 @@
         padding-left: calc($grid-gutter-width * .5);
         padding-right: calc($grid-gutter-width * .5);
         color: $default-color;
+        border: 1px solid $gray-200;
     }
 
     &__gallery {

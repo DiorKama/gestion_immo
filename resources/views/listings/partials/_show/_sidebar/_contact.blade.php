@@ -1,6 +1,6 @@
 <div class="listing-item-contact">
     <div class="listing-item-contact__header">
-        <div class="listing-item-contact__header__title">
+        <div class="listing-item-contact__header__title mb-2">
             {{ __('Contactez nous') }}
         </div>
     </div>

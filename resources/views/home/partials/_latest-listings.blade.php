@@ -1,5 +1,3 @@
-{{-- dd($agent->isMobile()) --}}
-
 <div class="our-properties__row section-item__row">
     <div class="our-properties__aside section-item__aside">
         <div class="our-deals__header section-item__header">

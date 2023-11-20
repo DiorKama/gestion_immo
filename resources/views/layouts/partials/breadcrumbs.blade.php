@@ -1,5 +1,5 @@
 @unless ($breadcrumbs->isEmpty())
-    <ol class="breadcrumb float-sm-right">
+    <ol class="breadcrumb {{ Route::current()->getPrefix() ? 'float-sm-right' : '' }}">
         @foreach ($breadcrumbs as $breadcrumb)
 
             @if (!is_null($breadcrumb->url) && !$loop->last)

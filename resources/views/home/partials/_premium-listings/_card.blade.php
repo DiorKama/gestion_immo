@@ -4,7 +4,7 @@
     $otherFiles = collect();
 @endphp
 
-<div class="listings-slider__item premium-listing-card border-transparent">
+<div class="listings-slider__item premium-listing-card bg-light border-transparent">
     <a
         class="listings-slider__item__inner premium-listing-card__inner text-decoration-none"
         href="{{ route('listings.show', [

@@ -27,62 +27,90 @@
 
                     @if( $listing->files()->count() > 1 )
                         <div class="gallery__images-count text-center d-inline-block position-absolute">
-                        <span class="gallery__images-count__inner">
-                            <i class="fas fa-camera"></i>
-                            <span class="listing-card__images-count px-1">{{ $listing->files()->count() }}</span>
-                        </span>
+                            <span class="gallery__images-count__inner">
+                                <i class="fas fa-camera"></i>
+                                <span class="listing-card__images-count px-1">{{ $listing->files()->count() }}</span>
+                            </span>
                         </div>
                     @endif
                 </div>
 
                 @if( $otherFiles->count() )
-                    <div class="gallery__aside">
-                        @foreach( $otherFiles as $file)
-                            @if( $loop->iteration < 3)
-                                <figure class="gallery-item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                    <a
-                                        class="gallery-item__link"
-                                        href="{{ fullImageUrl('listing-gallery-full-1920w', $file->path) }}"
-                                        itemprop="contentUrl"
-                                        data-size="933x645"
-                                    >
-                                        <img
-                                            class="gallery__image__resource w-100"
-                                            src="{{ fullImageUrl('listing-gallery-thumb-640w', $file->path) }}"
-                                            itemprop="thumbnail"
-                                            alt="{{ $listing->title }}"
-                                        />
-                                    </a>
-                                </figure>
+                    <div class="gallery__aside mt-3 mt-sm-0">
+                        @if( $agent->isMobile() )
+                            <div class="gallery__aside_inner">
+                        @endif
 
-                                @if ($loop->first)
-                                    <div class="gallery-item__separator"></div>
+                        @foreach( $otherFiles as $file)
+                            @if( $agent->isMobile() )
+                                @if( $loop->iteration < 4)
+                                    <figure class="gallery-item gallery__aside_item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                        <a
+                                            class="gallery-item__link"
+                                            href="{{ fullImageUrl('listing-gallery-full-1920w', $file->path) }}"
+                                            itemprop="contentUrl"
+                                            data-size="933x645"
+                                        >
+                                            <img
+                                                class="gallery__image__resource w-100"
+                                                src="{{ fullImageUrl('listing-gallery-thumb-640w', $file->path) }}"
+                                                itemprop="thumbnail"
+                                                alt="{{ $listing->title }}"
+                                            />
+                                        </a>
+                                    </figure>
                                 @endif
                             @else
-                                <figure class="gallery-item d-none" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                    <a
-                                        class="gallery-item__link"
-                                        href="{{ fullImageUrl('listing-gallery-full-1920w', $file->path) }}"
-                                        itemprop="contentUrl"
-                                        data-size="933x645"
-                                    >
-                                        <img
-                                            class="gallery__image__resource"
-                                            src="{{ fullImageUrl('listing-gallery-thumb-100w', $file->path) }}"
-                                            itemprop="thumbnail"
-                                            alt="{{ $listing->title }}"
-                                        />
-                                    </a>
-                                </figure>
+                                @if( $loop->iteration < 3)
+                                    <figure class="gallery-item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                        <a
+                                            class="gallery-item__link"
+                                            href="{{ fullImageUrl('listing-gallery-full-1920w', $file->path) }}"
+                                            itemprop="contentUrl"
+                                            data-size="933x645"
+                                        >
+                                            <img
+                                                class="gallery__image__resource w-100"
+                                                src="{{ fullImageUrl('listing-gallery-thumb-640w', $file->path) }}"
+                                                itemprop="thumbnail"
+                                                alt="{{ $listing->title }}"
+                                            />
+                                        </a>
+                                    </figure>
+
+                                    @if ($loop->first)
+                                        <div class="gallery-item__separator"></div>
+                                    @endif
+                                @else
+                                    <figure class="gallery-item d-none" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                        <a
+                                            class="gallery-item__link"
+                                            href="{{ fullImageUrl('listing-gallery-full-1920w', $file->path) }}"
+                                            itemprop="contentUrl"
+                                            data-size="933x645"
+                                        >
+                                            <img
+                                                class="gallery__image__resource"
+                                                src="{{ fullImageUrl('listing-gallery-thumb-100w', $file->path) }}"
+                                                itemprop="thumbnail"
+                                                alt="{{ $listing->title }}"
+                                            />
+                                        </a>
+                                    </figure>
+                                @endif
                             @endif
                         @endforeach
+
+                        @if( $agent->isMobile() )
+                            </div>
+                        @endif
                     </div>
                 @else
-                    <div class="gallery__aside">
+                    <div class="gallery__aside d-none d-sm-block">
                         <figure class="gallery-item--inactive">
                             <img class="gallery__image__resource w-100" src="https://placehold.co/640x475?text=Image" itemprop="thumbnail" alt="Image 1">
                         </figure>
-                        <figure class="gallery-item--inactive">
+                        <figure class="gallery-item--inactive mb-0">
                             <img class="gallery__image__resource w-100" src="https://placehold.co/640x475?text=Image" itemprop="thumbnail" alt="Image 1">
                         </figure>
                     </div>
@@ -91,15 +119,15 @@
         @else
             <div class="gallery--inactive w-100">
                 <div class="gallery__content">
-                    <figure class="gallery-item">
+                    <figure class="gallery-item--inactive mb-0">
                         <img class="gallery__image__resource w-100" src="https://placehold.co/1280x960?text=Image" itemprop="thumbnail" alt="Image 1">
                     </figure>
                 </div>
-                <div class="gallery__aside">
-                    <figure class="gallery-item">
+                <div class="gallery__aside d-none d-sm-block">
+                    <figure class="gallery-item--inactive">
                         <img class="gallery__image__resource w-100" src="https://placehold.co/640x475?text=Image" itemprop="thumbnail" alt="Image 1">
                     </figure>
-                    <figure class="gallery-item">
+                    <figure class="gallery-item--inactive mb-0">
                         <img class="gallery__image__resource w-100" src="https://placehold.co/640x475?text=Image" itemprop="thumbnail" alt="Image 1">
                     </figure>
                 </div>

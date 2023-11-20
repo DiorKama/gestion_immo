@@ -1,0 +1,30 @@
+body {
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    @include media-breakpoint-down(sm) {
+        padding-top: 60px;
+    }
+}
+
+.breadcrumb {
+    justify-content: flex-start;
+    background-color: transparent;
+    @extend .text-muted;
+    margin-bottom: 0;
+
+    @include media-breakpoint-down(sm) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.breadcrumb-item a {
+    font-size: $font-size-base * .8;
+    color: $default-color;
+
+    @include hover-focus() {
+        text-decoration: none;
+    }
+}

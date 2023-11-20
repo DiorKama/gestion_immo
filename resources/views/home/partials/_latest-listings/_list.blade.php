@@ -27,3 +27,14 @@
         </div>
     </div>
 </div>
+
+@if( $agent->isMobile() )
+    <div class="mt-3">
+        <a
+            class="btn btn-block btn-primary"
+            href="{{ route('listings.index') }}"
+        >
+            {{ __('Tous les biens') }}
+        </a>
+    </div>
+@endif
