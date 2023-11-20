@@ -50,4 +50,13 @@
             @include make-col(1, 16);
         }
     }
+
+    @include media-breakpoint-down(sm) {
+        &__col,
+        &--submit {
+            @include make-col(1, 1);
+            padding-left: $grid-gutter-width * .25;
+            padding-right: $grid-gutter-width * .25;
+        }
+    }
 }

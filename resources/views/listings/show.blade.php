@@ -7,21 +7,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
         <link href="{{ asset('/plugins/slick-1.8.1/slick.min.css') }}" rel="stylesheet">
-
-        <style>
-            /*.pswp__caption__center {
-                text-align: center;
-            }
-            figure {
-                display: inline-block;
-                width: 33.333%;
-                float: left;
-            }
-            img {
-
-                width: 100%;
-            }*/
-        </style>
+        <link href="{{ asset('/plugins/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     @endsection
 
     @section('header-section')
@@ -31,7 +17,7 @@
     <div class="listing-item section-item">
         <div class="listing-item__inner">
             <div class="listing-item__details">
-                <div class="listing-item__details__inner p-3">
+                <div class="listing-item__details__inner p-sm-3 p-0">
                     @include('listings.partials._show._item._header', [
                         'title' => $listing->title,
                         'categoryUrl' => route('listings.category', [
@@ -48,17 +34,21 @@
                         ])
                     </div>
 
-                    <div class="listing-item__share-bar mt-3">
-                        @include('listings.partials._show._contact._share')
-                    </div>
+                    @unless( $agent->isMobile() )
+                        <div class="listing-item__share-bar mt-3">
+                            @include('listings.partials._show._contact._share')
+                        </div>
+                    @endunless
                 </div>
             </div>
 
             <div class="listing-item__sidebar mt-3 mt-sm-0">
-                <div class="listing-item__sidebar__inner p-2">
+                <div class="listing-item__sidebar__inner p-sm-2 p-3">
                     <div class="listing-item__sidebar__header">
                         <div class="listing-item__sidebar__logo">
-                            <img src="{{ asset('images/logo.png') }}" class="listing-item__sidebar__logo__img">
+                            @if( file_exists(public_path('logo.png')) )
+                                <img src="{{ asset('logo.png') }}" class="listing-item__sidebar__logo__img">
+                            @endif
                         </div>
                     </div>
                     <div class="listing-item__sidebar__body">
@@ -75,6 +65,12 @@
             </div>
         </div>
     </div>
+
+    @if( $agent->isMobile() )
+        <div class="listing-item__share-bar mt-3">
+            @include('listings.partials._show._contact._share')
+        </div>
+    @endif
 
     @include('listings.partials._related-listings')
 
@@ -126,16 +122,27 @@
         </div>
     </div>
 
+    @section('floating-buttons')
+        @if( $agent->isMobile() )
+            <div class="floating-btn__actions py-1">
+                @include('listings.partials._show._item._floating-contact')
+            </div>
+        @endif
+    @show
+
     @section('footer-scripts')
         @parent
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
         <script src="{{ asset('/plugins/slick-1.8.1/slick.min.js') }}"></script>
+        <script src="{{ asset('/plugins/swiper/swiper-bundle.min.js') }}"></script>
 
         <script type="text/javascript">
             jQuery(document).ready(function($) {
-                var $_similar_items = $('.listings-slider__row');
+                var $_similar_items = $('.listings-slider__row'),
+                    $_swiper_container = $('.swiper-container--related');
+
                 if ( $_similar_items.length ) {
                     $_similar_items.slick({
                         dots: false,
@@ -217,107 +224,6 @@
                     window.open($this.data('whatsapp'));
                 });
 
-                /*var initPhotoSwipeFromDOM = function(gallerySelector) {
-                    var parseThumbnailElements = function (el) {
-                        var thumbElements = el.querySelectorAll('.gallery-item');
-
-                        //console.log(el);
-
-                        var items = [];
-
-                        for (var i = 0; i < thumbElements.length; i++) {
-                            var figureEl = thumbElements[i];
-
-                            if (figureEl.nodeType !== 1) {
-                                continue;
-                            }
-
-                            var linkEl = figureEl.children[0];
-                            var size = linkEl.getAttribute('data-size').split('x');
-                            var item = {
-                                src: linkEl.getAttribute('href'),
-                                w: parseInt(size[0], 10),
-                                h: parseInt(size[1], 10)
-                            };
-                            if (figureEl.children.length > 1) {
-                                item.title = figureEl.children[1].innerHTML;
-                            }
-                            items.push(item);
-                        }
-                        return items;
-                    }
-
-                    var onThumbnailsClick = function(e) {
-                        //console.log(e);
-
-                        e = e || window.event;
-                        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
-                        var eTarget = e.target || e.srcElement;
-                        var clickedListItem = closest(eTarget, function(el) {
-                            return el.tagName && el.tagName.toUpperCase() === 'FIGURE';
-                        });
-                        if (!clickedListItem) {
-                            return;
-                        }
-
-                        console.log(clickedListItem);
-
-                        //var clickedGallery = clickedListItem.parentNode;
-
-                        var clickedGallery = clickedListItem.closest('.gallery');
-
-                        console.log(clickedGallery);
-
-                        var index = Array.prototype.indexOf.call(clickedGallery.children, clickedListItem);
-
-                        console.log(index);
-
-                        if (index >= 0) {
-                            openPhotoSwipe(index, clickedGallery);
-                        }
-                        return false;
-                    }
-
-                    var openPhotoSwipe = function(index, galleryElement, disableAnimation) {
-                        var pswpElement = document.querySelectorAll('.pswp')[0];
-                        var items = parseThumbnailElements(galleryElement);
-
-                        var options = {
-                            index: index,
-                            galleryUID: galleryElement.getAttribute('data-pswp-uid'),
-                            //pinchToClose: false,
-                            //zoomEl: false,
-                            //tapToToggleControls: false,
-
-                            //initialZoomLevel: 'fill',
-                            //secondaryZoomLevel: 'fit',
-
-                            closeOnScroll: !1
-                        };
-                        if (disableAnimation) {
-                            options.showAnimationDuration = 0;
-                        }
-                        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-
-
-                        gallery.init();
-                    }
-
-                    var closest = function closest(el, fn) {
-                        return el && (fn(el) ? el : closest(el.parentNode, fn));
-                    };
-
-                    var galleryElements = $(gallerySelector);
-
-                    console.log(galleryElements);
-
-                    galleryElements.each(function(index) {
-                        $(this).on('click', onThumbnailsClick);
-                    });
-                };
-
-                initPhotoSwipeFromDOM('.gallery');*/
-
                 var initPhotoSwipeFromDOM = function (gallerySelector) {
                     var parseThumbnailElements = function (el) {
                         var thumbElements = el.querySelectorAll('.gallery-item');
@@ -380,7 +286,14 @@
 
                 initPhotoSwipeFromDOM('.gallery');
 
-
+                if( $_swiper_container.length ) {
+                    const swiper = new Swiper('.swiper-container--related', {
+                        slideClass: 'listings-swiper__item',
+                        direction: 'horizontal',
+                        loop: false,
+                        slidesPerView: 'auto'
+                    });
+                }
             });
         </script>
     @endsection

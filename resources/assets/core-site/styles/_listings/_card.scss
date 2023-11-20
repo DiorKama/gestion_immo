@@ -83,6 +83,12 @@
         padding-right: calc($grid-gutter-width / 2);
         padding-left: calc($grid-gutter-width / 2);
     }
+
+    @include media-breakpoint-down(sm) {
+        &__list-item {
+            @include make-col(1, 1);
+        }
+    }
 }
 
 .listing-card {
@@ -151,26 +157,26 @@
     }
 
     &__price {
-        /*color: #000;
-        text-align: justify;
-        font-size: 20px;
-        font-family: Helvetica;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;*/
         font-size: $font-size-base;
         color: $black;
     }
 
     &__date {
-        /*color: #B3B3B3;
-        text-align: justify;
-        font-size: 12px;
-        font-family: Helvetica;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;*/
         font-size: $font-size-base * .8;
         color: $gray-600;
+    }
+
+    @include media-breakpoint-down(sm) {
+        background-color: $white;
+        -webkit-box-shadow: 0 2px 4px 0 rgba(236, 236, 236, 0.5);
+        box-shadow: 0 2px 4px 0 rgba(236, 236, 236, 0.5);
+        overflow: hidden;
+        border: 1px solid $gray-200;
+        margin-bottom: 1rem;
+
+        &__content{
+            padding-left: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
     }
 }

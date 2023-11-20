@@ -19,4 +19,8 @@
             color: $default-color;
         }
     }
+
+    @include media-breakpoint-down(sm) {
+        display: none;
+    }
 }

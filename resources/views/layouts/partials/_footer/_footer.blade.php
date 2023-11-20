@@ -4,7 +4,7 @@
 @endphp
 
 <div class="footer__inner">
-    <div class="footer__row align-items-end py-5">
+    <div class="footer__row align-items-end py-4 py-sm-5">
         <div class="footer__aside">
             <div class="our-deals__header section-item__header">
                 <div class="our-deals__header__inner section-item__header__inner">
@@ -45,7 +45,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-sm-5 offset-sm-3  col-12 text-sm-right text-center">
+                <div class="col-sm-5 offset-sm-3 col-12 text-sm-right text-left mt-3 mt-sm-0">
                     <div class="footer-link">
                         <ul class="footer-links__list list-unstyled list-inline">
                             @if ( isset($_setting->facebook_url) && !empty($_setting->facebook_url) )

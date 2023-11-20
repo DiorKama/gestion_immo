@@ -4,7 +4,7 @@
     $otherFiles = collect();
 @endphp
 
-<div class="listings-slider__item premium-listing-card border-transparent">
+<div class="listings-slider__item premium-listing-card bg-light border-transparent">
     <a
         class="listings-slider__item__inner premium-listing-card__inner text-decoration-none"
         href="{{ route('listings.show', [
@@ -58,7 +58,7 @@
                     </span>
                 </h4>
 
-                <h4 class="premium-listing-card__price font-weight-bold text-uppercase mt-4 mb-2">
+                <h4 class="premium-listing-card__price font-weight-bold text-uppercase mt-0 mb-2 mt-sm-4 mb-sm-0">
                     {!! listing_price($listing) !!}
                 </h4>
 

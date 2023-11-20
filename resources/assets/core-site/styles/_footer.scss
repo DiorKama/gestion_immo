@@ -40,6 +40,12 @@
             color: $white;
         }
     }
+
+    @include media-breakpoint-down(sm) {
+        &__list-social-item__link {
+            font-size: $font-size-base * 1.6;
+        }
+    }
 }
 
 .footer-contact-item {

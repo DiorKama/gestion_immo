@@ -12,8 +12,8 @@
 
     &__details,
     &__sidebar {
-        padding-right: calc($grid-gutter-width / 2);
-        padding-left: calc($grid-gutter-width / 2);
+        padding-right: $grid-gutter-width * .5;
+        padding-left: $grid-gutter-width * .5;
     }
 
     &__details {
@@ -151,12 +151,11 @@
         color: $default-color;
         display: block;
         width: 100%;
-        //height: 50px;
         padding: .5rem .750rem .5rem 2.75rem;
         border: 1px solid rgba(0,0,0,.1);
 
         @include media-breakpoint-down(sm) {
-            padding: 0 30px 0 15px;
+            padding: .75rem .750rem .75rem 2.75rem;
         }
     }
 
@@ -174,30 +173,26 @@
     }
 
     &__contact-form__icon {
-        display: none;
-
-        @include media-breakpoint-up(sm) {
-            font-size: 15px;
-            color: $gray-300;
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: flex;
-            align-items: center;
-            position: absolute;
-            border-radius: 25px;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding-left: 1.25rem;
-            pointer-events: none;
-            -webkit-transition: all 0.4s;
-            -o-transition: all 0.4s;
-            -moz-transition: all 0.4s;
-            transition: all 0.4s;
-        }
+        font-size: 15px;
+        color: $gray-300;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        border-radius: 25px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding-left: 1.25rem;
+        pointer-events: none;
+        -webkit-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        transition: all 0.4s;
     }
 
     &__contact-form__input:focus + &__contact-form__focus-input {
@@ -238,9 +233,27 @@
             }
         }
     }
+
+    @include media-breakpoint-down(sm) {
+        &__details,
+        &__sidebar {
+            @include make-col(1, 1);
+        }
+
+        &__sidebar {
+            background-color: transparent;
+        }
+
+        &__sidebar__inner {
+            background-color: $gray-100;
+        }
+    }
 }
 
 .listings-slider__item {
+    box-shadow: 0 2px 4px 0 rgb(236 236 236 / 50%);
+    overflow: hidden;
+
     &__thumbnail {
         overflow: hidden;
     }
@@ -335,6 +348,88 @@
     }
 }
 
+.slick-dots {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding: 1rem 0;
+    list-style-type: none;
+    @extend .my-3;
+
+    li {
+        margin: 0 0.25rem;
+    }
+
+    position: relative;
+    list-style: none;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    li {
+        position: relative;
+        display: block;
+        float: left;
+        width: 12px;
+        height: 12px;
+        cursor: pointer;
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            visibility: hidden;
+            opacity: 0;
+            left: 0;
+            background-color: darken($red, 30%);
+            @include border-radius(50%);
+            -webkit-transform: translateY(-200%);
+            transform: translateY(-200%);
+            -webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease, visibility 0s 0.3s;
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s 0.3s;
+        }
+    }
+
+    button {
+        @extend .p-0;
+        @extend .m-0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        @include border-radius(50%);
+        background-color: $red;
+        border: none;
+        text-indent: -999em;
+        cursor: pointer;
+        position: absolute;
+        -webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+        transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    }
+
+    li:hover button,
+    li button:focus,
+    li.slick-active button {
+        background-color: $red;
+    }
+
+    li.slick-active::after {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        -webkit-transform: translateY(0%);
+        transform: translateY(0%);
+    }
+}
+
 .gallery {
     &,
     &--inactive {
@@ -349,8 +444,8 @@
 
     &__content,
     &__aside {
-        padding-right: calc($grid-gutter-width * .25);
-        padding-left: calc($grid-gutter-width * .25);
+        padding-right: $grid-gutter-width * .25;
+        padding-left: $grid-gutter-width * .25;
     }
 
     &__content {
@@ -366,6 +461,7 @@
 
     &-item {
         margin: 0;
+        position: relative;
     }
 
     &__images-count {
@@ -383,5 +479,60 @@
         white-space: nowrap;
         background-color: $white;
         @include border-radius($badge-border-radius * 3);
+    }
+
+    @include media-breakpoint-down(sm) {
+        &__content,
+        &__aside {
+            @include make-col(1, 1);
+        }
+
+        &__aside_inner {
+            @include make-row($grid-gutter-width * .5);
+        }
+
+        &__aside_item {
+            @include make-col(1, 3);
+            padding-right: $grid-gutter-width * .25;
+            padding-left: $grid-gutter-width * .25;
+        }
+    }
+}
+
+.floating-btn {
+    &__actions {
+        background-color: $white;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        width: 100%;
+        z-index: 2;
+    }
+
+    &__container {
+        @include make-container($grid-gutter-width);
+    }
+
+    &__row {
+        @include make-row($grid-gutter-width);
+    }
+
+    &__item {
+        @include make-col(1, 2);
+        padding-left: $grid-gutter-width * .5;
+        padding-right: $grid-gutter-width * .5;
+    }
+
+    &--phone {
+        @include button-variant($red, $red);
+    }
+
+    &--whatsapp {
+        @include button-variant($green, $green);
+    }
+
+    &--phone,
+    &--whatsapp {
+        //@include border-radius(35px);
     }
 }

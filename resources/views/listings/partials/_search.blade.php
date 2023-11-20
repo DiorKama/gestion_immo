@@ -7,7 +7,7 @@
         >
             <div class="search__filter__col">
                 <div class="filter__row">
-                    <div class="filter__col filter__col--category">
+                    <div class="filter__col filter__col--category mb-2 mb-sm-0">
                         <div class="form-group mb-0">
                             <select class="form-control filter-group @error('category_id') is-invalid @enderror" name="category_id">
                                 <option value="">{{ __('Séléctionnez ...') }}</option>
@@ -25,7 +25,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="filter__col filter__col--location">
+                    <div class="filter__col filter__col--location mb-2 mb-sm-0">
                         <div class="form-group mb-0">
                             <select class="form-control filter-group @error('location_id') is-invalid @enderror" name="location_id">
                                 <option value="">{{ __('Séléctionnez ...') }}</option>
@@ -43,7 +43,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="filter__col filter__col--budget">
+                    <div class="filter__col filter__col--budget mb-2 mb-sm-0">
                         <div class="form-group mb-0">
                             <div class="input-group">
                                 <input type="number" name="budget" class="form-control filter-group" value="{{ request()->query('budget') }}" placeholder="Votre budget max ?">
@@ -53,9 +53,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="filter__col filter__col--submit">
+                    <div class="filter__col filter__col--submit mb-0 mb-sm-0">
                         <button type="submit filters__submit mb-0" class="btn btn-primary">
                             <i class="fas fa-search"></i>
+                            <span class="d-inline-block d-sm-none">{{ __('Rechercher') }}</span>
                         </button>
                     </div>
                 </div>

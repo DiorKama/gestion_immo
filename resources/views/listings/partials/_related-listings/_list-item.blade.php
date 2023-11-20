@@ -1,4 +1,4 @@
-<div class="listings-slider__item">
+<div class="listings-slider__item bg-light">
     <div class="listings-slider__item__inner">
         <div class="listings-slider__item__thumbnail">
             <a

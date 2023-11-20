@@ -1,5 +1,5 @@
-<div class="our-deals__row section-item__row align-items-end">
-    <div class="our-deals__aside col-3">
+<div class="our-deals__row section-item__row">
+    <div class="our-deals__aside">
         <div class="our-deals__header section-item__header">
             <div class="our-deals__header__inner section-item__header__inner">
                 <h2 class="our-deals__header__title section-item__header__title vertical-text">
@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-    <div class="our-deals__content col-9">
+    <div class="our-deals__content">
         <div class="listings-featured home__section home__section--listings-featured">
             <div class="listings-featured__inner container">
                 <div class="row align-items-start">

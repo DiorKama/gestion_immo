@@ -26,10 +26,6 @@ use App\Http\Controllers\Admin\ProfileController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('home');
-})->name('home');*/
-
 Route::get('/', HomeController::class)->name('home');
 
 require __DIR__.'/auth.php';
