@@ -34,6 +34,7 @@ class BannerService
         $ads = Banner::query()
             ->where('type_banner', $page)
             ->onlyEnabled()
+            ->orderByDesc('created_at')
             ->take(2)
             ->get();
 

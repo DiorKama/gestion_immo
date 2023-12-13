@@ -15,7 +15,7 @@ class ListingService
     public function getCategoriesAsList()
     {
         return Category::query()
-            // ->onlyEnabled()
+            ->onlyEnabled()
             ->orderBy('title')
             ->get()
             ->pluck('title', 'id')
@@ -25,7 +25,7 @@ class ListingService
     public function getLocationsAsList()
     {
         return Location::query()
-            // ->onlyEnabled()
+            ->onlyEnabled()
             ->orderBy('title')
             ->get()
             ->pluck('title', 'id')
@@ -82,10 +82,17 @@ class ListingService
     public function getProductsAsList()
     {
         return Product::query()
-            // ->onlyEnabled()
+            ->onlyEnabled()
             ->orderBy('title')
             ->get()
             ->pluck('title', 'id')
             ->all();
+    }
+
+    public function getListingsCount()
+    {
+        return Listing::query()
+            ->where('listing_status_id', '!=', config('listings.statuses.draft'))
+            ->count();
     }
 }

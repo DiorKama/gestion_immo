@@ -14,7 +14,7 @@ class CategoryService
             ->select(['id', 'parent_id', 'title'])
             ->where('parent_id', $parentId)
             ->onlyEnabled()
-            ->orderBy('sort_order')
+            ->orderBy('title')
             ->get()
             ->map(
                 function (Category $category) {
@@ -228,5 +228,11 @@ class CategoryService
                 ->pluck('slug', 'id')
                 ->all();
         });
+    }
+
+    public function getCategoriesCount()
+    {
+        return Category::query()
+            ->count();
     }
 }

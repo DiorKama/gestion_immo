@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeaturedListingController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\ListingFileController;
@@ -42,12 +43,8 @@ Route::post( '/biens-immobiliers/{listing}/view-whatsapp', [ListingsController::
 
 Route::get('/annonces/recherche', [ListingsController::class, 'search'])->name('listings.search');
 
-
-
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })/*->middleware(['auth', 'verified'])*/->name('admin.dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('admin.settings.index');
     Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('admin.settings.edit');
@@ -90,14 +87,10 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/listings/disable/{listing}', [ListingController::class, 'disable'])->name('admin.listings.disable');
     Route::get('/listings/download', [ListingController::class, 'download'])->name('admin.listings.download');
 
-
     Route::get('/listings/files/{listing}', [ListingFileController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.listings.photos.index');
     Route::get('/listings/files/{listing}/{group}', [ListingFileController::class, 'preview'])->name('admin.listings.photos.previews');
     Route::post('/listings/files/{listing}/{group}', [ListingFileController::class, 'store'])->name('admin.listings.photos.store');
     Route::delete('/listings/files/{listing}/{group}/{file}', [ListingFileController::class, 'delete'])->name('admin.listings.photos.delete');
-    /*Route::put('/listings/files/{listing}/sort', [ListingFileController::class, 'sort'])->name('admin.listings.photos.sort');
-    Route::put('/listings/files/{listing}/{file}/rotate', [ListingFileController::class, 'sort'])->name('admin.listings.photos.rotate');
-    Route::get('/listings/files/{listing}/{file}/download', [ListingFileController::class, 'download'])->name('admin.listings.photos.download');*/
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('/categories/create',  [CategoryController::class, 'create'])->name('admin.categories.create');

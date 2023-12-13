@@ -52,4 +52,10 @@ class UserService
             })
             ->all();
     }
+
+    public function getUsersCount()
+    {
+        return User::query()
+            ->count();
+    }
 }
