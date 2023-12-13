@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Country;
+use App\Models\Location;
 use App\Models\Region;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -99,5 +100,11 @@ class LocationService
     {
         $locations = $this->listRegionsWithLocations();
         return $this->getLocationsRecursive($locations)->all();
+    }
+
+    public function getLocationsCount()
+    {
+        return Location::query()
+            ->count();
     }
 }

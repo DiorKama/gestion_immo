@@ -170,6 +170,18 @@
                                                                     </dl>
                                                                 </div>
                                                                 <div class="modal-footer">
+                                                                    @if ( config('listings.statuses.active') == $listing->listing_status_id )
+                                                                        <a
+                                                                            class="btn btn-primary"
+                                                                            href="{{ route('listings.show', [
+                                                                                'slug' => $listing->slug,
+                                                                                'id' => $listing->id,
+                                                                            ]) }}"
+                                                                            target="_blank"
+                                                                        >
+                                                                            {{ __('Voir le bien') }}
+                                                                        </a>
+                                                                    @endif
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Fermer') }}</button>
                                                                 </div>
                                                             </div>
