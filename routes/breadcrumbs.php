@@ -160,6 +160,12 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Accueil', route('home'));
 });
 
+// About Us
+Breadcrumbs::for('about-us', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('A propos de nous'), route('about-us'));
+});
+
 // Listings
 Breadcrumbs::for('listings.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

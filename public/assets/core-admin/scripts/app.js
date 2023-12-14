@@ -5554,6 +5554,80 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
+/***/ "./node_modules/dot2val/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/dot2val/index.js ***!
+  \***************************************/
+/***/ ((module) => {
+
+"use strict";
+
+/*!
+ * dot2val
+ * Set or get a value within a deeply nested object using `dot' notation
+ * @author Brook Yang https://github.com/yangg/dot2val
+ */
+
+var dot2val = {
+  /**
+   *  sets a value within a deeply nested object using "dot" notation
+   */
+  set: function(obj, parts, val) {
+    if(!Array.isArray(parts)) {
+      parts = parts.split('.');
+    }
+    var k = parts[0];
+    if(parts.length > 1) {
+      var partsLength = parts.length
+      k = parts[partsLength - 1];
+
+      for(var i = 0; i < partsLength - 1; i++) {
+        var part  = parts[i]
+        if(! obj.hasOwnProperty(part)) {
+          obj[part] = {};
+        }
+        obj = obj[part];
+      }
+    }
+    if(typeof val !== 'undefined') {
+      obj[k] = val;
+    } else {
+      delete obj[k];
+    }
+  },
+  /**
+   * retrieves a value from a deeply nested object using "dot" notation
+   */
+  get: function(obj, parts, def) {
+    if(!Array.isArray(parts)) {
+      parts = parts.split('.');
+    }
+    var k = parts[0];
+    if(parts.length > 1) {
+      var partsLength = parts.length
+      k = parts[partsLength - 1];
+
+      for(var i = 0; i < partsLength - 1; i++) {
+        var part  = parts[i]
+        if(! obj.hasOwnProperty(part)) {
+          obj = false;
+          break
+        }
+        obj = obj[part];
+      }
+    }
+    return obj ? (typeof obj[k] !== 'undefined' ? obj[k] : def) : def;
+  }
+};
+
+if(true) {
+  module.exports = dot2val;
+}
+
+
+
+/***/ }),
+
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -36388,6 +36462,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var admin_lte_plugins_select2_js_select2_full_min_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! admin-lte/plugins/select2/js/select2.full.min.js */ "./node_modules/admin-lte/plugins/select2/js/select2.full.min.js");
 /* harmony import */ var admin_lte_plugins_select2_js_select2_full_min_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(admin_lte_plugins_select2_js_select2_full_min_js__WEBPACK_IMPORTED_MODULE_5__);
 __webpack_require__(/*! ./bootstrap */ "./resources/assets/core-admin/scripts/bootstrap.js");
+__webpack_require__(/*! dot2val */ "./node_modules/dot2val/index.js");
 
 window.$ = window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 

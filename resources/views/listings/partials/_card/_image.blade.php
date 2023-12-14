@@ -4,9 +4,9 @@
         class="listing-card__image"
     >
         @if( isset($image) && ! empty($image) )
-            <img src="{{ fullImageUrl('listing-thumb-360w', $listing->files()->first()->path) }}" class="listing-card__image__resource d-block w-100">
+            <img src="{{ fullImageUrl('listing-thumb-360w', $image->path) }}" class="listing-card__image__resource d-block w-100">
         @else
-            <img src="https://placehold.co/250x200?text=Image" class="listing-card__image__resource d-block w-100" alt="...">
+            <img src="https://placehold.co/360x270?text=Image" class="listing-card__image__resource d-block w-100" alt="...">
         @endif
     </a>
 </div>

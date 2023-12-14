@@ -24,7 +24,7 @@
 
                         <img
                             class="premium-listing-card__image__resource d-block w-100"
-                            src="{{ fullImageUrl('listing-gallery-full-1920w', $firstFile->path) }}"
+                            src="{{ fullImageUrl('listing-gallery-thumb-1920w', $firstFile->path) }}"
                             alt="{{ $listing->title }}"
                         >
                     @else

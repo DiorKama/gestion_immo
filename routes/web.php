@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListingsController;
+use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProfileController;
 
@@ -28,6 +29,8 @@ use App\Http\Controllers\Admin\ProfileController;
 */
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('/a-propos', [PagesController::class, 'aboutUs'])->name('about-us');
 
 require __DIR__.'/auth.php';
 

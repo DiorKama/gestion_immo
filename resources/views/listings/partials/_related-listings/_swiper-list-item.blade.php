@@ -6,7 +6,7 @@
                 href="{{ $listingUrl}}"
             >
                 @if( isset($image) && ! empty($image) )
-                    <img src="{{ fullImageUrl('listing-thumb-360w', $listing->files()->first()->path) }}" class="listings-swiper__item__image__resource d-block w-100">
+                    <img src="{{ fullImageUrl('listing-thumb-360w', $image->path) }}" class="listings-swiper__item__image__resource d-block w-100">
                 @else
                     <img src="https://placehold.co/250x200?text=Image" class="listings-swiper__item__image__resource d-block w-100" alt="...">
                 @endif
