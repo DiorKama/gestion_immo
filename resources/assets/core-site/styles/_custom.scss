@@ -1,7 +1,10 @@
 body {
-    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    //font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-family: 'Questrial', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: $font-size-base;
+    line-height: $line-height-lg;
 
     @include media-breakpoint-down(sm) {
         padding-top: 60px;

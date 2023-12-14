@@ -46,9 +46,12 @@ return [
             'w' => 726,
             'h' => 640,
         ],
-        'listing-gallery-full-1920w' => [
-            //4:3
+        'listing-gallery-thumb-1920w' => [
             'w' => 1920,
+            'h' => 1440,
+        ],
+        'listing-gallery-full-1920w' => [
+            'w' => null,
             'h' => 1440,
         ],
     ]

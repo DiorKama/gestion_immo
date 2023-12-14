@@ -2,6 +2,7 @@
 @use "sass:math";
 
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 @import 'variables';
 @import 'overrides';
 @import 'custom';
@@ -9,3 +10,4 @@
 @import "footer";
 @import 'listing';
 @import 'listings';
+@import 'pages';

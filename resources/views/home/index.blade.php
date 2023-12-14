@@ -25,7 +25,14 @@
                         </div>
                         <div class="about-us_description">
                             @if ( isset($_setting->about) && !empty($_setting->about) )
-                                <p class="mb-0">{{ $_setting->about }}</p>
+                                <p class="mb-3">{{ $_setting->about }}</p>
+
+                                <a
+                                    class="btn btn-primary"
+                                    href="{{ route('about-us') }}"
+                                >
+                                    {{ 'Lire la suite' }}
+                                </a>
                             @else
                                 <p class="mb-0">{{ __('Lorem ipsum dolor sit amet consectetur adipiscing elit ante aenean, parturient tristique integer non nam lacinia ultrices vestibulum scelerisque ultricies, pellentesque turpis in sociosqu ad dis facilisis arcu. Cum aenean tortor velit penatibus ultricies proin duis, ridiculus dignissim nullam torquent libero urna lectus, venenatis mi non at risus ad.') }}</p>
                             @endif

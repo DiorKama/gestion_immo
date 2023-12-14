@@ -2,6 +2,7 @@
 
 @php
     $listings = $listingService->relatedListings($listing);
+    //dd($listings->count());
 @endphp
 
 <div class="listings-related">
@@ -31,6 +32,7 @@
                                                 'slug' => $listing->slug,
                                                 'id' => $listing->id,
                                             ]),
+                                            'image' => $listing->files()->first(),
                                             'price' => listing_price($listing),
                                             'displayDate' => shortRelativeDate($listing->display_date),
                                         ])
@@ -47,6 +49,7 @@
                                         'slug' => $listing->slug,
                                         'id' => $listing->id,
                                     ]),
+                                    'image' => $listing->files()->first(),
                                     'price' => listing_price($listing),
                                     'displayDate' => shortRelativeDate($listing->display_date),
                                 ])

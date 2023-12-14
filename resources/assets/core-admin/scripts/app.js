@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('dot2val');
 
 import $ from 'jquery';
 window.$ = window.jQuery = $;

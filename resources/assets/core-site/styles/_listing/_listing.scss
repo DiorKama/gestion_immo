@@ -530,9 +530,13 @@
     &--whatsapp {
         @include button-variant($green, $green);
     }
+}
 
-    &--phone,
-    &--whatsapp {
-        //@include border-radius(35px);
-    }
+.pswp__img--placeholder--blank{
+    display: none !important;
+}
+
+.pswp img {
+    max-width: none !important;
+    object-fit: contain !important;
 }
